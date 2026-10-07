@@ -1,0 +1,322 @@
+[
+  {
+    "sku": "corolla",
+    "nombre": "Corolla",
+    "categoria": "automovil",
+    "propulsion": "hibrido",
+    "precio": 138000000,
+    "oferta": 125000000,
+    "titulo": "EDICIÓN ESPECIAL",
+    "beneficio": "Bono Ejecutivo Incluido"
+  },
+  {
+    "sku": "mazda-3",
+    "nombre": "Mazda 3",
+    "categoria": "automovil",
+    "propulsion": "gasolina",
+    "precio": 155000000,
+    "oferta": 144890000,
+    "titulo": "TASA PREFERENCIAL 0%",
+    "beneficio": "Mantenimiento 2 Años"
+  },
+  {
+    "sku": "kia-k3",
+    "nombre": "Kia K3",
+    "categoria": "automovil",
+    "propulsion": "gasolina",
+    "precio": 179000000,
+    "oferta": 169890000,
+    "titulo": "ENTREGA INMEDIATA",
+    "beneficio": "Seguro Todo Riesgo 1 Año"
+  },
+  {
+    "sku": "mazda-2",
+    "nombre": "Mazda 2",
+    "categoria": "automovil",
+    "propulsion": "gasolina",
+    "precio": 118000000,
+    "oferta": 109990000,
+    "titulo": "BONO URBANO",
+    "beneficio": "Matrícula Gratuita"
+  },
+  {
+    "sku": "kia-picanto",
+    "nombre": "Kia Picanto",
+    "categoria": "automovil",
+    "propulsion": "gasolina",
+    "precio": 142000000,
+    "oferta": 134990000,
+    "titulo": "TASA PREFERENCIAL",
+    "beneficio": "SOAT y Matrícula Incluidos"
+  },
+  {
+    "sku": "tesla-model-3",
+    "nombre": "Tesla Model 3",
+    "categoria": "automovil",
+    "propulsion": "electrico",
+    "precio": 435000000,
+    "oferta": 419900000,
+    "titulo": "WALLBOX INCLUIDO",
+    "beneficio": "Cargador Residencial Pro"
+  },
+  {
+    "sku": "byd-seagull",
+    "nombre": "BYD Seagull",
+    "categoria": "automovil",
+    "propulsion": "electrico",
+    "precio": 162000000,
+    "oferta": 151000000,
+    "titulo": "EDICIÓN PREMIUM",
+    "beneficio": "Matrícula 100% Bonificada"
+  },
+  {
+    "sku": "mg4-electric",
+    "nombre": "MG4 Electric",
+    "categoria": "automovil",
+    "propulsion": "electrico",
+    "precio": 380000000,
+    "oferta": 362000000,
+    "titulo": "LOTE EXCLUSIVO",
+    "beneficio": "Garantía Extendida 5 Años"
+  },
+  {
+    "sku": "kia-ev2",
+    "nombre": "Kia EV2",
+    "categoria": "automovil",
+    "propulsion": "electrico",
+    "precio": 325000000,
+    "oferta": 308000000,
+    "titulo": "LANZAMIENTO VIP",
+    "beneficio": "Cargador Rápido de Regalo"
+  },
+  {
+    "sku": "renault-duster",
+    "nombre": "Renault Duster",
+    "categoria": "camioneta",
+    "propulsion": "gasolina",
+    "precio": 168000000,
+    "oferta": 159990000,
+    "titulo": "BONO OFF-ROAD",
+    "beneficio": "Kit Aventura de Regalo"
+  },
+  {
+    "sku": "corolla-cross",
+    "nombre": "Toyota Corolla Cross",
+    "categoria": "camioneta",
+    "propulsion": "hibrido",
+    "precio": 265000000,
+    "oferta": 249900000,
+    "titulo": "TASA PREFERENCIAL 0%",
+    "beneficio": "Bono de Equipamiento SUV"
+  },
+  {
+    "sku": "mazda-cx30",
+    "nombre": "Mazda CX-30",
+    "categoria": "camioneta",
+    "propulsion": "hibrido",
+    "precio": 315000000,
+    "oferta": 299900000,
+    "titulo": "EDICIÓN LUXURY",
+    "beneficio": "Mantenimiento Gratis 3 Años"
+  },
+  {
+    "sku": "vw-taos",
+    "nombre": "Volkswagen Taos",
+    "categoria": "camioneta",
+    "propulsion": "gasolina",
+    "precio": 282000000,
+    "oferta": 269900000,
+    "titulo": "ENTREGA INMEDIATA",
+    "beneficio": "Bono Financiero Directo"
+  },
+  {
+    "sku": "tesla-model-y",
+    "nombre": "Tesla Model Y",
+    "categoria": "camioneta",
+    "propulsion": "electrico",
+    "precio": 338000000,
+    "oferta": 319900000,
+    "titulo": "EDICIÓN ESPECIAL",
+    "beneficio": "Conectividad Premium 3 Años"
+  },
+  {
+    "sku": "byd-yuan-up",
+    "nombre": "BYD Yuan UP",
+    "categoria": "camioneta",
+    "propulsion": "electrico",
+    "precio": 365000000,
+    "oferta": 349900000,
+    "titulo": "LOTE TECH",
+    "beneficio": "Wallbox de Carga Rápida"
+  },
+  {
+    "sku": "chery-icar-03",
+    "nombre": "Chery iCar 03",
+    "categoria": "camioneta",
+    "propulsion": "electrico",
+    "precio": 153000000,
+    "oferta": 142000000,
+    "titulo": "EDICIÓN MATE VIP",
+    "beneficio": "Bono Retoma Garantizado"
+  },
+  {
+    "sku": "mg-s5-ev",
+    "nombre": "MG S5 EV",
+    "categoria": "camioneta",
+    "propulsion": "electrico",
+    "precio": 290000000,
+    "oferta": 275000000,
+    "titulo": "INTERIOR LUXURY",
+    "beneficio": "Seguro Todo Riesgo 1 Año"
+  },
+  {
+    "sku": "gac-aion-v",
+    "nombre": "GAC Aion V / UT",
+    "categoria": "camioneta",
+    "propulsion": "electrico",
+    "precio": 269000000,
+    "oferta": 254000000,
+    "titulo": "EDICIÓN OCÉANO",
+    "beneficio": "Garantía Batería 8 Años"
+  },
+  {
+    "sku": "chevrolet-equinox",
+    "nombre": "Chevrolet Equinox",
+    "categoria": "camioneta",
+    "propulsion": "electrico",
+    "precio": 135000000,
+    "oferta": 124500000,
+    "titulo": "OFERTA ESPECIAL",
+    "beneficio": "Bono Financiero Incluido"
+  },
+  {
+    "sku": "byd-yuan-plus",
+    "nombre": "BYD Yuan Plus",
+    "categoria": "camioneta",
+    "propulsion": "electrico",
+    "precio": 124000000,
+    "oferta": 112000000,
+    "titulo": "ENTREGA INMEDIATA",
+    "beneficio": "Bono Retoma Garantizado"
+  },
+  {
+    "sku": "yamaha-mt09",
+    "nombre": "Yamaha MT-09",
+    "categoria": "moto",
+    "propulsion": "gasolina",
+    "precio": 63500000,
+    "oferta": 58900000,
+    "titulo": "HYPER NAKED",
+    "beneficio": "Quickshifter Incluido"
+  },
+  {
+    "sku": "kawasaki-z900",
+    "nombre": "Kawasaki Z900",
+    "categoria": "moto",
+    "propulsion": "gasolina",
+    "precio": 67000000,
+    "oferta": 62500000,
+    "titulo": "EDICIÓN SUGOMI",
+    "beneficio": "Casco Racing Incluido"
+  },
+  {
+    "sku": "bmw-r1250-gs",
+    "nombre": "BMW R 1250 GS",
+    "categoria": "moto",
+    "propulsion": "gasolina",
+    "precio": 145000000,
+    "oferta": 135000000,
+    "titulo": "PAQUETE TOURING",
+    "beneficio": "Maletas Laterales de Aluminio"
+  },
+  {
+    "sku": "ducati-panigale-v4",
+    "nombre": "Ducati Panigale V4",
+    "categoria": "moto",
+    "propulsion": "gasolina",
+    "precio": 160000000,
+    "oferta": 148000000,
+    "titulo": "EDICIÓN CORSE",
+    "beneficio": "Mantenimiento Desmo Service 1y"
+  },
+  {
+    "sku": "ktm-790-duke",
+    "nombre": "KTM 790 Duke",
+    "categoria": "moto",
+    "propulsion": "gasolina",
+    "precio": 54000000,
+    "oferta": 49900000,
+    "titulo": "THE SCALPEL",
+    "beneficio": "Tech Pack Desbloqueado"
+  },
+  {
+    "sku": "starker-tc-max",
+    "nombre": "Super Soco TC Max",
+    "categoria": "moto",
+    "propulsion": "electrico",
+    "precio": 20500000,
+    "oferta": 18500000,
+    "titulo": "URBANA ELÉCTRICA",
+    "beneficio": "Casco Certificado Incluido"
+  },
+  {
+    "sku": "zero-s-rf",
+    "nombre": "Zero SR/F Electric",
+    "categoria": "moto",
+    "propulsion": "electrico",
+    "precio": 96000000,
+    "oferta": 89000000,
+    "titulo": "HIGH PERFORMANCE",
+    "beneficio": "Cargador Rápido Nivel 2"
+  },
+  {
+    "sku": "honda-cb650r",
+    "nombre": "Honda CB650R",
+    "categoria": "moto",
+    "propulsion": "gasolina",
+    "precio": 50500000,
+    "oferta": 46900000,
+    "titulo": "NEO SPORTS CAFE",
+    "beneficio": "Mantenimiento 1 Año Incluido"
+  },
+  {
+    "sku": "suzuki-vstrom-1050",
+    "nombre": "Suzuki V-Strom 1050",
+    "categoria": "moto",
+    "propulsion": "gasolina",
+    "precio": 78000000,
+    "oferta": 72000000,
+    "titulo": "MAXI-TRAIL VIP",
+    "beneficio": "Top Case de Aluminio"
+  },
+  {
+    "sku": "vespa-elettrica",
+    "nombre": "Vespa Elettrica",
+    "categoria": "moto",
+    "propulsion": "electrico",
+    "precio": 35000000,
+    "oferta": 32000000,
+    "titulo": "ESTILO ITALIANO",
+    "beneficio": "Casco Vespa de Diseño"
+  },
+  {
+    "sku": "harley-davidson-livewire",
+    "nombre": "Harley-Davidson LiveWire",
+    "categoria": "moto",
+    "propulsion": "electrico",
+    "precio": 139000000,
+    "oferta": 129000000,
+    "titulo": "100% ELÉCTRICA VIP",
+    "beneficio": "Casco & Equipamiento Exclusive"
+  },
+  {
+    "sku": "bmw-s1000rr",
+    "nombre": "BMW S 1000 RR",
+    "categoria": "moto",
+    "propulsion": "gasolina",
+    "precio": 136000000,
+    "oferta": 125000000,
+    "titulo": "SUPERBIKE EDITION",
+    "beneficio": "Paquete M Motorsport"
+  }
+]
