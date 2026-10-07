@@ -1,0 +1,936 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: #171a20;
+    background: #ffffff;
+
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =================================
+   NAVBAR
+================================= */
+
+.navbar {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 70px;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 5%;
+
+    background: rgba(255,255,255,.92);
+
+    backdrop-filter: blur(20px);
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.logo img {
+
+    width: 125px;
+
+    display: block;
+}
+
+
+.nav-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 28px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.nav-links a {
+
+    transition:
+        opacity .2s ease;
+}
+
+
+.nav-links a:hover {
+
+    opacity: .5;
+}
+
+
+.nav-links .active {
+
+    border-bottom: 2px solid #171a20;
+
+    padding-bottom: 5px;
+}
+
+
+.menu-toggle {
+
+    display: none;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+
+
+/* =================================
+   HERO
+================================= */
+
+.hero {
+
+    min-height: 100vh;
+
+    padding-top: 70px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+.hero-image {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 0;
+}
+
+
+.hero-image img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: brightness(.55);
+}
+
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: min(1100px, 90%);
+
+    margin: auto;
+
+    color: white;
+}
+
+
+.eyebrow {
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+
+    font-weight: 700;
+
+    margin-bottom: 18px;
+}
+
+
+.hero h1 {
+
+    font-size:
+        clamp(48px, 7vw, 92px);
+
+    line-height: .98;
+
+    letter-spacing: -4px;
+
+    font-weight: 300;
+
+    margin-bottom: 28px;
+}
+
+
+.hero h1 strong {
+
+    font-weight: 700;
+}
+
+
+.hero-text {
+
+    max-width: 500px;
+
+    font-size: 18px;
+
+    color: #eeeeee;
+
+    margin-bottom: 32px;
+}
+
+
+.hero-buttons {
+
+    display: flex;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+
+.btn {
+
+    padding: 14px 28px;
+
+    border-radius: 4px;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+
+.btn:hover {
+
+    transform: translateY(-2px);
+}
+
+
+.btn-dark {
+
+    background: #171a20;
+
+    color: white;
+}
+
+
+.btn-light {
+
+    background: white;
+
+    color: #171a20;
+}
+
+
+
+/* =================================
+   BENEFICIOS
+================================= */
+
+.benefits {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 1px;
+
+    background: #dddddd;
+}
+
+
+.benefit {
+
+    background: white;
+
+    padding: 55px 8%;
+}
+
+
+.benefit span {
+
+    font-size: 12px;
+
+    color: #777777;
+}
+
+
+.benefit h3 {
+
+    font-size: 22px;
+
+    margin: 12px 0;
+}
+
+
+.benefit p {
+
+    color: #666666;
+
+    font-size: 14px;
+}
+
+
+
+/* =================================
+   PLANES
+================================= */
+
+.plans-section,
+.quote-section {
+
+    width: min(1250px, 90%);
+
+    margin: auto;
+
+    padding: 110px 0;
+}
+
+
+.section-title {
+
+    max-width: 720px;
+
+    margin-bottom: 55px;
+}
+
+
+.section-title h2 {
+
+    font-size:
+        clamp(38px, 5vw, 62px);
+
+    line-height: 1;
+
+    letter-spacing: -2.5px;
+
+    font-weight: 400;
+
+    margin-bottom: 20px;
+}
+
+
+.section-title > p:last-child {
+
+    color: #666666;
+
+    font-size: 17px;
+}
+
+
+.insurance-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+
+.insurance-card {
+
+    position: relative;
+
+    background: #f7f7f7;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    transition: .3s;
+}
+
+
+.insurance-card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.12);
+}
+
+
+.insurance-card.featured {
+
+    background: white;
+
+    box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.12);
+}
+
+
+.card-image {
+
+    height: 220px;
+
+    overflow: hidden;
+}
+
+
+.card-image img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: .6s;
+}
+
+
+.insurance-card:hover
+.card-image img {
+
+    transform: scale(1.06);
+}
+
+
+.card-content {
+
+    padding: 30px;
+}
+
+
+.tag {
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    font-weight: 700;
+
+    color: #777777;
+}
+
+
+.card-content h3 {
+
+    font-size: 27px;
+
+    margin: 10px 0;
+
+    letter-spacing: -.8px;
+}
+
+
+.description {
+
+    min-height: 50px;
+
+    color: #666666;
+
+    font-size: 14px;
+}
+
+
+.price {
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    margin: 22px 0;
+}
+
+
+.price small {
+
+    font-size: 13px;
+
+    color: #777777;
+
+    font-weight: 400;
+}
+
+
+.card-content ul {
+
+    list-style: none;
+
+    margin-bottom: 25px;
+}
+
+
+.card-content li {
+
+    padding: 9px 0;
+
+    border-bottom:
+        1px solid #e2e2e2;
+
+    font-size: 13px;
+}
+
+
+.card-content li.disabled {
+
+    color: #aaaaaa;
+}
+
+
+.popular {
+
+    position: absolute;
+
+    top: 14px;
+
+    right: 14px;
+
+    z-index: 5;
+
+    padding: 8px 12px;
+
+    background: white;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    font-weight: 800;
+
+    border-radius: 20px;
+}
+
+
+.plan-button {
+
+    width: 100%;
+
+    border: none;
+
+    border-radius: 4px;
+
+    padding: 15px;
+
+    background: #e8e8e8;
+
+    color: #171a20;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.plan-button:hover {
+
+    background: #d4d4d4;
+
+    transform: translateY(-2px);
+}
+
+
+.plan-button.dark {
+
+    background: #171a20;
+
+    color: white;
+}
+
+
+.plan-button.dark:hover {
+
+    background: #000000;
+}
+
+
+
+/* =================================
+   BANNER
+================================= */
+
+.banner {
+
+    min-height: 650px;
+
+    padding: 100px 8%;
+
+    display: flex;
+
+    align-items: center;
+
+    color: white;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.78),
+            rgba(0,0,0,.2)
+        ),
+
+        url(
+        "https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1800&q=85"
+        )
+
+        center / cover;
+}
+
+
+.banner h2 {
+
+    font-size:
+        clamp(46px, 6vw, 80px);
+
+    line-height: .98;
+
+    letter-spacing: -3px;
+
+    font-weight: 300;
+
+    margin-bottom: 25px;
+}
+
+
+.banner h2 strong {
+
+    font-weight: 700;
+}
+
+
+.banner p:not(.eyebrow) {
+
+    max-width: 450px;
+
+    color: #dddddd;
+
+    margin-bottom: 30px;
+}
+
+
+.btn-white {
+
+    display: inline-block;
+
+    background: white;
+
+    color: #171a20;
+}
+
+
+
+/* =================================
+   COTIZADOR
+================================= */
+
+.quote-form {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 20px;
+
+    padding: 35px;
+
+    background: #f5f5f5;
+
+    border-radius: 14px;
+}
+
+
+.field {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.field label {
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.field input,
+.field select {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border:
+        1px solid #d6d6d6;
+
+    border-radius: 4px;
+
+    background: white;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+
+.field input:focus,
+.field select:focus {
+
+    border-color: #171a20;
+}
+
+
+.submit-button {
+
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    border: none;
+
+    padding: 16px;
+
+    border-radius: 4px;
+
+    background: #171a20;
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.submit-button:hover {
+
+    background: #000000;
+}
+
+
+.form-message {
+
+    grid-column: 1 / -1;
+
+    display: none;
+
+    padding: 15px;
+
+    background: #e9f7ed;
+
+    color: #216b35;
+
+    border-radius: 4px;
+
+    font-size: 14px;
+}
+
+
+.form-message.show {
+
+    display: block;
+}
+
+
+
+/* =================================
+   FOOTER
+================================= */
+
+footer {
+
+    background: #000000;
+
+    color: white;
+
+    padding: 60px 6%;
+}
+
+
+.footer-logo {
+
+    font-size: 28px;
+
+    font-weight: 800;
+}
+
+
+.footer-logo span {
+
+    font-weight: 300;
+}
+
+
+footer p {
+
+    color: #aaaaaa;
+
+    margin-top: 8px;
+}
+
+
+.copyright {
+
+    margin-top: 45px;
+
+    font-size: 12px;
+}
+
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 900px) {
+
+    .nav-links {
+
+        position: absolute;
+
+        top: 70px;
+
+        left: 0;
+        right: 0;
+
+        display: none;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 0;
+
+        background: white;
+
+        padding: 20px 6%;
+
+        border-bottom:
+            1px solid #dddddd;
+    }
+
+
+    .nav-links.open {
+
+        display: flex;
+    }
+
+
+    .nav-links a {
+
+        width: 100%;
+
+        padding: 14px 0;
+    }
+
+
+    .menu-toggle {
+
+        display: block;
+    }
+
+
+    .insurance-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .benefits {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .hero h1 {
+
+        letter-spacing: -2px;
+    }
+
+
+    .hero-text {
+
+        font-size: 16px;
+    }
+
+
+    .plans-section,
+    .quote-section {
+
+        padding: 75px 0;
+    }
+
+
+    .quote-form {
+
+        grid-template-columns: 1fr;
+
+        padding: 22px;
+    }
+
+
+    .submit-button,
+    .form-message {
+
+        grid-column: auto;
+    }
+
+
+    .banner {
+
+        min-height: 550px;
+
+        padding: 70px 7%;
+    }
+
+}
+
+
+#zapa{
+    margin-top: 0px;
+}

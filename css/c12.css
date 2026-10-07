@@ -1,0 +1,535 @@
+/* ==========================================
+   ESTILO MINIMALISTA TESLA (BLANCO & NEGRO)
+   ========================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #ffffff;
+  color: #171a20;
+  padding-bottom: 50px;
+}
+
+.drive-section {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.drive-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.drive-badge {
+  display: inline-block;
+  background: #f4f4f4;
+  color: #171a20;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+
+.drive-header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: #171a20;
+  margin-bottom: 8px;
+}
+
+.drive-header p {
+  color: #5c5d61;
+  font-size: 0.95rem;
+}
+
+.drive-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background-color: #171a20;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  margin-right: 8px;
+}
+
+/* 4 BLOQUES ESTILO TESLA */
+.model-selector {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 15px 0 35px 0;
+}
+
+.model-card {
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  background: #ffffff;
+  transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.model-card:hover {
+  border-color: #171a20;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.model-card.selected {
+  border: 2px solid #171a20;
+  background-color: #ffffff;
+}
+
+.card-image-wrap {
+  width: 100%;
+  height: 110px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f4f4f4;
+  margin-bottom: 10px;
+}
+
+.card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.model-card:hover .card-image-wrap img {
+  transform: scale(1.03);
+}
+
+.card-title-wrap h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #171a20;
+}
+
+.card-title-wrap .tag {
+  font-size: 0.75rem;
+  color: #5c5d61;
+}
+
+/* CAMPOS DE FORMULARIO ESTILO TESLA */
+.drive-form-container h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #393c41;
+}
+
+.form-group input, 
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d0d1d2;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background-color: #f7f7f7;
+  transition: all 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #171a20;
+  background-color: #ffffff;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  font-size: 0.8rem;
+  color: #5c5d61;
+}
+
+.btn-submit-drive {
+  width: 100%;
+  background: #171a20;
+  color: #ffffff;
+  padding: 14px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-submit-drive:hover {
+  background: #393c41;
+}
+
+/* VISTA PREVIA */
+.preview-display {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+  text-align: center;
+}
+
+.preview-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #171a20;
+  background: #f4f4f4;
+  padding: 4px 12px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.preview-img-container {
+  width: 100%;
+  height: 220px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background: #f4f4f4;
+}
+
+.preview-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease;
+}
+
+.spec-highlight {
+  font-size: 0.85rem;
+  color: #393c41;
+  font-weight: 500;
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 12px 0 20px 0;
+}
+
+.requirements-box {
+  text-align: left;
+  background: #ffffff;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.requirements-box h4 {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.requirements-box ul {
+  list-style: none;
+}
+
+.requirements-box li {
+  margin-bottom: 6px;
+  color: #5c5d61;
+}
+
+/* MAPA Y UBICACIÓN */
+.location-section {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid #e2e2e2;
+}
+
+.location-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.store-card {
+  border: 1px solid #e2e2e2;
+  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.2s;
+}
+
+.store-card.selected {
+  border: 2px solid #171a20;
+}
+
+#leaflet-drive-map {
+  width: 100%;
+  height: 350px;
+  border-radius: 6px;
+  border: 1px solid #e2e2e2;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .drive-grid, .location-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*navbar*/
+.navbar { 
+    background-color: #ffffff; 
+    color: rgb(29, 29, 29); 
+    display: flex; 
+    align-items: center; 
+    padding: 1rem 2rem; 
+    position: relative; 
+} 
+.logo { 
+    max-width: 1000px; 
+    flex: 1; 
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+} 
+#tes { 
+    width: 62%; 
+    height: 10%; 
+} 
+.nav-links { 
+    display: flex; 
+    justify-content: center; 
+    flex: 2; 
+} 
+.nav-links ul { 
+    display: flex; 
+    list-style: none; 
+    padding: 0; 
+    margin: 0;
+} 
+.nav-links ul li {
+    margin: 0.1rem; 
+} 
+.nav-links ul li a {
+    color: rgb(7, 7, 7); 
+    text-decoration: none; 
+    font-size: 0.9rem; 
+    transition: color 0.3s; 
+    font-weight: bold; 
+    padding: 4px 8px;
+    border-radius: 5px; 
+} 
+.nav-links ul li a:hover { 
+    color: #5a4c48; 
+    background-color: #e0e0e0; 
+} 
+.menu-toggle { 
+    position: absolute; 
+    right: 1.5rem; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    cursor: pointer; 
+    font-size: 0.59rem; 
+    padding: 4px 8px; 
+    background-color: #fcfcfc; 
+    color: black; 
+    border: none; 
+    outline: none; 
+    border-radius: 4px; 
+} 
+.menu-toggle:hover { 
+    background-color: #e0e0e0; 
+    color: #5a4c48;
+} 
+.navbar::after { 
+    content: ""; 
+    flex: 1; 
+}
+
+.tesla-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  border-top: 1px solid #f0f0f0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 999;
+}
+
+.item-dropdown:hover .tesla-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.tesla-dropdown-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tesla-cars {
+  display: flex;
+  gap: 1.5rem; 
+  flex: 3.5;  
+}
+
+.tesla-car-item {
+  text-align: center;
+  flex: 1;
+}
+
+.tesla-car-item img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  display: block;
+  margin: 0 auto 0.8rem;
+}
+
+.tesla-car-item h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #171a20;
+  margin: 0 0 0.4rem 0;
+}
+
+.tesla-car-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.tesla-car-actions a {
+  font-size: 0.65rem !important;
+  color: #5c5e62 !important;
+  text-decoration: underline !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  font-weight: normal !important;
+}
+
+.tesla-car-actions a:hover {
+  color: #000000 !important;
+  background-color: transparent !important;
+}
+
+.tesla-side-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex: 1;
+  border-left: 1px solid #e2e2e2;
+  padding-left: 2.5rem;
+}
+
+.tesla-side-menu a {
+  font-size: 0.75rem !important;
+  color: #171a20 !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  background-color: transparent !important;
+  padding: 2px 0 !important;
+  transition: color 0.2s;
+}
+
+.tesla-side-menu a:hover {
+  color: #5c5e62 !important;
+  background-color: transparent !important;
+}
+
+/*footter*/
+#zapa {
+    position: absolute;
+    background-color: rgb(15, 15, 15);
+    width: 100%;
+    height: 100px;
+    margin-top: 0px;
+    z-index: 50;
+    border-top: #e0e0e0 solid 1px;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-right {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+#numero-one {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#numero-two, #numero-tre, #numero-four {
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#numero-two:hover, #numero-tre:hover, #numero-four:hover {
+    color: #ff9900;
+}
+
+#zapa i {
+    margin-right: 8px;
+}
+
+#iconfo{
+    margin-left: -10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+
+}

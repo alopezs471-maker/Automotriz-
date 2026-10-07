@@ -1,0 +1,796 @@
+/* ================================================================= */
+/* 1. RESET Y CONFIGURACIÓN BASE                                     */
+/* ================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Universal Sans', 'Gotham', 'Montserrat', sans-serif; 
+    cursor: auto !important; 
+}
+
+body {
+    background-color: #ffffff !important;
+    color: #171a20 !important;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+a, button, select, input, textarea {
+    cursor: pointer !important;
+}
+
+/* --- NAVBAR MINIMALISTA --- */
+.navbar { 
+    background-color: #ffffff !important; 
+    color: #171a20 !important; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: none !important;
+    margin-top: -20px;
+} 
+/* ================================================================= */
+/* HERO CERO Y ESTILOS ELEGANTES DE LUJO (PROMOCIONES)                */
+/* ================================================================= */
+.promo-hero {
+    position: relative;
+    width: 110%;
+    height: 90vh;
+    background: #0d0e11 url('../img/TS3.png') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 50px;
+    margin-left: -5%;
+}
+
+.promo-hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(13, 14, 17, 0.7) 0%, rgba(13, 14, 17, 0.9) 100%);
+    z-index: 1;
+}
+
+.promo-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    padding: 0 20px;
+    color: #ffffff;
+}
+
+.hero-tag {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #a0a0a0;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.promo-hero-content h1 {
+    font-size: 3.2rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.promo-hero-content p {
+    font-size: 1rem;
+    color: #cccccc;
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+}
+
+.hero-metrics {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.metric-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-value {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.metric-divider {
+    width: 1px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-hero-explore {
+    display: inline-block;
+    padding: 14px 36px;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-hero-explore:hover {
+    background-color: #ffffff;
+    color: #0d0e11;
+}
+
+/* ================================================================= */
+/* BADGES Y ESTRUCTURA DE PRECIOS DE LUJO                            */
+/* ================================================================= */
+.luxury-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: #171a20;
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 4px 8px;
+    text-transform: uppercase;
+    z-index: 5;
+}
+
+.price-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 12px 2px 12px;
+}
+
+.old-price {
+    font-size: 0.75rem;
+    color: #999999;
+    text-decoration: line-through;
+}
+
+.benefit-subtext {
+    display: block;
+    font-size: 0.7rem;
+    color: #5c5e62;
+    font-weight: 500;
+    margin: 0 12px 12px 12px;
+}
+
+/* Adaptación responsive para el Hero */
+@media (max-width: 768px) {
+    .promo-hero-content h1 {
+        font-size: 2.2rem;
+    }
+    .hero-metrics {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .metric-divider {
+        display: none;
+    }
+}
+
+
+/* ================================================================= */
+/* 2. ENTORNO ESTRUCTURAL DE LA TIENDA (DOS COLUMNAS ASIMÉTRICAS)     */
+/* ================================================================= */
+.catalog-title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #171a20;
+    margin-bottom: 5px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.catalog-subtitle {
+    font-size: 0.9rem;
+    color: #5c5e62;
+    margin-bottom: 40px;
+    text-decoration: underline;
+    text-align: center;
+}
+
+/* Contenedor maestro en formato fila obligado */
+.main-layout {
+    display: flex !important;
+    flex-direction: row !important; 
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    max-width: 1400px !important;
+    margin: 40px auto 0 auto !important;
+    padding: 0 40px !important;
+    gap: 40px !important; 
+    width: 100% !important;
+}
+
+/* ================================================================= */
+/* 3. BARRA LATERAL DE FILTROS VERTICALES                           */
+/* ================================================================= */
+/* ================================================================= */
+/* NUEVA BARRA DE FILTROS HORIZONTAL A LO ANCHO                     */
+/* ================================================================= */
+.filter-top-bar {
+    max-width: 1400px !important;
+    margin: 0 auto 30px auto !important;
+    padding: 15px 40px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important; /* Evita que se rompa en pantallas medianas */
+    gap: 30px !important; /* Espaciado premium entre botones */
+    border-bottom: 1px solid #e5e5e5 !important; /* Línea divisoria inferior sutil */
+    align-items: center !important;
+    justify-content: center !important; /* Centra los filtros en la barra */
+}
+
+/* Grupo de Filtros Individuales */
+.filter-dropdown-group {
+    position: relative !important;
+    display: inline-block !important;
+}
+
+/* Botón de la barra superior */
+.filter-top-header {
+    background: transparent !important;
+    border: none !important;
+    color: #171a20 !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 8px 16px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: background-color 0.2s ease;
+    border-radius: 4px;
+}
+
+.filter-top-header:hover {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+.filter-top-header .icon {
+    font-size: 0.65rem;
+    color: #707072;
+    transition: transform 0.2s ease;
+}
+
+/* Panel Desplegable (Cae debajo de cada botón al hacer clic) */
+.filter-top-content {
+    display: none; /* Controlado por JS o hover */
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    background-color: #ffffff !important;
+    border: 1px solid #e5e5e5 !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08) !important;
+    padding: 16px !important;
+    min-width: 200px !important;
+    z-index: 1000 !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+/* Muestra las opciones con una clase activa */
+.filter-top-content.show {
+    display: flex !important;
+}
+
+/* Opciones internas */
+.filter-top-content label {
+    font-size: 0.85rem !important;
+    color: #5c5e62 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+}
+
+.filter-top-content label:hover {
+    color: #171a20 !important;
+}
+
+/* Checkbox Personalizado Premium */
+.filter-top-content input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #b2b2b2 !important;
+    border-radius: 3px !important;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+}
+
+.filter-top-content input[type="checkbox"]:checked {
+    background-color: #171a20 !important;
+    border-color: #171a20 !important;
+}
+
+.filter-top-content input[type="checkbox"]::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    transform: scale(0);
+    background-color: #ffffff;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.filter-top-content input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+/* ================================================================= */
+/* AJUSTE COMPLETO DE LA GRIILLA DE PRODUCTOS                       */
+/* ================================================================= */
+.products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important; /* 4 columnas perfectas */
+    gap: 30px 16px !important;
+    padding: 0 40px !important;
+    max-width: 1400px !important;
+    margin: 0 auto 50px auto !important;
+}
+
+.product-card {
+    background-color: #ffffff !important; 
+    border: 1px solid #e5e5e5 !important; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important; 
+    padding: 0 0 16px 0 !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important; 
+    justify-content: flex-start !important;
+    width: 100% !important;
+    position: relative;
+    overflow: hidden !important; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important; 
+}
+
+.product-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important; 
+    opacity: 1 !important;
+}
+
+.product-card .img-container {
+    width: 100% !important;
+    height: 180px !important; 
+    background-color: #f6f6f6 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    margin-bottom: 12px !important;
+    padding: 10px !important;
+}
+
+.product-card img {
+    max-width: 90% !important;
+    max-height: 90% !important;
+    object-fit: contain !important;
+}
+
+.product-card h3 {
+    font-size: 0.85rem !important; 
+    font-weight: 600 !important;
+    color: #171a20 !important;
+    margin: 0 12px 2px 12px !important;
+    text-transform: capitalize;
+}
+
+.product-specs {
+    font-size: 0.75rem !important;
+    color: #707072 !important;
+    margin: 0 12px 4px 12px !important;
+}
+
+.product-price {
+    font-size: 0.85rem !important;
+    color: #171a20 !important;
+    font-weight: 500 !important;
+    margin: 0 12px 12px 12px !important;
+}
+
+/* ==========================================
+   ESTILO DEL BOTÓN CON ANIMACIÓN DIAGONAL
+   ========================================== */
+.btn-add-cart {
+    position: relative;
+    overflow: hidden; /* Mantiene la cortina negra dentro del botón */
+    width: 100%;
+    padding: 8px 0;
+    background-color: transparent;
+    color: #000000;
+    border: 2px solid #000000;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+/* Capa diagonal oculta dentro del botón */
+.btn-add-cart::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -180%;
+    width: 150%;
+    height: 100%;
+    background-color: #000000; /* Fondo negro al hacer hover */
+    transform: skewX(-25deg);   /* Inclinación diagonal */
+    transition: left 0.4s ease-in-out;
+    z-index: -1;                /* Detrás del texto "Ordenar" */
+}
+
+/* HOVER: Desplazamiento diagonal y cambio de texto a blanco */
+.btn-add-cart:hover::before {
+    left: -20%;
+    width: 130%;
+}
+
+.btn-add-cart:hover {
+    color: #ffffff; 
+}
+
+
+/* Alineación de la fila inferior (Estrellas + Precio) */
+.product-bottom-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 6px 10px 0;
+}
+
+.product-rating {
+    display: flex;
+    gap: 2px;
+    font-size: 0.8rem;
+}
+
+.product-rating .star { color: #d1d5db; }
+.product-rating .star.filled { color: #f59e0b; }
+/* ================================================================= */
+/* 5. ENTORNO DEL CARRITO FLOTANTE Y LATERAL                        */
+/* ================================================================= */
+.floating-cart {
+    position: fixed !important;
+    bottom: 30px !important;
+    right: 30px !important;
+    width: 60px !important;
+    height: 60px !important;
+    background-color: #3e6ae1 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 20px rgba(62, 106, 225, 0.3) !important;
+    z-index: 200000 !important;
+    border: none !important;          
+    outline: none !important;         
+    padding: 0 !important;            
+    transition: transform 0.3s ease !important;
+}
+
+.floating-cart:hover {
+    transform: scale(1.08) translateY(-3px) !important;
+    background-color: #3457b1 !important;
+}
+
+.cart-icon-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-svg {
+    width: 24px;
+    height: 24px;
+    fill: #ffffff;
+}
+
+.cart-count {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #171a20;
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #ffffff;
+}
+
+.cart-sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 440px !important;
+    max-width: 100% !important;
+    height: 100vh !important;
+    background-color: #ffffff !important;
+    border-left: 1px solid #e2e2e2 !important;
+    z-index: 200002 !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    transform: translateX(100%) !important; 
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.cart-sidebar.open {
+    transform: translateX(0) !important; 
+}
+
+.cart-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(2px) !important;
+    z-index: 200001 !important; 
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s ease, visibility 0.3s !important;
+}
+
+.cart-overlay.open {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* ================================================================= */
+/* 6. RESPONSIVO / ADAPTACIÓN DE PANTALLA                           */
+/* ================================================================= */
+
+/* --- TABLETS Y PANTALLAS MEDIANAS --- */
+@media (max-width: 1024px) {
+
+    .main-layout {
+        gap: 20px !important;
+        padding: 0 20px !important;
+    }
+
+    .filter-sidebar {
+        width: 210px !important;
+        min-width: 210px !important;
+        max-width: 210px !important;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+
+
+/* --- TABLETS PEQUEÑAS Y CELULARES --- */
+@media (max-width: 768px) {
+
+    body {
+        padding: 10px !important;
+    }
+
+    .navbar {
+        padding: 1rem !important;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .nav-links ul {
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .catalog-title {
+        font-size: 1.7rem !important;
+        margin-top: 30px;
+    }
+
+    .catalog-subtitle {
+        margin-bottom: 25px;
+    }
+
+    .main-layout {
+        flex-direction: column !important;
+        gap: 25px !important;
+        padding: 0 10px !important;
+        margin-top: 20px !important;
+    }
+
+    .filter-sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+
+    .products-grid {
+        width: 100% !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 16px 12px !important;
+    }
+
+    .product-card .img-container {
+        height: 150px !important;
+    }
+
+    .cart-sidebar {
+        width: 100% !important;
+    }
+}
+
+
+/* --- CELULARES PEQUEÑOS --- */
+@media (max-width: 480px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links ul {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .catalog-title {
+        font-size: 1.5rem !important;
+    }
+
+    .catalog-subtitle {
+        font-size: 0.8rem !important;
+    }
+
+    .main-layout {
+        padding: 0 5px !important;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .product-card .img-container {
+        height: 180px !important;
+    }
+
+    .floating-cart {
+        width: 55px !important;
+        height: 55px !important;
+        right: 20px !important;
+        bottom: 20px !important;
+    }
+}
+
+/* ================================================================= */
+/* ANIMACIONES DE SELECCIÓN (ESTILO INTERACTIVO PREMIUM)             */
+/* ================================================================= */
+
+/* Efecto de pulso elástico al hacer clic en la tarjeta */
+.product-card.selected-animate {
+    animation: premiumSelectPulse 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes premiumSelectPulse {
+    0% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(0.96);
+        opacity: 0.85;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Efecto visual en el botón para simular carga o éxito inmediato */
+.btn-add-cart.clicked {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    pointer-events: none;
+    position: relative;
+}
+
+/* Subrayado animado para las opciones de filtro activas */
+.filter-top-content label {
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.filter-top-content label::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #171a20;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Cuando el checkbox interno esté marcado, expande la línea sutilmente */
+.filter-top-content label:has(input:checked) {
+    color: #171a20 !important;
+    font-weight: 500;
+}
+
+.filter-top-content label:has(input:checked)::after {
+    width: 100%;
+}
+
+
+.product-card {
+    position: relative !important;
+    transform: none !important; /* Ya no sacudimos la tarjeta completa */
+    transition: opacity 0.3s ease !important;
+}
+
+/* El efecto se aplica estrictamente a la foto del auto dentro de su caja */
+.product-card .img-container img {
+    width: 90% !important;
+    height: 90% !important;
+    object-fit: contain !important;
+    filter: none; /* Quitamos la asignación automática del hover viejo */
+    will-change: filter, transform;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Solo aplicamos un sutil aumento de escala visual en el hover */
+.product-card:hover .img-container img {
+    transform: scale(1.05);
+}
+#zapa {
+    position: absolute;
+    background-color: rgb(15, 15, 15);
+    width: 100%;
+    height: 100px;
+    margin-top: 100px;
+    margin-left: -20px;
+    z-index: 50;
+    border-top: #e0e0e0 solid 1px;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+

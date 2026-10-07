@@ -1,0 +1,630 @@
+body {
+    background-color: #ffffff !important;
+    color: #f4f4f4 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    padding-top: 70px !important; /* Mismo valor que la altura del navbar */
+    margin: 0;
+    border: solid 1px black;
+}
+.navbar { 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px; /* Altura fija para consistente alineación */
+    background-color: #ffffff; 
+    color: rgb(29, 29, 29); 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    padding: 0 2rem; 
+    box-sizing: border-box;
+    z-index: 1000;
+}
+/* HERO SECTION */
+.tesla-contact-hero {
+    text-align: center;
+    padding: 70px 20px 40px 20px;
+}
+
+.tesla-contact-hero h1 {
+    font-size: 2.8rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: #1f1f1f;
+    margin-bottom: 10px;
+}
+
+.tesla-contact-hero p {
+    color: #8e8e93;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+/* CONTAINER PRINCIPAL */
+.contact-main-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 24px;
+    gap: 3.5rem;
+}
+
+/* SIDEBAR MINIMALISTA */
+.contact-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+.contact-sidebar h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #6e6e73;
+    margin-bottom: 20px;
+}
+
+.contact-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-sidebar li {
+    margin-bottom: 14px;
+}
+
+.contact-sidebar a {
+    color: #a1a1a6;
+    text-decoration: none;
+    font-size: 0.92rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-sidebar a:hover {
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+/* ÁREA DE CONTENIDO */
+.contact-content-area {
+    flex-grow: 1;
+}
+
+.tesla-section {
+    margin-bottom: 50px;
+}
+
+.tesla-section h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #080808;
+    margin-bottom: 24px;
+    letter-spacing: -0.3px;
+}
+
+/* TARJETAS TESLA */
+.tesla-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.tesla-card {
+    background-color: #fdfdfd;
+    border: 1px solid #222222;
+    border-radius: 12px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.tesla-card:hover {
+    border-color: #3e6ae1;
+    background-color: #141414;
+    color: #ffffff;
+}
+
+.tesla-card i {
+    font-size: 1.8rem;
+    color: #3e6ae1;
+    margin-bottom: 16px;
+}
+
+
+.tesla-card h4 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #8e8e93 ;
+}
+
+.tesla-card:hover {
+    color: #f8f8f8;
+}
+
+.tesla-card p {
+    font-size: 0.85rem;
+    color: #8e8e93;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+
+.tesla-card p:hover {
+  color: white;
+}
+
+
+.tesla-btn-secondary {
+    display: inline-block;
+    padding: 8px 18px;
+    background-color: #222222;
+    color: #ffffff;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.tesla-btn-secondary:hover {
+    background-color: #3e6ae1;
+    transform: scale(1.02);
+    color: white;
+}
+
+/* TIENDAS Y SEDES */
+.tesla-store-box {
+    background-color: #f5f4f4;
+    border: 1px solid #222222;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.badge-status {
+    display: inline-block;
+    background-color: rgba(52, 199, 89, 0.15);
+    color: #34c7c7;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.store-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #000000;
+}
+
+.store-info p {
+    color: #070707;
+    font-size: 0.9rem;
+    margin: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ACORDEONES PREGUNTAS FRECUENTES */
+.tesla-faq-item {
+    background-color: #fcf8f8;
+    border: 1px solid #222222;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+.tesla-faq-item[open] {
+    border-color: #3e6ae1;
+}
+
+.tesla-faq-item summary {
+    padding: 18px 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #000000;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}
+
+.tesla-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-answer {
+    padding: 0 20px 20px 20px;
+    color: #8e8e93;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/*footter*/
+#zapa {
+    position: absolute;
+    background-color: rgb(15, 15, 15);
+    width: 100%;
+    height: 100px;
+    margin-top: 0px;
+    z-index: 50;
+    border-top: #e0e0e0 solid 1px;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-right {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+#numero-one {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#numero-two, #numero-tre, #numero-four {
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#numero-two:hover, #numero-tre:hover, #numero-four:hover {
+    color: #ff9900;
+}
+
+#zapa i {
+    margin-right: 8px;
+}
+
+#iconfo{
+    margin-left: -10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+
+}
+
+
+
+
+/* --- CURSOR DE COCHE DEPORTIVO --- */
+
+html, body, a, button, .brand-item, .why-card, .prev, .next {
+    cursor: none !important;
+}
+
+.car-cursor {
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    pointer-events: none; /* OBLIGATORIO: Hace que el coche sea "fantasma" y no choque con el formulario */
+    z-index: 100000; /* OBLIGATORIO: Lo posiciona por encima de cualquier desenfoque o fondo */
+    transform: translate(-50%, -50%) rotate(0deg);
+    transform-origin: center center;
+    will-change: transform, left, top;
+    transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+
+/* Estilo del cuerpo del coche */
+.car-icon {
+    width: 100%;
+    height: 100%;
+    fill: #727070; /* Color naranja corporativo */
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+    transition: fill 0.3s ease;
+}
+
+/* Efecto de luces traseras (estela de velocidad) */
+.tail-light {
+    position: absolute;
+    bottom: -2px;
+    width: 6px;
+    height: 6px;
+    background-color: #50a5ac; /* Rojo de luces de freno */
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff3333, 0 0 15px #ff3333;
+    opacity: 0.6;
+    transition: transform 0.2s ease, opacity 0.2s;
+}
+
+.tail-light.left { left: 6px; }
+.tail-light.right { right: 6px; }
+
+
+.car-hover-active .car-icon {
+    fill: #ffffff; 
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+.car-hover-active .tail-light {
+    opacity: 1;
+    transform: scale(1.4); 
+    box-shadow: 0 0 12px #ff3333, 0 0 25px #ff3333;
+}
+
+
+/* ==========================================
+   ANIMACIÓN DE ENTRADA VIP - DASAUTO (TAMAÑO MÁS GRANDE)
+   ========================================== */
+.intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0b0d12;
+  z-index: 999999; /* Asegura estar sobre todo el sitio */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  pointer-events: all;
+  
+  /* Oculta el cursor personalizado durante la carga */
+  cursor: wait !important; 
+  
+  animation: fadeOutIntro 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards 2.4s;
+}
+
+/* Evita que cualquier elemento interno reactive el cursor personalizado */
+.intro-overlay * {
+  cursor: wait !important;
+}
+
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.intro-logo-wrapper {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.intro-logo {
+  width: 280px; /* Aumentado (antes 170px) */
+  height: auto;
+  opacity: 0;
+  transform: scale(0.85);
+  animation: logoAppear 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.2s;
+}
+
+.intro-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px; /* Aumentado acorde al nuevo tamaño del logo */
+  height: 220px;
+  background: radial-gradient(circle, rgba(62, 106, 225, 0.55) 0%, rgba(0, 0, 0, 0) 70%);
+  opacity: 0;
+  animation: pulseGlow 1.4s ease-in-out infinite alternate 0.8s;
+}
+
+.intro-line {
+  width: 0;
+  height: 3px; /* Grosor levemente aumentado */
+  background: linear-gradient(90deg, transparent, #3e6ae1, #ffffff, #3e6ae1, transparent);
+  animation: lineExpand 1s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.7s;
+}
+
+.intro-subtitle {
+  color: #a0a5b5;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1.15rem; /* Aumentado (antes 0.85rem) */
+  letter-spacing: 8px; /* Espaciado más amplio */
+  margin-top: 20px;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: textSlideUp 0.8s ease-out forwards 1.2s;
+}
+
+/* ANIMACIONES */
+@keyframes logoAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.8); }
+  100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+@keyframes lineExpand {
+  0% { width: 0; }
+  100% { width: 380px; } /* Ancho de línea más extenso (antes 240px) */
+}
+
+@keyframes textSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutIntro {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  99% {
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* --- ESTILOS FORMULARIO ESTILO TESLA --- */
+.tesla-form-container {
+    background-color: #ffffff;
+    border: 1px solid #222222;
+    border-radius: 12px;
+    padding: 30px;
+    transition: border-color 0.3s ease;
+    border: none;
+}
+
+.tesla-form-container:hover {
+    border-color: #333333;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: #030303;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    background-color: #0a0a0a;
+    border: 1px solid #2c2c2e;
+    border-radius: 0px;
+    padding: 12px 16px;
+    color: #979595;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    background-color: #1f1f1f;
+    background-color: #22222b;
+}
+
+.form-group select option {
+    background-color: #1a1a1a;
+    color: #979494;
+}
+
+.tesla-btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, #0004e6 0%, #0084ff 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 2px;
+    padding: 14px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.tesla-btn-submit:hover {
+    background-color: #3458c1;
+    transform: scale(1.005);
+}
+
+.tesla-section {
+    margin-bottom: 90px; /* Cambiado de 50px a 90px para dar más espacio */
+}
+
+/*footter*/
+#zapa {
+    position: absolute;
+    background-color: rgb(15, 15, 15);
+    width: 100%;
+    height: 100px;
+    margin-top: 0px;
+    z-index: 50;
+    border-top: #e0e0e0 solid 1px;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-right {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+#numero-one {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#numero-two, #numero-tre, #numero-four {
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#numero-two:hover, #numero-tre:hover, #numero-four:hover {
+    color: #ff9900;
+}
+
+#zapa i {
+    margin-right: 8px;
+}
+
+#iconfo{
+    margin-left: -10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+
+}
