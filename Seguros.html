@@ -537,7 +537,9 @@
 
         <form
             id="quoteForm"
-            class="quote-form">
+            class="quote-form"
+            data-endpoint="seguros"
+            data-mensaje="Cotización solicitada. Un asesor te contactará.">
 
 
             <div class="field">
@@ -549,6 +551,7 @@
                 <input
                     type="text"
                     id="name"
+                    name="nombre"
                     placeholder="Tu nombre"
                     required>
 
@@ -564,7 +567,15 @@
                 <input
                     type="email"
                     id="email"
+                    name="email"
                     placeholder="correo@ejemplo.com"
+                    required>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="telefono"
+                    placeholder="+57 300 000 0000"
                     required>
 
             </div>
@@ -578,25 +589,26 @@
 
                 <select
                     id="vehicle"
+                    name="tipo_vehiculo"
                     required>
 
                     <option value="">
                         Selecciona una opción
                     </option>
 
-                    <option>
+                    <option value="automovil">
                         Automóvil
                     </option>
 
-                    <option>
+                    <option value="camioneta">
                         Camioneta
                     </option>
 
-                    <option>
+                    <option value="moto">
                         Moto
                     </option>
 
-                    <option>
+                    <option value="electrico">
                         Vehículo eléctrico
                     </option>
 
@@ -613,21 +625,22 @@
 
                 <select
                     id="plan"
+                    name="tipo_cobertura"
                     required>
 
                     <option value="">
                         Selecciona una cobertura
                     </option>
 
-                    <option>
+                    <option value="basica">
                         Cobertura Básica
                     </option>
 
-                    <option>
+                    <option value="todo_riesgo">
                         Todo Riesgo Platinum
                     </option>
 
-                    <option>
+                    <option value="estandar">
                         Protección Total Elite
                     </option>
 
@@ -635,6 +648,11 @@
 
             </div>
 
+
+            <div class="field" style="flex-direction:row;align-items:flex-start;gap:10px">
+                    <input type="checkbox" id="terminos-seguro" name="terminos" required style="width:auto;margin-top:4px">
+                    <label for="terminos-seguro" style="font-size:13px;line-height:1.5">Autorizo el tratamiento de mis datos personales (Ley 1581 de 2012).</label>
+                </div>
 
             <button
                 type="submit"
@@ -744,3 +762,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
+<script src="js/conexion-datos.js" defer></script>
+</html>

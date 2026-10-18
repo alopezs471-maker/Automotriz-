@@ -31,6 +31,15 @@ function selectDriveModel(name, imgSrc, specs, cardElement) {
   if (previewSpecs) previewSpecs.textContent = specs;
   
   currentSelectedVehicle = name;
+  sincronizarOcultos();
+}
+
+// Mantiene al día los campos ocultos que se guardan en la base de datos.
+function sincronizarOcultos(){
+  const modelo = document.getElementById('modelo_interes');
+  const sede = document.getElementById('sede');
+  if (modelo) modelo.value = currentSelectedVehicle;
+  if (sede) sede.value = selectedStoreName;
 }
 
 // Enfocar sede en el mapa
@@ -48,21 +57,20 @@ function focusStore(storeKey, lat, lng, cardElement) {
     map.flyTo([lat, lng], 13, { animate: true, duration: 1.2 });
     markers[storeKey].openPopup();
   }
+  sincronizarOcultos();
 }
 
 // Envío del Formulario
 function handleDriveForm(event) {
   event.preventDefault();
-  const name = document.getElementById('fname').value;
-  const date = document.getElementById('drive-date').value;
-  const time = document.getElementById('drive-time').value;
-
-  alert(`¡Solicitud Confirmada!\n\nGracias ${name}.\nPrueba agendada para: "${currentSelectedVehicle}"\nSede: ${selectedStoreName}\nFecha: ${date} a las ${time}.`);
-  event.target.reset();
+  sincronizarOcultos();
+  const form = document.getElementById('drive-form');
+  if (form) form.requestSubmit();
 }
 
 // Inicialización de Leaflet
 document.addEventListener('DOMContentLoaded', () => {
+  sincronizarOcultos();
   const mapContainer = document.getElementById('leaflet-drive-map');
   
   if (mapContainer && typeof L !== 'undefined') {
