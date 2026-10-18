@@ -409,6 +409,70 @@
         </div>
     </div>
 </section>
+
+<section id="agendar-cita" aria-label="Agendar cita en el taller">
+<style>
+#agendar-cita{background:#fff;color:#171a20;padding:30px;margin:28px auto;border:1px solid #ddd;border-radius:10px;width:94%;font-family:Arial,sans-serif;box-sizing:border-box}
+#agendar-cita h2{font-size:25px;margin:0 0 12px}
+#agendar-cita p{font-size:14px;line-height:1.6;color:#5c5e62}
+#agendar-cita .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:22px 0}
+#agendar-cita label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+#agendar-cita input,#agendar-cita select,#agendar-cita textarea{width:100%;font:inherit;padding:11px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box}
+#agendar-cita .consent{display:flex;gap:10px;align-items:flex-start;margin:14px 0;font-size:13px;line-height:1.5;color:#5c5e62}
+#agendar-cita .consent input{width:auto;margin-top:3px}
+#agendar-cita button{background:#171a20;color:#fff;font:inherit;font-weight:600;padding:14px 28px;border:none;border-radius:5px;cursor:pointer}
+#agendar-cita [role=status]{font-size:14px;line-height:1.5;margin-top:14px;color:#45635b}
+</style>
+<h2>Agenda tu cita en el taller</h2>
+<p>Registramos tu solicitud en nuestra base de datos y un asesor confirma el horario disponible. Recibirás un radicado para hacer seguimiento.</p>
+<form data-endpoint="citas-taller">
+  <div class="grid">
+    <div><label for="cita-nombre">Nombre completo</label>
+      <input type="text" id="cita-nombre" name="nombre" required maxlength="150" placeholder="Tu nombre"></div>
+    <div><label for="cita-documento">Documento</label>
+      <input type="text" id="cita-documento" name="documento" required maxlength="30" placeholder="Tu documento"></div>
+    <div><label for="cita-email">Correo electrónico</label>
+      <input type="email" id="cita-email" name="email" required maxlength="190" placeholder="correo@ejemplo.com"></div>
+    <div><label for="cita-telefono">Teléfono</label>
+      <input type="tel" id="cita-telefono" name="telefono" required maxlength="30" placeholder="+57 300 000 0000"></div>
+    <div><label for="cita-placa">Placa (opcional)</label>
+      <input type="text" id="cita-placa" name="placa" maxlength="10" placeholder="ABC123"></div>
+    <div><label for="cita-servicio">Servicio</label>
+      <select id="cita-servicio" name="servicio" required>
+        <option value="">Selecciona un servicio</option>
+        <option value="mantenimiento">Mantenimiento</option>
+        <option value="diagnostico">Diagnóstico</option>
+        <option value="frenos">Frenos</option>
+        <option value="llantas">Llantas</option>
+        <option value="bateria">Batería</option>
+        <option value="aire_acondicionado">Aire acondicionado</option>
+        <option value="pintura">Pintura</option>
+        <option value="garantia">Garantía</option>
+        <option value="otro">Otro</option>
+      </select></div>
+    <div><label for="cita-fecha">Fecha</label>
+      <input type="date" id="cita-fecha" name="fecha_programada" required></div>
+    <div><label for="cita-hora">Hora</label>
+      <select id="cita-hora" name="hora_programada" required>
+        <option value="08:00">08:00 AM</option>
+        <option value="09:00">09:00 AM</option>
+        <option value="10:00">10:00 AM</option>
+        <option value="11:00">11:00 AM</option>
+        <option value="14:00">02:00 PM</option>
+        <option value="15:00">03:00 PM</option>
+        <option value="16:00">04:00 PM</option>
+      </select></div>
+  </div>
+  <div><label for="cita-descripcion">¿Qué le pasa al vehículo? (opcional)</label>
+    <textarea id="cita-descripcion" name="descripcion" rows="4" maxlength="600" placeholder="Describe el motivo de la visita"></textarea></div>
+  <div class="consent">
+    <input type="checkbox" id="cita-terminos" name="terminos" required>
+    <label for="cita-terminos">Autorizo el tratamiento de mis datos personales (Ley 1581 de 2012).</label>
+  </div>
+  <button type="submit">AGENDAR CITA</button>
+</form>
+</section>
+
 <footer>
   <div id="zapa">
     <div class="footer-left">
@@ -506,3 +570,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
+<script src="js/conexion-datos.js" defer></script>
+</html>
