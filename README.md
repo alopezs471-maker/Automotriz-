@@ -165,3 +165,28 @@ de `Promociones.html` hasta que las publiques con `gestionar.py estado-promocion
   cambio queda registrado en `auditoria`. La clave inicial está en `Sql/datos/`,
   que no se sube a Git.
 - Las páginas nuevas piden aceptar el tratamiento de datos (Ley 1581 de 2012).
+
+## Peso de las páginas y recursos faltantes
+
+Revisión de las 21 páginas: cada una carga completa, sin errores de JavaScript y sin
+referencias a archivos inexistentes.
+
+- **Imágenes**: se redimensionaron a 1800 px de lado máximo (640 px las que se muestran
+  como miniatura) y se recomprimieron con calidad 82. `img/` pasó de **141 MB a 47 MB**
+  y `Taller.html` de **32,8 MB a 3,5 MB**.
+- **Videos de fondo**: los clips de 16 MB se piden con `preload="none"`, así solo se
+  descargan cuando el visitante llega a esa sección. `Automoviles.html` bajó de
+  **22,4 MB a 2,4 MB** al abrir.
+- **Archivos que faltaban**: `img/wahs.jpg` (creado reutilizando `wash.jpg`), y los
+  videos `video3/5/6/7/8/9/10.mp4` que solo existían en el HTML. En las secciones
+  finales de Automóviles, Camioneta, Eléctricos y Motos se usa la imagen destacada; el
+  video de fondo de Camioneta, Eléctricos y Motos es `img/video.mp4`.
+- **Enlaces rotos**: el botón ☰ de 8 páginas apuntaba a `formuario.html` (no existe);
+  ahora va a `Contacto.html`. El botón «Ordenar» de `Electricos.html` va a
+  `Promociones.html`, igual que en las demás.
+- **`js/j7.js`** se ejecutaba en `Galeria.html`, que no tiene el modal de showroom, y
+  lanzaba un `TypeError`. Ahora se detiene si el modal no existe.
+
+Pendiente opcional: `formuario(obsoleto).html` enlaza a `Nosotros.html` y
+`Repuestos.html`, que tampoco existen. Es una copia antigua que ninguna página activa
+enlaza; se puede borrar.

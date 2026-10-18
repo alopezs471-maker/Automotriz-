@@ -6,14 +6,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalCarSpecs = document.getElementById("modalCarSpecs");
   const swatches = document.querySelectorAll(".swatch");
 
+  // Esta galería no incluye el modal de showroom: sin él, el script no debe romperse.
+  if (!modal || !closeModal) return;
+
   // Abrir modal al hacer clic en "VISUALIZAR"
   document.querySelectorAll(".btn-showroom").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const card = e.target.closest(".showroom-card");
-      const title = card.querySelector("h3").innerText;
-      const specs = card.querySelector(".car-specs").innerText;
+      if (!card) return;
+      const titulo = card.querySelector("h3");
+      const ficha = card.querySelector(".car-specs");
+      const foto = card.querySelector(".car-on");
+      if (!modalCarTitle || !modalCarSpecs || !modalCarImg || !titulo || !foto) return;
+      const title = titulo.innerText;
+      const specs = ficha ? ficha.innerText : "";
       // Toma la imagen encendida por defecto para el visor
-      const imgSrc = card.querySelector(".car-on").getAttribute("src");
+      const imgSrc = foto.getAttribute("src");
 
       modalCarTitle.innerText = title;
       modalCarSpecs.innerText = specs;
