@@ -8,6 +8,8 @@ Correcciones aplicadas sobre la versión original:
         aplica si la promoción está publicada y vigente.
   P1-8  Límite de envíos por IP y bloqueo de archivos privados (.sqlite3, .py, .git).
   P2-1  Endpoints nuevos: citas de taller, pruebas de manejo, contacto, seguros y pedidos.
+  P3    Funciones nuevas (api_extra.py): financiación, ficha, inventario real,
+        agenda con cupos y panel de administración con usuario y clave.
 """
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import urlsplit, unquote
@@ -15,6 +17,7 @@ from pathlib import Path
 import argparse, json, os, secrets, re, sqlite3, uuid, time
 from collections import defaultdict, deque
 from base_datos import ROOT, DB, iniciar, conectar, catalogo, vitrina, sedes
+import api_extra
 
 PUBLIC = ROOT.parent                 # P0-1: el sitio vive en la raíz del repositorio
 TOKEN = secrets.token_urlsafe(32)
@@ -236,10 +239,14 @@ class Handler(SimpleHTTPRequestHandler):
                 raise ValueError('La cantidad debe estar entre 1 y 99.')
             # Se cobra precio_venta (vista v_precios): la oferta solo si la promoción
             # está publicada y vigente. Nunca se usa el precio que manda el navegador.
-            vehiculo = db.execute('''SELECT inventario_id AS id, nombre, precio_venta AS precio
+            vehiculo = db.execute('''SELECT inventario_id AS id, nombre, precio_venta AS precio, existencias
                    FROM v_precios WHERE sku=?''', (sku,)).fetchone()
             if not vehiculo:
                 raise ValueError('Vehículo no disponible: ' + sku + '.')
+            # Inventario real: si el vehículo lleva control de existencias, no se
+            # vende más de lo que hay (el trigger de la migración 0007 lo garantiza).
+            if vehiculo['existencias'] is not None and cantidad > vehiculo['existencias']:
+                raise ValueError('Solo quedan %d unidades de %s.' % (vehiculo['existencias'], vehiculo['nombre']))
             detalle.append((vehiculo['id'], sku, vehiculo['nombre'], cantidad, vehiculo['precio']))
             total += vehiculo['precio'] * cantidad
         db.execute('''INSERT INTO pedidos(radicado,envio_id,usuario_id,nombre,documento,email,telefono,subtotal,total)
@@ -248,10 +255,10 @@ class Handler(SimpleHTTPRequestHandler):
              *(datos[k] for k in ('nombre', 'documento', 'email', 'telefono')), total, total))
         pid = db.execute('SELECT id FROM pedidos WHERE radicado=?', (radicado,)).fetchone()['id']
         for inventario_id, sku, nombre, cantidad, precio in detalle:
+            # El descuento de existencias, el kardex y la reserva de 48 h los hace
+            # el trigger tr_pedido_item_salida (migración 0007).
             db.execute('INSERT INTO pedidos_items(pedido_id,inventario_id,sku,nombre,cantidad,precio_unitario) VALUES(?,?,?,?,?,?)',
                        (pid, inventario_id, sku, nombre, cantidad, precio))
-            db.execute('INSERT INTO inventario_movimientos(inventario_id,tipo,cantidad,motivo,referencia) VALUES(?,?,?,?,?)',
-                       (inventario_id, 'salida', -cantidad, 'Pedido web', radicado))
         return radicado
 
     # --------------------------------- rutas ----------------------------------
@@ -268,6 +275,9 @@ class Handler(SimpleHTTPRequestHandler):
                 return self.json(200, {'sedes': sedes()})
             except sqlite3.Error:
                 return self.json(200, {'sedes': []})
+        # Funciones nuevas (financiación, ficha, inventario, agenda y panel).
+        if api_extra.manejar_get(self, path):
+            return
         if path.startswith('/api/'):
             return self.json(404, {'error': 'Ruta no disponible.'})
         # P1-8: nada de código, base de datos, respaldos ni .git por HTTP.
@@ -319,6 +329,9 @@ class Handler(SimpleHTTPRequestHandler):
         if not secrets.compare_digest(self.headers.get('X-CSRF-Token', ''), TOKEN):
             return self.json(403, {'error': 'Sesión inválida. Recarga la página.'})
         ruta = urlsplit(self.path).path
+        # Funciones nuevas: manejan su propio límite de intentos y validación.
+        if api_extra.manejar_post(self, ruta):
+            return
         if ruta not in self.RUTAS:
             return self.json(404, {'error': 'Ruta no disponible.'})
         if not self.permitido():
@@ -335,7 +348,9 @@ class Handler(SimpleHTTPRequestHandler):
             return self.json(400, {'error': str(e) or 'Revisa los datos del formulario.'})
         except (KeyError, TypeError, UnicodeDecodeError):
             return self.json(400, {'error': 'Faltan datos del formulario. Recárgalo e inténtalo de nuevo.'})
-        except sqlite3.Error:
+        except sqlite3.Error as e:
+            if 'existencias' in str(e).lower():
+                return self.json(409, {'error': 'No hay existencias suficientes para completar el pedido.'})
             return self.json(500, {'error': 'No fue posible guardar la solicitud. Reintenta más tarde.'})
 
 
@@ -345,7 +360,9 @@ if __name__ == '__main__':
     args.add_argument('--port', default=8000, type=int)
     opt = args.parse_args()
     iniciar()
+    api_extra.iniciar()   # cuenta inicial del panel, reservas vencidas
     print(f'DasAuto: http://localhost:{opt.port}/index.html', flush=True)
+    print(f'Panel:  http://localhost:{opt.port}/panel.html', flush=True)
     print(f'Base de datos: {DB}', flush=True)
     print('Detener: Ctrl+C. Respaldo manual: python gestionar.py respaldo', flush=True)
     ThreadingHTTPServer((opt.host, opt.port), Handler).serve_forever()

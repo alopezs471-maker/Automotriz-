@@ -25,9 +25,64 @@ Luego abre **<http://localhost:8000/index.html>**.
 | `Contacto.html` | `contactos` |
 | `Seguros.html` | `cotizaciones_seguro` |
 | `Promociones.html` → "Proceder al Pago" | `pedidos` + `pedidos_items` |
+| `financiar.html` (nueva) | `cotizaciones_financiacion` + `tasas_financiacion` |
+| `agenda-taller.html` (nueva) | `citas_taller` con cupos por hora |
+| `panel.html` (nueva, con clave) | promociones, precios, inventario, agenda, pedidos y usuarios |
 
 La base vive en `Sql/datos/dasauto.sqlite3` y **no se sube a Git** (ver `.gitignore`).
 Las tablas y migraciones están en `Sql/migraciones/` y se aplican solas al arrancar.
+
+## Funciones nuevas
+
+Son páginas **aparte**: no modifican las páginas ni las tablas que ya existían.
+El centro de todo es **`nuevas-funciones.html`**.
+
+| Página | Qué resuelve |
+|---|---|
+| `financiar.html` | Simulador con las tasas de `tasas_financiacion`; guarda la solicitud con radicado `COT-…` |
+| `vehiculo.html?sku=corolla` | Ficha técnica, precio vigente, stock, similares e historial de precios |
+| `disponibilidad.html` | Existencias reales de los 32 vehículos, con filtros |
+| `agenda-taller.html` | Cita de taller en franjas de una hora con cupo limitado |
+| `panel.html` | Administración con usuario y clave |
+
+### Panel de administración
+
+Abre <http://localhost:8000/panel.html>. La primera vez el servidor crea el usuario
+`admin` y deja la clave en **`Sql/datos/clave_admin_inicial.txt`** (puedes fijarla tú
+con la variable `DASAUTO_ADMIN_CLAVE`). Desde el panel se publican promociones, se
+cambian precios y fechas, se ajustan existencias, se liberan reservas, se fijan cupos,
+se gestionan citas, pedidos y solicitudes, y se crean usuarios.
+
+Las cuentas también se manejan por terminal (la clave se pide de forma oculta):
+
+```bash
+cd Sql
+python admin.py usuarios
+python admin.py crear asesor "Asesor Uno" ventas
+python admin.py clave admin
+python admin.py activar asesor no
+```
+
+Roles: `admin` (todo), `ventas`, `taller` y `consulta` (solo lectura).
+
+### Qué agregan las migraciones 0007 y 0008
+
+| Objeto | Para qué |
+|---|---|
+| `admin_usuarios`, `admin_sesiones` | Claves cifradas con PBKDF2-SHA256 (240.000 iteraciones) y sesiones de 8 h |
+| `precios_historico` + disparadores + `v_historial_precios` | Cada cambio de precio base u oferta, con fecha y origen |
+| `inventario_reservas` + disparadores en pedidos | Descenso de existencias, kardex y reserva de 48 h por pedido |
+| `agenda_cupos` | Capacidad por fecha y hora (2 por defecto) |
+| `tasas_financiacion` | Planes del simulador, editables |
+| `inventario_ficha` | Ficha técnica de los 32 vehículos |
+| `v_inventario_publico` | Catálogo + ficha + estado de stock |
+
+Al aplicar la migración se fijan existencias iniciales (entre 3 y 12) solo donde el
+dato estaba en `NULL`, y esa dotación se registra en el kardex. Los pedidos nuevos ya
+no permiten vender más unidades de las que hay; al cancelar un pedido se devuelven.
+
+> `Taller.html` y su formulario siguen funcionando igual. La agenda nueva
+> (`agenda-taller.html`) es la que controla cupos por hora.
 
 ## Gestión por terminal
 
@@ -66,6 +121,8 @@ de `Promociones.html` hasta que las publiques con `gestionar.py estado-promocion
 └── Sql/
     ├── base_datos.py      Esquema, conexión y consultas
     ├── servidor.py        API + servidor de archivos
+    ├── api_extra.py       Servicios nuevos: financiación, ficha, inventario, agenda y panel
+    ├── admin.py           Cuentas del panel por terminal
     ├── gestionar.py       Administración por terminal
     ├── catalogo_inicial.json   Catálogo semilla (32 vehículos)
     ├── datos/             Base de datos (no se versiona)
@@ -77,4 +134,7 @@ de `Promociones.html` hasta que las publiques con `gestionar.py estado-promocion
 
 - Las PQRS y los formularios exigen aceptar el tratamiento de datos (Ley 1581 de 2012).
 - No se sirven por HTTP la base de datos, el código Python ni el `.git`.
-- Los datos personales se consultan con `gestionar.py`, nunca desde la web.
+- El panel exige usuario y clave (cookie HttpOnly, SameSite=Strict, 8 horas) y cada
+  cambio queda registrado en `auditoria`. La clave inicial está en `Sql/datos/`,
+  que no se sube a Git.
+- Las páginas nuevas piden aceptar el tratamiento de datos (Ley 1581 de 2012).

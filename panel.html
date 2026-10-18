@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Panel de administración · DasAuto</title>
+  <link rel="icon" type="image/png" href="img/icon.png">
+  <link rel="stylesheet" href="css/c13.css">
+</head>
+<body>
+<header class="top">
+  <a class="marca" href="index.html"><img src="img/dasu.png" alt="DasAuto"><span>DasAuto</span></a>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="nuevas-funciones.html">Funciones nuevas</a>
+    <a href="disponibilidad.html">Inventario</a>
+    <a href="financiar.html">Financiación</a>
+    <a href="agenda-taller.html">Agenda</a>
+    <a class="btn btn-linea activo" href="panel.html">Panel</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="acceso" id="acceso" hidden>
+    <a class="marca" href="index.html"><img src="img/dasu.png" alt="DasAuto"><span>DasAuto</span></a>
+    <h1>Panel de administración</h1>
+    <p>Ingresa con tu usuario y clave.</p>
+    <form id="form-login">
+      <div class="campo">
+        <label for="usuario">Usuario</label>
+        <input id="usuario" name="usuario" maxlength="30" autocomplete="username" required>
+      </div>
+      <div class="campo">
+        <label for="clave">Clave</label>
+        <input id="clave" name="clave" type="password" maxlength="200" autocomplete="current-password" required>
+      </div>
+      <button class="btn btn-dark btn-ancho" type="submit">Ingresar</button>
+      <p class="aviso error" id="aviso-login" hidden></p>
+    </form>
+    <p class="mini" style="margin-top:16px">
+      La primera vez, la clave está en <code>Sql/datos/clave_admin_inicial.txt</code>
+      (o en la variable <code>DASAUTO_ADMIN_CLAVE</code>).
+    </p>
+  </section>
+
+  <section id="app" hidden>
+    <div class="app-cabecera">
+      <h1>Panel DasAuto</h1>
+      <div class="quien">
+        <span id="quien"></span>
+        <button class="btn btn-mini btn-linea" id="salir">Salir</button>
+      </div>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <nav class="tabs" id="tabs" style="margin-top:18px">
+      <button class="tab activo" data-seccion="resumen">Resumen</button>
+      <button class="tab" data-seccion="promociones">Promociones</button>
+      <button class="tab" data-seccion="precios">Historial de precios</button>
+      <button class="tab" data-seccion="inventario">Inventario</button>
+      <button class="tab" data-seccion="agenda">Agenda</button>
+      <button class="tab" data-seccion="financiacion">Financiación</button>
+      <button class="tab" data-seccion="pedidos">Pedidos</button>
+      <button class="tab" data-seccion="usuarios">Usuarios</button>
+    </nav>
+
+    <p class="aviso" id="aviso-panel" hidden></p>
+    <section id="vista"></section>
+  </section>
+</main>
+
+<footer class="pie-sitio">DasAuto · panel privado · las acciones quedan en <code>auditoria</code></footer>
+<script src="js/db-cliente.js"></script>
+<script src="js/panel.js"></script>
+</body>
+</html>

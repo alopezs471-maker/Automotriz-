@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventario y disponibilidad · DasAuto</title>
+  <link rel="icon" type="image/png" href="img/icon.png">
+  <link rel="stylesheet" href="css/c13.css">
+</head>
+<body>
+<header class="top">
+  <a class="marca" href="index.html"><img src="img/dasu.png" alt="DasAuto"><span>DasAuto</span></a>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="nuevas-funciones.html">Funciones nuevas</a>
+    <a class="activo" href="disponibilidad.html">Inventario</a>
+    <a href="financiar.html">Financiación</a>
+    <a href="agenda-taller.html">Agenda</a>
+    <a class="btn btn-linea" href="panel.html">Panel</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Inventario real · existencias en SQLite</p>
+    <h1>Qué hay disponible hoy</h1>
+    <p>Cada pedido descuenta unidades y deja el movimiento en el kardex. La ficha de cada
+       vehículo muestra su precio vigente y su historial.</p>
+  </section>
+
+  <section class="seccion">
+    <div class="panel">
+      <div class="barra" style="margin-bottom:0">
+        <div class="campo" style="margin:0;min-width:180px">
+          <label for="categoria">Categoría</label>
+          <select id="categoria">
+            <option value="">Todas</option>
+            <option value="automovil">Automóviles</option>
+            <option value="camioneta">Camionetas</option>
+            <option value="moto">Motos</option>
+          </select>
+        </div>
+        <div class="campo" style="margin:0;min-width:220px">
+          <label for="buscar">Buscar</label>
+          <input id="buscar" type="search" placeholder="Marca o modelo…">
+        </div>
+        <label class="check" style="margin:18px 0 0">
+          <input type="checkbox" id="solo-unidades"> Solo con unidades
+        </label>
+        <div class="der" style="margin-left:auto">
+          <span class="chip info" id="resumen">Cargando…</span>
+        </div>
+      </div>
+    </div>
+    <p class="aviso error" id="aviso" hidden></p>
+    <div class="cards" id="lista" style="margin-top:16px"></div>
+    <p class="vacio" id="vacio" hidden>No hay vehículos con esos filtros.</p>
+  </section>
+
+  <section class="seccion">
+    <div class="panel">
+      <h2>Cómo se controla el inventario</h2>
+      <div class="grid3" style="margin-top:12px">
+        <div class="spec"><dt>Al vender</dt><dd>El pedido descuenta existencias y registra una salida en el kardex.</dd></div>
+        <div class="spec"><dt>Reserva</dt><dd>Cada unidad queda reservada 48 horas para ese pedido.</dd></div>
+        <div class="spec"><dt>Sin unidades</dt><dd>El servidor rechaza el pedido; no se puede vender lo que no hay.</dd></div>
+        <div class="spec"><dt>Al cancelar</dt><dd>El pedido cancelado devuelve las unidades reservadas.</dd></div>
+        <div class="spec"><dt>Ajustes</dt><dd>El panel permite fijar existencias con su motivo y ver el kardex.</dd></div>
+        <div class="spec"><dt>Vencidas</dt><dd>Las reservas de pedidos pendientes se liberan solas al vencer.</dd></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie-sitio">DasAuto · existencias y kardex en <code>inventario</code>, <code>inventario_movimientos</code> e <code>inventario_reservas</code></footer>
+<script src="js/db-cliente.js"></script>
+<script src="js/disponibilidad.js"></script>
+</body>
+</html>

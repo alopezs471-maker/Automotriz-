@@ -366,8 +366,8 @@ validación del lado del servidor y `envio_id` para no duplicar reintentos.
 
 ### 7.6 Pendiente (no se tocó a propósito)
 
-- `Financiacion.html` no tiene formulario: la tabla `cotizaciones_financiacion`
-  queda lista para cuando lo crees.
+- `Financiacion.html` no se tocó: el cotizador está en una página nueva
+  (`financiar.html`), que usa `cotizaciones_financiacion` y `tasas_financiacion`.
 - Nivel 3 de la sección 3 (`ALTER` sobre las tablas originales): sigue esperando tu visto bueno.
 - Las promociones siguen en `borrador`; cuando quieras verlas en la vitrina:
   `python gestionar.py estado-promocion corolla publicada` (o `todas publicada`).
@@ -384,3 +384,38 @@ validación del lado del servidor y `envio_id` para no duplicar reintentos.
 | El carrito guardado en `localStorage` conservaba precios viejos | Se alinea con `precio_venta` al cargar la página |
 
 Solo se recrearon **vistas** (no guardan datos): ninguna tabla se modificó.
+
+### 7.8 Funciones nuevas (migraciones 0007 y 0008)
+
+Todo lo de esta etapa es **aditivo**: no se modificó ninguna tabla, página ni hoja de
+estilos existente. La lógica vive en `api_extra.py` y la interfaz en archivos nuevos
+(`nuevas-funciones.html`, `financiar.html`, `vehiculo.html`, `disponibilidad.html`,
+`agenda-taller.html`, `panel.html`, `css/c13.css`, `js/db-cliente.js` y `js/*-*.js`).
+`servidor.py` solo agregó dos ganchos y tres líneas de arranque.
+
+| Función | Objetos nuevos | Cómo funciona |
+|---|---|---|
+| Historial de precios | `precios_historico`, `v_historial_precios`, triggers `tr_precio_*`, `tr_promocion_*` | Cada `UPDATE` de `precio_base` o `precio_promocional` deja una fila con valor anterior, nuevo, origen y fecha. Al finalizar o borrar una promoción se archiva en `promociones_historico`. |
+| Ficha del vehículo | `inventario_ficha` (32 fichas) y `v_inventario_publico` | Ficha técnica en JSON, descripción, imagen y destacado. La vista une ficha + precio + stock. |
+| Inventario real | `inventario_reservas` y triggers `tr_pedido_item_stock`, `tr_pedido_item_salida`, `tr_pedido_cancelado`, `tr_pedido_confirmado` | El `BEFORE INSERT` de `pedidos_items` aborta si no hay unidades; el `AFTER INSERT` descuenta, escribe el kardex con saldo y reserva 48 h. Cancelar devuelve el stock; confirmar consume la reserva. |
+| Agenda con cupos | `agenda_cupos` | Capacidad por fecha y hora (2 por defecto, máximo 20). La ocupación se cuenta sobre `citas_taller` excluyendo canceladas y `no_show`. El nuevo endpoint hace `BEGIN IMMEDIATE` y revalida dentro de la transacción, así que dos solicitudes simultáneas no sobrevenden el cupo. |
+| Financiación | `tasas_financiacion` (+ uso de `cotizaciones_financiacion`) | Cuatro planes con tasa y cuota inicial mínima. El servidor calcula la cuota (sistema francés, redondeo al mil) y **nunca confía en el número que manda el navegador**. |
+| Panel con login | `admin_usuarios`, `admin_sesiones` | Clave PBKDF2-SHA256 (240.000 iteraciones, sal por usuario), sesión de 8 h en cookie `HttpOnly; SameSite=Strict`, límite de 10 intentos por IP cada 15 minutos, roles y registro en `auditoria`. |
+
+**Endpoints nuevos** (todos bajo el mismo CSRF y sin CORS):
+
+- Públicos: `GET /api/financiacion/datos`, `POST /api/financiacion/simular`,
+  `POST /api/financiacion/solicitar`, `GET /api/ficha?sku=`, `GET /api/inventario/disponibilidad`,
+  `GET /api/agenda/disponibilidad?fecha=`, `POST /api/agenda/citas`.
+- Panel: `GET /api/admin/estado|resumen|datos|exportar`, `POST /api/admin/login|logout|accion`.
+
+**Decisiones deliberadas**
+
+- `Taller.html` y `Promociones.html` quedaron intactos: la agenda con cupos y la ficha
+  son páginas nuevas. Si más adelante quieres que el formulario viejo de taller también
+  respete cupos, es un cambio pequeño (llamar al mismo endpoint).
+- La capacidad de la agenda es por hora y no por sede, para no complicar el formulario;
+  `agenda_cupos` puede ampliarse con `sede_id` cuando haga falta.
+- El rango de agenda es de 60 días y las franjas son 08:00–12:00 y 14:00–17:00,
+  configurables en `api_extra.HORAS`.
+- No se guardan tarjetas ni datos de pago: la solicitud de financiación es informativa.
