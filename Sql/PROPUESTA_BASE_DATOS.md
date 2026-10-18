@@ -419,3 +419,29 @@ estilos existente. La lógica vive en `api_extra.py` y la interfaz en archivos n
 - El rango de agenda es de 60 días y las franjas son 08:00–12:00 y 14:00–17:00,
   configurables en `api_extra.HORAS`.
 - No se guardan tarjetas ni datos de pago: la solicitud de financiación es informativa.
+
+### 7.9 Integridad del inventario y mantenimiento (migración 0009)
+
+Solo objetos de la base: ninguna tabla existente se modificó ni se tocó el código de
+la web.
+
+| Antes | Ahora |
+|---|---|
+| Cancelar un pedido `confirmado` o `facturado` **no devolvía el stock**: la reserva estaba `consumida` y el trigger solo miraba `activa` | Se devuelven las reservas `activa` y `consumida`, con su movimiento en el kardex |
+| Reactivar un pedido cancelado dejaba el stock sin reservar | Se vuelven a reservar las unidades `liberada` o `vencida` del mismo pedido, una sola vez |
+| Confirmar un pedido con la reserva vencida vendía sin descontar | Al confirmar se vuelve a descontar; si no hay unidades, la confirmación se rechaza |
+| Nada impedía `existencias < 0` por SQL directo | Trigger `tr_existencias_no_negativas` |
+| `actualizado_en` dependía de que el código lo escribiera | Triggers `tr_cita_actualizada`, `tr_prueba_actualizada`, `tr_ficha_actualizada` |
+| El kardex ordenaba en memoria (`USE TEMP B-TREE`) | Índice `ix_movimientos_inv_id` |
+
+Índices añadidos: `ix_movimientos_inv_id`, `ix_reservas_activas` (parcial),
+`ix_citas_franja` (covering para la agenda) y `ix_promos_vigencia_estado`.
+
+`Sql/mantenimiento.py` (nuevo, solo base de datos): `informe`, `optimizar`, `limpiar`,
+`respaldo --conservar N` y `vacio`. El informe revisa integridad, claves foráneas,
+reservas descuadradas, existencias negativas, el último saldo del kardex y sesiones
+vencidas.
+
+> Regla operativa: **una sola instancia del servidor** por base. Dos procesos
+> escribiendo en el mismo SQLite (aunque sea WAL) generan bloqueos y el sitio puede
+> quedarse cargando.

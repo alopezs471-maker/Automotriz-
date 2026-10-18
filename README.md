@@ -76,6 +76,7 @@ Roles: `admin` (todo), `ventas`, `taller` y `consulta` (solo lectura).
 | `tasas_financiacion` | Planes del simulador, editables |
 | `inventario_ficha` | Ficha técnica de los 32 vehículos |
 | `v_inventario_publico` | Catálogo + ficha + estado de stock |
+| Índices y triggers de la migración 0009 | Inventario cuadrado al cancelar, reactivar o confirmar tarde |
 
 Al aplicar la migración se fijan existencias iniciales (entre 3 y 12) solo donde el
 dato estaba en `NULL`, y esa dotación se registra en el kardex. Los pedidos nuevos ya
@@ -83,6 +84,32 @@ no permiten vender más unidades de las que hay; al cancelar un pedido se devuel
 
 > `Taller.html` y su formulario siguen funcionando igual. La agenda nueva
 > (`agenda-taller.html`) es la que controla cupos por hora.
+
+### Inventario y mantenimiento de la base (migración 0009)
+
+- **Cancelar un pedido ya confirmado o facturado devuelve las unidades.** Antes solo
+  se devolvían las de pedidos pendientes: esas unidades se perdían.
+- **Confirmar un pedido cuya reserva venció vuelve a descontar stock**; si ya no hay
+  unidades, la confirmación se rechaza.
+- **Reactivar un pedido cancelado** vuelve a reservar lo que se había liberado, sin
+  descontar dos veces.
+- Las existencias no pueden quedar negativas por ningún camino, y `actualizado_en` de
+  citas, pruebas y fichas se llena solo.
+- Índices nuevos para el kardex, las franjas de agenda y las reservas activas.
+
+Herramientas (no tocan páginas ni código):
+
+```bash
+cd Sql
+python mantenimiento.py informe        # integridad, claves, descuadres y tamaños
+python mantenimiento.py optimizar      # ANALYZE + PRAGMA optimize + vuelca el WAL
+python mantenimiento.py limpiar        # borra sesiones vencidas y libera reservas vencidas
+python mantenimiento.py respaldo --conservar 10
+python mantenimiento.py vacio          # compacta (mejor con el servidor detenido)
+```
+
+> Corre **una sola instancia** del servidor sobre la base. Dos servidores escribiendo
+> en el mismo archivo provocan bloqueos y el sitio puede quedarse cargando.
 
 ## Gestión por terminal
 
