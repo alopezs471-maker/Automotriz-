@@ -40,9 +40,23 @@ python gestionar.py estado-cita T-2026-XXX confirmada
 python gestionar.py asignar-cita T-2026-XXX 2026-10-22 09:00
 python gestionar.py stock corolla 4          # existencias
 python gestionar.py precio corolla 120000000 # precio de la promoción
-python gestionar.py estado-promocion corolla publicada
+python gestionar.py estado-promocion corolla publicada   # la oferta se cobra solo si está publicada y vigente
+python gestionar.py estado-promocion todas publicada     # todas de una vez (o: todas borrador)
+python gestionar.py listar v_precios         # precio_venta: lo que se muestra y se cobra hoy
 python gestionar.py respaldo                 # copia de seguridad con fecha y hora
 ```
+
+## Precios y promociones
+
+La regla de precio vive en un solo lugar: la vista `v_precios`
+(`Sql/migraciones/0006_precio_venta.sql`). Su columna `precio_venta` es lo que
+muestran las tarjetas y el carrito **y lo que cobra el pedido**:
+
+- Promoción `publicada` y hoy dentro de `fecha_inicio`–`fecha_fin` (vacías = sin límite) → precio de oferta.
+- `borrador`, `finalizada`, fuera de fechas o sin promoción → precio base.
+
+Todas las promociones nacen en `borrador` y solo se ven en la tabla de revisión
+de `Promociones.html` hasta que las publiques con `gestionar.py estado-promocion`.
 
 ## Estructura
 

@@ -58,23 +58,8 @@ def iniciar():
         );
         CREATE TABLE IF NOT EXISTS migraciones (nombre TEXT PRIMARY KEY);
         ''')
-        # P0-3 / P1-2: vista pública del catálogo. LEFT JOIN para que un vehículo sin
-        # promoción no desaparezca, y solo se publiquen las promos vigentes.
-        db.executescript('''
-        CREATE VIEW IF NOT EXISTS v_catalogo_publico AS
-        SELECT i.id AS inventario_id, i.sku, i.nombre, i.categoria, i.propulsion,
-               i.precio_base, i.existencias, i.moneda,
-               COALESCE(p.precio_promocional, i.precio_base) AS precio_promocional,
-               CASE WHEN p.id IS NOT NULL
-                     AND p.estado = 'publicada'
-                     AND (p.fecha_inicio IS NULL OR p.fecha_inicio <= date('now'))
-                     AND (p.fecha_fin   IS NULL OR p.fecha_fin   >= date('now'))
-                    THEN COALESCE(p.precio_promocional, i.precio_base)
-                    ELSE i.precio_base END AS precio_venta,
-               p.titulo, p.beneficio
-        FROM inventario i
-        LEFT JOIN promociones p ON p.inventario_id = i.id;
-        ''')
+        # Las vistas de precios (v_precios y v_catalogo_publico) se crean en
+        # migraciones/0006_precio_venta.sql: ahí vive la ÚNICA regla de precio.
         if not db.execute("SELECT 1 FROM migraciones WHERE nombre='catalogo_inicial'").fetchone():
             for r in json.loads((ROOT/'catalogo_inicial.json').read_text(encoding='utf-8')):
                 cur = db.execute('INSERT INTO inventario(sku,nombre,categoria,propulsion,precio_base) VALUES(?,?,?,?,?)', (r['sku'],r['nombre'],r['categoria'],r['propulsion'],r['precio']))
@@ -102,38 +87,27 @@ def aplicar_migraciones(db):
 
 
 def catalogo():
-    """Catálogo para la tabla interna de Promociones.
+    """Catálogo para la tabla interna de Promociones (incluye borradores, para revisión).
 
     P0-3: antes era INNER JOIN y escondía todo vehículo sin promoción.
-    Se conservan los campos originales y se añaden precio_venta (el precio que
-    realmente se debe cobrar) y promo_vigente.
+    Se conservan los campos originales. precio_venta y promo_vigente salen de la
+    vista v_precios (migración 0006): la oferta solo aplica si la promoción está
+    publicada y vigente, y ese es el precio que se muestra y se cobra.
     """
     with conectar() as db:
         return [dict(r) for r in db.execute('''
-        SELECT i.id AS inventario_id, i.sku, i.nombre, i.categoria, i.propulsion,
-               i.precio_base, i.existencias, i.moneda,
-               COALESCE(p.titulo, '—') AS titulo, p.beneficio,
-               COALESCE(p.precio_promocional, i.precio_base) AS precio_promocional,
-               COALESCE(p.estado, 'sin_promocion') AS estado,
-               p.fecha_inicio, p.fecha_fin,
-               CASE WHEN p.id IS NOT NULL
-                     AND p.estado = 'publicada'
-                     AND (p.fecha_inicio IS NULL OR p.fecha_inicio <= date('now'))
-                     AND (p.fecha_fin   IS NULL OR p.fecha_fin   >= date('now'))
-                    THEN COALESCE(p.precio_promocional, i.precio_base)
-                    ELSE i.precio_base END AS precio_venta,
-               CASE WHEN p.id IS NOT NULL
-                     AND p.estado = 'publicada'
-                     AND (p.fecha_inicio IS NULL OR p.fecha_inicio <= date('now'))
-                     AND (p.fecha_fin   IS NULL OR p.fecha_fin   >= date('now'))
-                    THEN 1 ELSE 0 END AS promo_vigente
-        FROM inventario i
-        LEFT JOIN promociones p ON p.inventario_id = i.id
-        ORDER BY i.id''')]
+        SELECT inventario_id, sku, nombre, categoria, propulsion,
+               precio_base, existencias, moneda,
+               COALESCE(titulo, '—') AS titulo, beneficio,
+               COALESCE(precio_promocional, precio_base) AS precio_promocional,
+               estado, fecha_inicio, fecha_fin,
+               precio_venta, promo_vigente
+        FROM v_precios
+        ORDER BY inventario_id''')]
 
 
 def vitrina():
-    """Catálogo público: solo precios de promociones realmente publicadas y vigentes."""
+    """Catálogo público: precio_venta y datos de la promoción solo si está publicada y vigente."""
     with conectar() as db:
         return [dict(r) for r in db.execute('SELECT * FROM v_catalogo_publico ORDER BY inventario_id')]
 

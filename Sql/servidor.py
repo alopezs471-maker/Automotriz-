@@ -4,6 +4,8 @@ Correcciones aplicadas sobre la versión original:
   P0-1  PUBLIC apuntaba a Sql/public (no existe) -> ahora sirve la raíz del repo.
   P0-2  La base se unificó en Sql/datos/ y se rescata la histórica (ver base_datos.py).
   P0-3  El catálogo ya no esconde los vehículos sin promoción (LEFT JOIN).
+  P1-2  Los pedidos cobran precio_venta (vista v_precios): la oferta solo se
+        aplica si la promoción está publicada y vigente.
   P1-8  Límite de envíos por IP y bloqueo de archivos privados (.sqlite3, .py, .git).
   P2-1  Endpoints nuevos: citas de taller, pruebas de manejo, contacto, seguros y pedidos.
 """
@@ -232,10 +234,10 @@ class Handler(SimpleHTTPRequestHandler):
                 raise ValueError('Cantidad inválida.')
             if not 1 <= cantidad <= 99:
                 raise ValueError('La cantidad debe estar entre 1 y 99.')
-            vehiculo = db.execute('''SELECT i.id, i.nombre,
-                   COALESCE(p.precio_promocional, i.precio_base) AS precio
-                   FROM inventario i LEFT JOIN promociones p ON p.inventario_id=i.id
-                   WHERE i.sku=?''', (sku,)).fetchone()
+            # Se cobra precio_venta (vista v_precios): la oferta solo si la promoción
+            # está publicada y vigente. Nunca se usa el precio que manda el navegador.
+            vehiculo = db.execute('''SELECT inventario_id AS id, nombre, precio_venta AS precio
+                   FROM v_precios WHERE sku=?''', (sku,)).fetchone()
             if not vehiculo:
                 raise ValueError('Vehículo no disponible: ' + sku + '.')
             detalle.append((vehiculo['id'], sku, vehiculo['nombre'], cantidad, vehiculo['precio']))

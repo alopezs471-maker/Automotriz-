@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const placeholderImg = "data:image/svg+xml;utf8,<svg xmlns='http://w3.org' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%23ccc' stroke-width='1.5'><rect x='2' y='3' width='20' height='14' rx='2'/><path d='M8 21h8'/><path d='M12 17v4'/></svg>";
     let cart = JSON.parse(localStorage.getItem('premium_cart')) || [];
 
+    // localStorage es la única fuente del carrito: script1.js y conexion-datos.js
+    // también lo modifican (al alinear precios con la base de datos o al confirmar
+    // un pedido), así que se relee antes de cada operación.
+    function leerCarrito() {
+        try { return JSON.parse(localStorage.getItem('premium_cart')) || []; } catch (_) { return []; }
+    }
+
     // Referencias de los elementos de la interfaz (DOM)
     const cartSidebar = document.getElementById('cart-sidebar');
     const cartOverlay = document.getElementById('cart-overlay');
@@ -58,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const price = parseFloat(card.getAttribute('data-price'));
                 let img = card.getAttribute('data-img') || placeholderImg;
 
+                cart = leerCarrito();
                 const existingItem = cart.find(item => item.id === id);
                 if (existingItem) {
                     existingItem.quantity += 1;
@@ -77,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // =================================================================
     function renderCart() {
         if (!cartItemsContainer) return;
+        cart = leerCarrito();
         cartItemsContainer.innerHTML = '';
         let total = 0;
         let totalItems = 0;
@@ -131,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.stopPropagation();
             const id = e.target.getAttribute('data-id');
             if (!id) return;
+            cart = leerCarrito();
             const index = cart.findIndex(item => item.id === id);
             if (index === -1) return;
 
@@ -151,6 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (clearCartBtn) {
         clearCartBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            cart = leerCarrito();
             if (cart.length > 0 && confirm('¿Deseas vaciar tu lista de compras?')) {
                 cart = [];
                 localStorage.setItem('premium_cart', JSON.stringify(cart));
@@ -161,6 +172,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Dibujo inicial al levantar la ventana
     renderCart();
+
+    // Se redibuja si el carrito cambia desde otra pestaña o desde otro script.
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'premium_cart' || e.key === null) renderCart();
+    });
 });
 
 

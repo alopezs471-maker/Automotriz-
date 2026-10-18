@@ -370,4 +370,17 @@ validación del lado del servidor y `envio_id` para no duplicar reintentos.
   queda lista para cuando lo crees.
 - Nivel 3 de la sección 3 (`ALTER` sobre las tablas originales): sigue esperando tu visto bueno.
 - Las promociones siguen en `borrador`; cuando quieras verlas en la vitrina:
-  `python gestionar.py estado-promocion corolla publicada`.
+  `python gestionar.py estado-promocion corolla publicada` (o `todas publicada`).
+
+### 7.7 Precio de venta unificado (migración 0006)
+
+| Antes | Ahora |
+|---|---|
+| El pedido cobraba `precio_promocional` siempre, aunque la promo estuviera en `borrador` o `finalizada` | Se cobra `precio_venta` de la vista `v_precios`: la oferta solo si está `publicada` y vigente |
+| Las tarjetas mostraban la oferta de los borradores | Tarjetas y carrito usan `precio_venta`; sello, precio tachado y beneficio solo con promo vigente |
+| La regla estaba repetida en `catalogo()` y `v_catalogo_publico` (y faltaba en el pedido) | Una sola definición en `v_precios`; `v_catalogo_publico` ya no expone datos de borradores |
+| Vigencia comparada con la fecha UTC (`date('now')`) | Fecha local del servidor (`date('now','localtime')`), igual que `hoy()` en `servidor.py` |
+| "Confirmar pedido" no estaba conectado: recargaba la página con los datos personales en la URL y **no guardaba nada** | El formulario se conecta al crearse y guarda en `pedidos` + `pedidos_items` |
+| El carrito guardado en `localStorage` conservaba precios viejos | Se alinea con `precio_venta` al cargar la página |
+
+Solo se recrearon **vistas** (no guardan datos): ninguna tabla se modificó.
