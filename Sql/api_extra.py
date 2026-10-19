@@ -224,7 +224,7 @@ def sesion_actual(h):
     return dict(fila)
 
 
-def exigir_sesion(h, escritura=False):
+def exigir_sesion(h, escritura=False, permiso=None):
     datos = sesion_actual(h)
     if not datos:
         responder(h, 401, {'error': 'Inicia sesión para usar el panel.', 'sesion': False})
@@ -232,6 +232,20 @@ def exigir_sesion(h, escritura=False):
     if escritura and datos['rol'] == 'consulta':
         responder(h, 403, {'error': 'Tu usuario es de solo consulta: no puede modificar datos.'})
         return None
+    if permiso:
+        with conectar() as db:
+            autorizado = db.execute(
+                '''SELECT 1
+                     FROM admin_usuarios u
+                     JOIN roles r ON r.codigo=u.rol
+                     JOIN rol_permisos rp ON rp.rol_id=r.id
+                     JOIN permisos p ON p.id=rp.permiso_id
+                    WHERE u.id=? AND p.codigo=? AND r.activo=1''',
+                (datos['usuario_id'], permiso)
+            ).fetchone()
+        if not autorizado:
+            responder(h, 403, {'error': 'Tu rol no tiene permiso para esta operación.'})
+            return None
     return datos
 
 
@@ -544,6 +558,52 @@ def datos_panel(db, seccion):
         return {'filas': [dict(r) for r in db.execute(
             '''SELECT id, usuario, nombre, rol, activo, creado_en, ultimo_acceso
                  FROM admin_usuarios ORDER BY usuario''')], 'roles': list(ROLES)}
+    if seccion == 'facturas':
+        return {'filas': [dict(r) for r in db.execute(
+            '''SELECT f.*, p.radicado, COALESCE(SUM(CASE WHEN pg.estado='confirmado' THEN pg.valor ELSE 0 END),0) AS pagado
+                 FROM facturas f JOIN pedidos p ON p.id=f.pedido_id
+                 LEFT JOIN pagos pg ON pg.factura_id=f.id
+                GROUP BY f.id ORDER BY f.id DESC LIMIT 300''')]}
+    if seccion == 'pagos':
+        return {'filas': [dict(r) for r in db.execute(
+            '''SELECT pg.*, f.numero AS factura, f.nombre_cliente
+                 FROM pagos pg JOIN facturas f ON f.id=pg.factura_id
+                ORDER BY pg.id DESC LIMIT 500''')]}
+    if seccion == 'taller':
+        return {
+            'filas': [dict(r) for r in db.execute(
+                '''SELECT o.*, u.nombre AS cliente, i.sku, i.nombre AS vehiculo
+                     FROM ordenes_taller o
+                     LEFT JOIN usuarios u ON u.id=o.usuario_id
+                     LEFT JOIN inventario i ON i.id=o.inventario_id
+                    ORDER BY o.id DESC LIMIT 300''')],
+            'items': [dict(r) for r in db.execute(
+                '''SELECT oi.*, o.numero AS orden
+                     FROM ordenes_taller_items oi JOIN ordenes_taller o ON o.id=oi.orden_id
+                    ORDER BY oi.id DESC LIMIT 500''')],
+            'servicios': [dict(r) for r in db.execute(
+                'SELECT * FROM servicios_taller ORDER BY nombre')],
+        }
+    if seccion == 'clientes':
+        return {'filas': [dict(r) for r in db.execute(
+            'SELECT * FROM v_reporte_clientes ORDER BY nombre LIMIT 500')],
+            'seguimientos': [dict(r) for r in db.execute(
+                '''SELECT s.*, u.nombre AS cliente
+                     FROM seguimientos_clientes s JOIN usuarios u ON u.id=s.usuario_id
+                    ORDER BY s.id DESC LIMIT 500''')]}
+    if seccion == 'reportes':
+        return {
+            'ventas_mensuales': [dict(r) for r in db.execute(
+                'SELECT * FROM v_reporte_ventas_mensual ORDER BY mes DESC LIMIT 60')],
+            'vehiculos_vendidos': [dict(r) for r in db.execute(
+                'SELECT * FROM v_reporte_vehiculos_ventas ORDER BY unidades_vendidas DESC LIMIT 100')],
+            'pagos': [dict(r) for r in db.execute(
+                'SELECT * FROM v_reporte_pagos ORDER BY mes DESC, metodo')],
+            'taller_mensual': [dict(r) for r in db.execute(
+                'SELECT * FROM v_reporte_taller_mensual ORDER BY mes DESC LIMIT 60')],
+            'cotizaciones': [dict(r) for r in db.execute(
+                'SELECT * FROM v_reporte_cotizaciones ORDER BY creado_en DESC LIMIT 300')],
+        }
     raise ErrorValidacion('Sección desconocida.')
 
 
@@ -564,6 +624,12 @@ def resumen(db):
         'promos_vigentes': uno('SELECT COUNT(*) FROM v_precios WHERE promo_vigente=1'),
         'promos_borrador': uno("SELECT COUNT(*) FROM promociones WHERE estado='borrador'"),
         'admin_usuarios': uno('SELECT COUNT(*) FROM admin_usuarios'),
+        'facturas_emitidas': uno("SELECT COUNT(*) FROM facturas WHERE estado IN ('emitida','pagada')"),
+        'facturas_pendientes_pago': uno("SELECT COUNT(*) FROM facturas WHERE estado='emitida'"),
+        'pagos_confirmados_mes': uno("SELECT COALESCE(SUM(valor),0) FROM pagos WHERE estado='confirmado' AND substr(COALESCE(pagado_en,creado_en),1,7)=substr(date('now','localtime'),1,7)"),
+        'ordenes_taller_abiertas': uno("SELECT COUNT(*) FROM ordenes_taller WHERE estado NOT IN ('entregada','cancelada')"),
+        'ordenes_taller_finalizadas_mes': uno("SELECT COUNT(*) FROM ordenes_taller WHERE estado IN ('lista','entregada') AND substr(COALESCE(fecha_cierre,fecha_ingreso),1,7)=substr(date('now','localtime'),1,7)"),
+        'seguimientos_pendientes': uno("SELECT COUNT(*) FROM seguimientos_clientes WHERE estado='pendiente'"),
         'actualizado': ahora(),
     }
 
@@ -771,6 +837,46 @@ def accion_panel(db, cuerpo, admin):
     return {'ok': True}
 
 
+def permiso_seccion(seccion):
+    permisos = {
+        'promociones': 'inventario.ver',
+        'precios': 'reportes.ver',
+        'inventario': 'inventario.ver',
+        'agenda': 'taller.ver',
+        'financiacion': 'cotizaciones.ver',
+        'pedidos': 'ventas.ver',
+        'usuarios': 'seguridad.gestionar',
+        'facturas': 'ventas.ver',
+        'pagos': 'ventas.ver',
+        'taller': 'taller.ver',
+        'clientes': 'clientes.ver',
+        'reportes': 'reportes.ver',
+    }
+    return permisos.get(seccion)
+
+
+def permiso_accion(cuerpo):
+    accion = cuerpo.get('accion')
+    permisos = {
+        'promocion_estado': 'inventario.gestionar',
+        'promocion_precio': 'inventario.gestionar',
+        'precio_base': 'inventario.gestionar',
+        'stock_fijar': 'inventario.gestionar',
+        'ficha_editar': 'inventario.gestionar',
+        'pedido_estado': 'ventas.gestionar',
+        'reserva_liberar': 'inventario.gestionar',
+        'reservas_vencidas': 'inventario.gestionar',
+        'cita_estado': 'taller.gestionar',
+        'cupo_fijar': 'taller.gestionar',
+        'financiacion_estado': 'cotizaciones.gestionar',
+        'tasa_actualizar': 'seguridad.gestionar',
+        'usuario_crear': 'seguridad.gestionar',
+        'usuario_activo': 'seguridad.gestionar',
+        'usuario_clave': 'seguridad.clave',
+    }
+    return permisos.get(accion)
+
+
 #  rutas
 def manejar_get(h, ruta):
     """Devuelve True si la ruta era de este módulo y ya respondió."""
@@ -830,7 +936,7 @@ def manejar_get(h, ruta):
             return True
 
         if ruta == '/api/admin/resumen':
-            admin = exigir_sesion(h)
+            admin = exigir_sesion(h, permiso='dashboard.ver')
             if not admin:
                 return True
             with conectar() as db:
@@ -838,19 +944,25 @@ def manejar_get(h, ruta):
             return True
 
         if ruta == '/api/admin/datos':
-            admin = exigir_sesion(h)
+            seccion = (consulta.get('seccion') or ['promociones'])[0]
+            permiso = permiso_seccion(seccion)
+            if not permiso:
+                raise ErrorValidacion('Sección desconocida.')
+            admin = exigir_sesion(h, permiso=permiso)
             if not admin:
                 return True
-            seccion = (consulta.get('seccion') or ['promociones'])[0]
             with conectar() as db:
                 responder(h, 200, datos_panel(db, seccion))
             return True
 
         if ruta == '/api/admin/exportar':
-            admin = exigir_sesion(h)
+            seccion = (consulta.get('seccion') or ['promociones'])[0]
+            permiso = permiso_seccion(seccion)
+            if not permiso:
+                raise ErrorValidacion('Sección desconocida.')
+            admin = exigir_sesion(h, permiso=permiso)
             if not admin:
                 return True
-            seccion = (consulta.get('seccion') or ['promociones'])[0]
             with conectar() as db:
                 datos = datos_panel(db, seccion)
             filas = datos.get('filas', [])
@@ -947,7 +1059,10 @@ def manejar_post(h, ruta):
             return True
 
         if ruta == '/api/admin/accion':
-            admin = exigir_sesion(h, escritura=True)
+            permiso = permiso_accion(cuerpo)
+            if not permiso:
+                raise ErrorValidacion('Acción no disponible.')
+            admin = exigir_sesion(h, escritura=True, permiso=permiso)
             if not admin:
                 return True
             with conectar() as db:
