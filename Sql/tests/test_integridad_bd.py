@@ -102,5 +102,83 @@ class IntegridadBaseDatosTests(unittest.TestCase):
         self.assertTrue(esperadas.issubset(aplicadas), esperadas - aplicadas)
 
 
+    def test_pedido_reserva_stock_y_cancelacion_devuelve_existencias(self):
+        with self.conectar_prueba() as db:
+            vehiculo = db.execute("SELECT id, sku, nombre FROM inventario LIMIT 1").fetchone()
+            db.execute("UPDATE inventario SET existencias=2 WHERE id=?", (vehiculo[0],))
+            db.execute(
+                """INSERT INTO pedidos
+                   (radicado, envio_id, nombre, documento, email, telefono,
+                    subtotal, descuento, total)
+                   VALUES ('PED-TEST-1', 'ENVIO-TEST-1', 'Prueba', 'DOC-TEST',
+                           'prueba@example.com', '3000000000', 100, 0, 100)"""
+            )
+            pedido_id = db.execute(
+                "SELECT id FROM pedidos WHERE radicado='PED-TEST-1'"
+            ).fetchone()[0]
+            db.execute(
+                """INSERT INTO pedidos_items
+                   (pedido_id, inventario_id, sku, nombre, cantidad, precio_unitario)
+                   VALUES (?, ?, ?, ?, 1, 100)""",
+                (pedido_id, vehiculo[0], vehiculo[1], vehiculo[2]),
+            )
+            self.assertEqual(
+                db.execute("SELECT existencias FROM inventario WHERE id=?", (vehiculo[0],)).fetchone()[0],
+                1,
+            )
+            self.assertEqual(
+                db.execute("SELECT COUNT(*) FROM inventario_reservas WHERE pedido_id=? AND estado='activa'",
+                           (pedido_id,)).fetchone()[0],
+                1,
+            )
+            db.execute("UPDATE pedidos SET estado='cancelado' WHERE id=?", (pedido_id,))
+            self.assertEqual(
+                db.execute("SELECT existencias FROM inventario WHERE id=?", (vehiculo[0],)).fetchone()[0],
+                2,
+            )
+            self.assertEqual(
+                db.execute("SELECT COUNT(*) FROM inventario_reservas WHERE pedido_id=? AND estado='liberada'",
+                           (pedido_id,)).fetchone()[0],
+                1,
+            )
+
+    def test_pedido_no_puede_exceder_stock(self):
+        with self.conectar_prueba() as db:
+            vehiculo = db.execute("SELECT id, sku, nombre FROM inventario LIMIT 1").fetchone()
+            db.execute("UPDATE inventario SET existencias=0 WHERE id=?", (vehiculo[0],))
+            db.execute(
+                """INSERT INTO pedidos
+                   (radicado, envio_id, nombre, documento, email, telefono,
+                    subtotal, descuento, total)
+                   VALUES ('PED-TEST-2', 'ENVIO-TEST-2', 'Prueba', 'DOC-TEST',
+                           'prueba@example.com', '3000000000', 100, 0, 100)"""
+            )
+            pedido_id = db.execute(
+                "SELECT id FROM pedidos WHERE radicado='PED-TEST-2'"
+            ).fetchone()[0]
+            with self.assertRaisesRegex(sqlite3.IntegrityError, "Sin existencias suficientes"):
+                db.execute(
+                    """INSERT INTO pedidos_items
+                       (pedido_id, inventario_id, sku, nombre, cantidad, precio_unitario)
+                       VALUES (?, ?, ?, ?, 1, 100)""",
+                    (pedido_id, vehiculo[0], vehiculo[1], vehiculo[2]),
+                )
+
+    def test_promocion_borrador_no_cambia_precio_publico(self):
+        with self.conectar_prueba() as db:
+            vehiculo = db.execute("SELECT id, precio_base FROM inventario LIMIT 1").fetchone()
+            db.execute(
+                "UPDATE promociones SET precio_promocional=1, estado='borrador' WHERE inventario_id=?",
+                (vehiculo[0],),
+            )
+            precio = db.execute(
+                "SELECT precio_venta, promo_vigente FROM v_precios WHERE inventario_id=?",
+                (vehiculo[0],),
+            ).fetchone()
+            self.assertEqual(precio[0], vehiculo[1])
+            self.assertEqual(precio[1], 0)
+
+
+
 if __name__ == "__main__":
     unittest.main()
