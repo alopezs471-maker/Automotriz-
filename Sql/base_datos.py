@@ -19,7 +19,7 @@ def conectar():
 
 def iniciar():
     DB.parent.mkdir(exist_ok=True)
-    # P0-2: si aún no existe la base de trabajo pero sí la histórica, se rescata
+    # P02: si aún no existe la base de trabajo pero sí la histórica, se rescata
     # (copia, nunca mueve: el archivo original se queda donde está).
     if not DB.exists() and LEGADO.exists():
         shutil.copy2(LEGADO, DB)
