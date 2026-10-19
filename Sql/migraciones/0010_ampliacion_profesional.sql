@@ -128,12 +128,27 @@ BEGIN
   SELECT RAISE(ABORT,'El pago supera el saldo de la factura.');
 END;
 
+CREATE TRIGGER IF NOT EXISTS tr_factura_pagada_alta_con_saldo
+BEFORE INSERT ON facturas
+WHEN NEW.estado='pagada' AND NEW.total>0
+BEGIN
+  SELECT RAISE(ABORT,'La factura no puede crearse pagada sin pagos confirmados.');
+END;
+
 CREATE TRIGGER IF NOT EXISTS tr_factura_pagada_con_saldo_cero
 BEFORE UPDATE OF estado ON facturas
 WHEN NEW.estado='pagada'
  AND COALESCE((SELECT SUM(valor) FROM pagos WHERE factura_id=NEW.id AND estado='confirmado'),0)<NEW.total
 BEGIN
   SELECT RAISE(ABORT,'La factura no puede marcarse pagada mientras tenga saldo.');
+END;
+
+CREATE TRIGGER IF NOT EXISTS tr_pago_reembolsado_actualiza_factura
+AFTER UPDATE OF estado ON pagos
+WHEN OLD.estado='confirmado' AND NEW.estado<>'confirmado'
+BEGIN
+  UPDATE facturas SET estado='emitida'
+   WHERE id=NEW.factura_id AND estado='pagada';
 END;
 
 CREATE TABLE IF NOT EXISTS servicios_taller (
