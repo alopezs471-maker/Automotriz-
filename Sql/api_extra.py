@@ -229,7 +229,7 @@ def exigir_sesion(h, escritura=False, permiso=None):
     if not datos:
         responder(h, 401, {'error': 'Inicia sesión para usar el panel.', 'sesion': False})
         return None
-    if escritura and datos['rol'] == 'consulta':
+    if escritura and datos['rol'] == 'consulta' and permiso != 'seguridad.clave':
         responder(h, 403, {'error': 'Tu usuario es de solo consulta: no puede modificar datos.'})
         return None
     if permiso:
