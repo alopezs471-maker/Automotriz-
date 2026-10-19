@@ -110,6 +110,21 @@ BEGIN
   SELECT RAISE(ABORT,'No se puede facturar un pedido cancelado o inexistente.');
 END;
 
+CREATE TRIGGER IF NOT EXISTS tr_pago_factura_vigente
+BEFORE INSERT ON pagos
+WHEN EXISTS (SELECT 1 FROM facturas f WHERE f.id=NEW.factura_id AND f.estado IN ('borrador','anulada'))
+BEGIN
+  SELECT RAISE(ABORT,'No se puede registrar un pago en una factura anulada o en borrador.');
+END;
+
+CREATE TRIGGER IF NOT EXISTS tr_factura_no_anular_con_pagos
+BEFORE UPDATE OF estado ON facturas
+WHEN NEW.estado='anulada'
+ AND EXISTS (SELECT 1 FROM pagos p WHERE p.factura_id=NEW.id AND p.estado='confirmado')
+BEGIN
+  SELECT RAISE(ABORT,'No se puede anular una factura con pagos confirmados.');
+END;
+
 CREATE TRIGGER IF NOT EXISTS tr_pago_no_excede_factura
 BEFORE INSERT ON pagos
 WHEN NEW.estado='confirmado'
