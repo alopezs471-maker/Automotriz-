@@ -39,3 +39,11 @@ Antes de usar datos reales, ejecuta un respaldo con `python Sql/mantenimiento.py
 ## Nota sobre los datos
 
 La migración no asigna existencias inventadas ni modifica el stock actual. Los valores monetarios se almacenan como enteros en pesos colombianos. Las tablas de facturas y pagos son registros internos y no sustituyen una integración de facturación electrónica.
+
+## Integración del panel
+
+El endpoint protegido `GET /api/admin/datos?seccion=reportes` devuelve las vistas de estadísticas. También se agregan las secciones `facturas`, `pagos`, `taller` y `clientes`. La exportación usa el mismo permiso que la consulta.
+
+El endpoint protegido `POST /api/admin/accion` admite las acciones `factura_crear`, `pago_registrar`, `factura_anular`, `orden_taller_crear`, `orden_taller_estado`, `orden_item_agregar` y `seguimiento_crear`. Las acciones comprueban el rol antes de ejecutar la operación y registran la actividad en auditoría.
+
+Los permisos de lectura y escritura se comprueban en el servidor. La interfaz debe mostrar las opciones apropiadas para el rol, pero ocultar un botón no sustituye la comprobación de permisos de la API.
