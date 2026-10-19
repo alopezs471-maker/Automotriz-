@@ -10,6 +10,7 @@ if str(SQL_DIR) not in sys.path:
     sys.path.insert(0, str(SQL_DIR))
 
 import base_datos
+import api_extra
 
 
 class AmpliacionProfesionalTests(unittest.TestCase):
@@ -83,6 +84,14 @@ class AmpliacionProfesionalTests(unittest.TestCase):
             self.assertEqual(tuple(valores), (250000,90000))
             db.execute("UPDATE ordenes_taller SET estado='entregada',fecha_cierre=CURRENT_TIMESTAMP WHERE id=?", (orden,))
             self.assertEqual(db.execute("SELECT COUNT(*) FROM v_reporte_taller_mensual").fetchone()[0], 1)
+
+    def test_api_declara_permisos_para_nuevas_secciones_y_acciones(self):
+        self.assertEqual(api_extra.permiso_seccion('reportes'), 'reportes.ver')
+        self.assertEqual(api_extra.permiso_seccion('facturas'), 'ventas.ver')
+        self.assertEqual(api_extra.permiso_seccion('taller'), 'taller.ver')
+        self.assertEqual(api_extra.permiso_accion({'accion': 'factura_crear'}), 'ventas.gestionar')
+        self.assertEqual(api_extra.permiso_accion({'accion': 'orden_taller_crear'}), 'taller.gestionar')
+        self.assertEqual(api_extra.permiso_accion({'accion': 'seguimiento_crear'}), 'clientes.gestionar')
 
     def test_permisos_separan_roles(self):
         with self.conectar_prueba() as db:
