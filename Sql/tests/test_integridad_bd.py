@@ -180,5 +180,29 @@ class IntegridadBaseDatosTests(unittest.TestCase):
 
 
 
+    def test_indices_operativos_existen(self):
+        esperados = {
+            "idx_citas_usuario_estado",
+            "idx_pruebas_usuario_estado",
+            "idx_contactos_usuario_creado",
+            "idx_fin_usuario_creado",
+            "idx_seguro_usuario_creado",
+            "idx_pedidos_usuario_creado",
+            "idx_pedidos_items_inventario",
+            "idx_reservas_inventario_estado",
+            "idx_promos_historico_auto_fecha",
+            "idx_auditoria_tabla_registro_fecha",
+        }
+        with self.conectar_prueba() as db:
+            reales = {
+                fila[0]
+                for fila in db.execute(
+                    "SELECT name FROM sqlite_master WHERE type='index'"
+                )
+            }
+        self.assertTrue(esperados.issubset(reales), esperados - reales)
+
+
+
 if __name__ == "__main__":
     unittest.main()
