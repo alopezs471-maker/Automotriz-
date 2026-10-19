@@ -642,7 +642,188 @@ def accion_panel(db, cuerpo, admin):
     if not isinstance(datos, dict):
         raise ErrorValidacion('Datos inválidos.')
 
-    if nombre_accion == 'promocion_estado':
+    if nombre_accion == 'factura_crear':
+        pedido_id = entero(datos, 'pedido_id', 1, 10 ** 9)
+        pedido = db.execute('SELECT * FROM pedidos WHERE id=?', (pedido_id,)).fetchone()
+        if not pedido or pedido['estado'] == 'cancelado':
+            raise ErrorValidacion('El pedido no existe o está cancelado.')
+        if db.execute('SELECT 1 FROM facturas WHERE pedido_id=?', (pedido_id,)).fetchone():
+            raise ErrorValidacion('Ese pedido ya tiene una factura.')
+        numero = texto(datos, 'numero', 40, obligatorio=False)
+        if not numero:
+            numero = 'FAC-%s-%s' % (time.strftime('%Y'), uuid.uuid4().hex[:10].upper())
+        impuestos = entero(datos, 'impuestos', 0, 10 ** 12, obligatorio=False) or 0
+        subtotal = pedido['subtotal']
+        descuento = pedido['descuento']
+        total = subtotal - descuento + impuestos
+        if total < 0:
+            raise ErrorValidacion('El total de la factura no puede ser negativo.')
+        fila = db.execute(
+            '''INSERT INTO facturas
+               (pedido_id,usuario_id,numero,nombre_cliente,documento_cliente,email_cliente,
+                subtotal,descuento,impuestos,total,moneda,notas)
+               VALUES(?,?,?,?,?,?,?,?,?,?,?,?)''',
+            (pedido_id,pedido['usuario_id'],numero,pedido['nombre'],pedido['documento'],
+             pedido['email'],subtotal,descuento,impuestos,total,pedido['moneda'],
+             texto(datos, 'notas', 1000, obligatorio=False) or None))
+        db.execute("UPDATE pedidos SET estado='facturado' WHERE id=?", (pedido_id,))
+        auditar(db, 'facturas', fila.lastrowid, 'factura %s creada para pedido %s' % (numero, pedido['radicado']), usuario)
+
+    elif nombre_accion == 'pago_registrar':
+        factura_id = entero(datos, 'factura_id', 1, 10 ** 9)
+        factura = db.execute('SELECT id,numero,total,estado FROM facturas WHERE id=?', (factura_id,)).fetchone()
+        if not factura or factura['estado'] == 'anulada':
+            raise ErrorValidacion('La factura no existe o está anulada.')
+        metodo = texto(datos, 'metodo', 20)
+        if metodo not in ('efectivo','transferencia','tarjeta','financiacion','otro'):
+            raise ErrorValidacion('Método de pago inválido.')
+        estado_pago = texto(datos, 'estado', 20, obligatorio=False) or 'confirmado'
+        if estado_pago not in ('pendiente','confirmado'):
+            raise ErrorValidacion('El pago debe quedar pendiente o confirmado.')
+        valor = entero(datos, 'valor', 1, 10 ** 12)
+        referencia = texto(datos, 'referencia', 100, obligatorio=False) or None
+        notas = texto(datos, 'notas', 1000, obligatorio=False) or None
+        pagado_en = ahora() if estado_pago == 'confirmado' else None
+        fila = db.execute(
+            '''INSERT INTO pagos(factura_id,referencia,metodo,valor,estado,pagado_en,notas)
+               VALUES(?,?,?,?,?,?,?)''',
+            (factura_id,referencia,metodo,valor,estado_pago,pagado_en,notas))
+        abonado = db.execute("SELECT COALESCE(SUM(valor),0) FROM pagos WHERE factura_id=? AND estado='confirmado'",
+                             (factura_id,)).fetchone()[0]
+        if abonado >= factura['total'] and factura['estado'] != 'pagada':
+            db.execute("UPDATE facturas SET estado='pagada' WHERE id=?", (factura_id,))
+        auditar(db, 'pagos', fila.lastrowid, 'pago %s de %s registrado' % (valor, factura['numero']), usuario)
+
+    elif nombre_accion == 'factura_anular':
+        factura_id = entero(datos, 'factura_id', 1, 10 ** 9)
+        factura = db.execute('SELECT id,numero,estado FROM facturas WHERE id=?', (factura_id,)).fetchone()
+        if not factura:
+            raise ErrorValidacion('Factura no encontrada.')
+        if factura['estado'] == 'pagada':
+            raise ErrorValidacion('Una factura pagada requiere un proceso de reversión autorizado.')
+        db.execute("UPDATE facturas SET estado='anulada' WHERE id=?", (factura_id,))
+        auditar(db, 'facturas', factura_id, 'factura %s anulada' % factura['numero'], usuario)
+
+    elif nombre_accion == 'orden_taller_crear':
+        cita_id = entero(datos, 'cita_id', 1, 10 ** 9, obligatorio=False)
+        cita = None
+        if cita_id:
+            cita = db.execute('SELECT * FROM citas_taller WHERE id=?', (cita_id,)).fetchone()
+            if not cita or cita['estado'] in ('cancelada','no_show'):
+                raise ErrorValidacion('La cita no existe o no puede convertirse en orden.')
+            if db.execute('SELECT 1 FROM ordenes_taller WHERE cita_id=?', (cita_id,)).fetchone():
+                raise ErrorValidacion('La cita ya tiene una orden de taller.')
+        usuario_id = entero(datos, 'usuario_id', 1, 10 ** 9, obligatorio=False)
+        inventario_id = entero(datos, 'inventario_id', 1, 10 ** 9, obligatorio=False)
+        sku = texto(datos, 'sku', 40, obligatorio=False).lower()
+        if sku:
+            vehiculo = db.execute('SELECT id FROM inventario WHERE sku=?', (sku,)).fetchone()
+            if not vehiculo:
+                raise ErrorValidacion('Vehículo no encontrado.')
+            inventario_id = vehiculo['id']
+        if cita:
+            usuario_id = usuario_id or cita['usuario_id']
+            inventario_id = inventario_id or cita['inventario_id']
+        if usuario_id and not db.execute('SELECT 1 FROM usuarios WHERE id=?', (usuario_id,)).fetchone():
+            raise ErrorValidacion('Cliente no encontrado.')
+        if inventario_id and not db.execute('SELECT 1 FROM inventario WHERE id=?', (inventario_id,)).fetchone():
+            raise ErrorValidacion('Vehículo no encontrado.')
+        numero = texto(datos, 'numero', 40, obligatorio=False)
+        if not numero:
+            numero = 'OT-%s-%s' % (time.strftime('%Y'), uuid.uuid4().hex[:10].upper())
+        placa = texto(datos, 'placa', 15, obligatorio=False) or (cita['placa'] if cita else None)
+        kilometraje = entero(datos, 'kilometraje', 0, 10 ** 7, obligatorio=False)
+        if kilometraje is None and cita:
+            kilometraje = cita['kilometraje']
+        fecha_prometida = texto(datos, 'fecha_prometida', 10, obligatorio=False) or None
+        if fecha_prometida:
+            try:
+                datetime.strptime(fecha_prometida, '%Y-%m-%d')
+            except ValueError:
+                raise ErrorValidacion('La fecha prometida debe tener formato AAAA-MM-DD.')
+        diagnostico = texto(datos, 'diagnostico', 3000, obligatorio=False) or None
+        fila = db.execute(
+            '''INSERT INTO ordenes_taller
+               (numero,cita_id,usuario_id,inventario_id,placa,kilometraje,diagnostico,tecnico,fecha_prometida)
+               VALUES(?,?,?,?,?,?,?,?,?)''',
+            (numero,cita_id,usuario_id,inventario_id,placa,kilometraje,diagnostico,
+             texto(datos, 'tecnico', 150, obligatorio=False) or None,fecha_prometida))
+        auditar(db, 'ordenes_taller', fila.lastrowid, 'orden %s creada' % numero, usuario)
+
+    elif nombre_accion == 'orden_taller_estado':
+        orden_id = entero(datos, 'orden_id', 1, 10 ** 9)
+        estado = texto(datos, 'estado', 30)
+        estados = ('recibida','diagnostico','espera_aprobacion','aprobada','en_reparacion','lista','entregada','cancelada')
+        if estado not in estados:
+            raise ErrorValidacion('Estado de orden de taller inválido.')
+        orden = db.execute('SELECT id,numero FROM ordenes_taller WHERE id=?', (orden_id,)).fetchone()
+        if not orden:
+            raise ErrorValidacion('Orden de taller no encontrada.')
+        diagnostico = texto(datos, 'diagnostico', 3000, obligatorio=False)
+        trabajo = texto(datos, 'trabajo_realizado', 3000, obligatorio=False)
+        tecnico = texto(datos, 'tecnico', 150, obligatorio=False)
+        cierre = ahora() if estado in ('lista','entregada') else None
+        db.execute(
+            '''UPDATE ordenes_taller
+                  SET estado=?,diagnostico=COALESCE(?,diagnostico),
+                      trabajo_realizado=COALESCE(?,trabajo_realizado),
+                      tecnico=COALESCE(?,tecnico),
+                      fecha_cierre=CASE WHEN ? IS NOT NULL THEN COALESCE(fecha_cierre,?) ELSE fecha_cierre END
+                WHERE id=?''',
+            (estado,diagnostico or None,trabajo or None,tecnico or None,cierre,cierre,orden_id))
+        auditar(db, 'ordenes_taller', orden_id, 'orden %s cambió a %s' % (orden['numero'],estado), usuario)
+
+    elif nombre_accion == 'orden_item_agregar':
+        orden_id = entero(datos, 'orden_id', 1, 10 ** 9)
+        if not db.execute('SELECT 1 FROM ordenes_taller WHERE id=?', (orden_id,)).fetchone():
+            raise ErrorValidacion('Orden de taller no encontrada.')
+        tipo = texto(datos, 'tipo', 20)
+        if tipo not in ('servicio','repuesto','mano_obra','otro'):
+            raise ErrorValidacion('Tipo de concepto inválido.')
+        descripcion = texto(datos, 'descripcion', 300)
+        try:
+            cantidad = float(datos.get('cantidad', 1))
+        except (TypeError, ValueError):
+            raise ErrorValidacion('Cantidad inválida.')
+        if not 0 < cantidad <= 10000:
+            raise ErrorValidacion('La cantidad debe ser positiva.')
+        servicio_id = entero(datos, 'servicio_id', 1, 10 ** 9, obligatorio=False)
+        if servicio_id and not db.execute('SELECT 1 FROM servicios_taller WHERE id=? AND activo=1', (servicio_id,)).fetchone():
+            raise ErrorValidacion('Servicio no disponible.')
+        precio = entero(datos, 'precio_unitario', 0, 10 ** 12)
+        costo = entero(datos, 'costo_unitario', 0, 10 ** 12, obligatorio=False) or 0
+        total = int(round(cantidad * precio))
+        fila = db.execute(
+            '''INSERT INTO ordenes_taller_items
+               (orden_id,servicio_id,tipo,descripcion,cantidad,precio_unitario,costo_unitario,total_linea)
+               VALUES(?,?,?,?,?,?,?,?)''',
+            (orden_id,servicio_id,tipo,descripcion,cantidad,precio,costo,total))
+        auditar(db, 'ordenes_taller_items', fila.lastrowid, 'concepto agregado a orden %s' % orden_id, usuario)
+
+    elif nombre_accion == 'seguimiento_crear':
+        usuario_id = entero(datos, 'usuario_id', 1, 10 ** 9)
+        if not db.execute('SELECT 1 FROM usuarios WHERE id=?', (usuario_id,)).fetchone():
+            raise ErrorValidacion('Cliente no encontrado.')
+        canal = texto(datos, 'canal', 20)
+        if canal not in ('llamada','correo','whatsapp','presencial','nota','otro'):
+            raise ErrorValidacion('Canal de seguimiento inválido.')
+        asunto = texto(datos, 'asunto', 200)
+        detalle = texto(datos, 'detalle', 3000, obligatorio=False) or None
+        proximo = texto(datos, 'proximo_contacto', 10, obligatorio=False) or None
+        if proximo:
+            try:
+                datetime.strptime(proximo, '%Y-%m-%d')
+            except ValueError:
+                raise ErrorValidacion('La próxima fecha debe tener formato AAAA-MM-DD.')
+        responsable = texto(datos, 'responsable', 150, obligatorio=False) or usuario
+        fila = db.execute(
+            '''INSERT INTO seguimientos_clientes
+               (usuario_id,responsable,canal,asunto,detalle,proximo_contacto)
+               VALUES(?,?,?,?,?,?)''',
+            (usuario_id,responsable,canal,asunto,detalle,proximo))
+        auditar(db, 'seguimientos_clientes', fila.lastrowid, 'seguimiento creado para cliente %s' % usuario_id, usuario)
+
+    elif nombre_accion == 'promocion_estado':
         sku = texto(datos, 'sku', 40).lower()
         estado = texto(datos, 'estado', 20)
         if estado not in ('borrador', 'publicada', 'finalizada'):
@@ -873,6 +1054,13 @@ def permiso_accion(cuerpo):
         'usuario_crear': 'seguridad.gestionar',
         'usuario_activo': 'seguridad.gestionar',
         'usuario_clave': 'seguridad.clave',
+        'factura_crear': 'ventas.gestionar',
+        'pago_registrar': 'ventas.gestionar',
+        'factura_anular': 'ventas.gestionar',
+        'orden_taller_crear': 'taller.gestionar',
+        'orden_taller_estado': 'taller.gestionar',
+        'orden_item_agregar': 'taller.gestionar',
+        'seguimiento_crear': 'clientes.gestionar',
     }
     return permisos.get(accion)
 
