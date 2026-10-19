@@ -1,6 +1,6 @@
--- =====================================================================
+-- 
 -- DasAuto · Migración 0003 · ÍNDICES OPCIONALES sobre tablas existentes
--- ---------------------------------------------------------------------
+-- 
 -- Un índice NO cambia datos, NO cambia el significado de las columnas y
 -- NO rompe ninguna consulta existente: solo acelera las búsquedas.
 -- De todas formas va en archivo aparte para que decidas aplicarlo o no.
@@ -8,7 +8,7 @@
 -- Cuándo se nota la diferencia: cuando pqrs pase de cientos a decenas de
 -- miles de filas y cuando el catálogo se filtre por categoría/propulsión.
 -- Costo: la base ocupa un poco más y los INSERT son un pelín más lentos.
--- =====================================================================
+-- 
 
 CREATE INDEX IF NOT EXISTS idx_pqrs_estado      ON pqrs(estado);
 CREATE INDEX IF NOT EXISTS idx_pqrs_creado      ON pqrs(creado_en);
