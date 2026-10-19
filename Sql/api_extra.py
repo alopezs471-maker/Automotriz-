@@ -49,7 +49,7 @@ class LimiteExcedido(ErrorValidacion):
     """Demasiados intentos: se responde 429."""
 
 
-# --------------------------------------------------------------- utilidades
+#  utilidades
 def hoy():
     return time.strftime('%Y-%m-%d')
 
@@ -174,7 +174,7 @@ def asegurar_usuario(db, nombre, documento, email, telefono):
     return db.execute('SELECT id FROM usuarios WHERE email=?', (email,)).fetchone()['id']
 
 
-# ------------------------------------------------------------ claves/sesiones
+#  claves/sesiones
 def cifrar_clave(clave):
     sal = secrets.token_hex(16)
     derivada = hashlib.pbkdf2_hmac('sha256', clave.encode(), bytes.fromhex(sal), ITERACIONES)
@@ -269,7 +269,7 @@ def iniciar():
         liberar_vencidas(db)
 
 
-# ------------------------------------------------------------- financiación
+#  financiación
 def plan_para(db, plazo):
     fila = db.execute('''SELECT * FROM tasas_financiacion
                           WHERE activo = 1 AND plazo_min <= ? AND plazo_max >= ?
@@ -341,7 +341,7 @@ def money(valor):
     return '$ %s' % format(int(valor), ',').replace(',', '.')
 
 
-# ------------------------------------------------------------------- ficha
+#  ficha
 def ficha_vehiculo(db, sku):
     fila = db.execute('SELECT * FROM v_inventario_publico WHERE sku=?', (sku,)).fetchone()
     if not fila:
@@ -374,7 +374,7 @@ def ficha_vehiculo(db, sku):
     return vehiculo
 
 
-# ------------------------------------------------------------------ agenda
+#  agenda
 def ocupacion(db, fecha):
     cupos = {r['hora']: r for r in db.execute(
         'SELECT hora, capacidad, activo FROM agenda_cupos WHERE fecha=?', (fecha,))}
@@ -436,7 +436,7 @@ def agendar(db, datos):
     return radicado
 
 
-# ---------------------------------------------------------------- inventario
+#  inventario
 def liberar(db, reserva, motivo, estado='liberada'):
     db.execute('UPDATE inventario SET existencias = existencias + ? WHERE id=? AND existencias IS NOT NULL',
                (reserva['cantidad'], reserva['inventario_id']))
@@ -476,7 +476,7 @@ def ajustar_stock(db, sku, cantidad, motivo, usuario):
     auditar(db, 'inventario', fila['id'], 'existencias %s → %s (%s)' % (actual, cantidad, motivo), usuario)
 
 
-# ------------------------------------------------------- consultas del panel
+#  consultas del panel
 def datos_panel(db, seccion):
     if seccion == 'promociones':
         filas = [dict(r) for r in db.execute('''SELECT inventario_id, sku, nombre, precio_base,
@@ -568,7 +568,7 @@ def resumen(db):
     }
 
 
-# ----------------------------------------------------------------- acciones
+#  acciones
 def accion_panel(db, cuerpo, admin):
     nombre_accion = texto(cuerpo, 'accion', 40)
     usuario = admin['usuario']
@@ -771,7 +771,7 @@ def accion_panel(db, cuerpo, admin):
     return {'ok': True}
 
 
-# -------------------------------------------------------------------- rutas
+#  rutas
 def manejar_get(h, ruta):
     """Devuelve True si la ruta era de este módulo y ya respondió."""
     consulta = parse_qs(urlsplit(h.path).query)
