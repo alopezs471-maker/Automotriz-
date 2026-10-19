@@ -41,6 +41,10 @@
   if(section){
     const body=section.querySelector('tbody'), search=section.querySelector('input'), select=section.querySelector('select'), status=section.querySelector('[role=status]');
     const money=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(n);
+    // precio_venta es lo que se muestra y se cobra: usa la oferta solo si la
+    // promoción está publicada y vigente (vista v_precios en la base de datos).
+    const estados={borrador:'Borrador · no se aplica',publicada:'Publicada · fuera de fechas',finalizada:'Finalizada',sin_promocion:'Sin promoción'};
+    const estadoTexto=r=>r.promo_vigente?'Publicada · vigente':(estados[r.estado]||r.estado);
     let rows=[];
     function draw(){
       body.replaceChildren();
@@ -48,11 +52,26 @@
       for(const r of filtered){
         const tr=document.createElement('tr');
         const discount=r.precio_base?((r.precio_base-r.precio_promocional)*100/r.precio_base).toFixed(1)+' %':'—';
-        for(const value of [r.nombre,r.categoria,money(r.precio_base),money(r.precio_promocional),discount,r.existencias===null?'Por confirmar':r.existencias,r.beneficio,r.estado]){
+        for(const value of [r.nombre,r.categoria,money(r.precio_base),money(r.precio_promocional),discount,money(r.precio_venta),r.existencias===null?'Por confirmar':r.existencias,r.beneficio,estadoTexto(r)]){
           const td=document.createElement('td');td.textContent=value;tr.append(td);
         }body.append(tr);
       }
-      status.textContent=filtered.length+' promociones · Datos leídos de SQLite. Última consulta: '+new Date().toLocaleTimeString('es-CO');
+      const vigentes=rows.filter(r=>r.promo_vigente).length;
+      status.textContent=filtered.length+' promociones · '+vigentes+' vigentes · Datos leídos de SQLite. Última consulta: '+new Date().toLocaleTimeString('es-CO');
+    }
+    // El carrito vive en localStorage y puede traer precios viejos: se alinean
+    // con precio_venta para que el subtotal coincida con lo que cobra el servidor.
+    function sincronizarCarrito(){
+      let carrito;
+      try{carrito=JSON.parse(localStorage.getItem('premium_cart'))||[];}catch(_){return;}
+      let cambio=false;
+      for(const item of carrito){
+        const r=item&&rows.find(x=>x.sku===String(item.id));
+        if(r&&item.price!==r.precio_venta){item.price=r.precio_venta;cambio=true;}
+      }
+      if(!cambio)return;
+      localStorage.setItem('premium_cart',JSON.stringify(carrito));
+      window.dispatchEvent(new StorageEvent('storage',{key:'premium_cart'}));
     }
     async function load(){
       status.textContent='Consultando base de datos…';
@@ -62,14 +81,18 @@
         for(const category of new Set(rows.map(r=>r.categoria)))select.add(new Option(category,category));
         select.value=previous;draw();
         // Mantiene las tarjetas existentes y sincroniza sus precios con SQLite.
+        // Sin promoción vigente: precio base, sin precio tachado, sello ni beneficio.
         for(const card of document.querySelectorAll('.product-card')){
           const r=rows.find(x=>x.sku===card.dataset.id);if(!r)continue;
-          card.dataset.price=r.precio_promocional;
-          const price=card.querySelector('.product-price'),old=card.querySelector('.old-price'),benefit=card.querySelector('.benefit-subtext');
-          if(price)price.textContent=money(r.precio_promocional);
-          if(old)old.textContent=money(r.precio_base);
-          if(benefit)benefit.textContent=r.beneficio;
+          const oferta=Boolean(r.promo_vigente);
+          card.dataset.price=r.precio_venta;
+          const price=card.querySelector('.product-price'),old=card.querySelector('.old-price'),benefit=card.querySelector('.benefit-subtext'),badge=card.querySelector('.luxury-badge');
+          if(price)price.textContent=money(r.precio_venta);
+          if(old){old.textContent=money(r.precio_base);old.style.display=oferta?'':'none';}
+          if(benefit){benefit.textContent=oferta?(r.beneficio||''):'';benefit.style.display=oferta?'':'none';}
+          if(badge){if(oferta&&r.titulo&&r.titulo!=='—')badge.textContent=r.titulo;badge.style.display=oferta?'':'none';}
         }
+        sincronizarCarrito();
       }catch(error){status.textContent='No se pudo consultar la base. '+help;}
     }
     search.addEventListener('input',draw);select.addEventListener('change',draw);
@@ -114,7 +137,7 @@
     if(badge)badge.textContent='0';
   }
 
-  for(const f of document.querySelectorAll('form[data-endpoint]')){
+  function conectarFormulario(f){
     const endpoint=f.dataset.endpoint, salida=destino(f);
     let envio=null;
     f.addEventListener('submit',async event=>{
@@ -147,6 +170,7 @@
       }finally{if(button)button.disabled=false;}
     });
   }
+  for(const f of document.querySelectorAll('form[data-endpoint]'))conectarFormulario(f);
 
   /* Checkout: el botón "Proceder al Pago" del carrito (j6.js) no hacía nada.
      Se despliega un formulario y el pedido queda guardado en SQLite. */
@@ -157,6 +181,7 @@
     contenedor.style.cssText='padding:0 24px 20px';
     const estado=document.createElement('p');
     estado.setAttribute('role','status');
+    estado.className='form-message';   // destino() muestra aquí los mensajes del pedido
     estado.style.cssText='font-size:13px;line-height:1.5;margin:8px 0 0';
     const formulario=document.createElement('form');
     formulario.dataset.endpoint='pedidos';
@@ -174,6 +199,9 @@
       <button type="submit" style="padding:13px;background:#171a20;color:#fff;border:none;border-radius:4px;cursor:pointer;font-weight:500">Confirmar pedido</button>`;
     contenedor.append(formulario,estado);
     checkout.parentElement.append(contenedor);
+    // Este formulario nace después del recorrido de arriba: si no se conecta aquí,
+    // "Confirmar pedido" recarga la página con los datos en la URL y no guarda nada.
+    conectarFormulario(formulario);
     checkout.addEventListener('click',()=>{
       const items=itemsCarrito();
       if(!items.length){estado.style.color='#af3030';estado.textContent='Tu carrito está vacío.';return;}

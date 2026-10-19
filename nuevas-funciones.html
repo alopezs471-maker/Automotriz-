@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funciones nuevas · DasAuto</title>
+  <link rel="icon" type="image/png" href="img/icon.png">
+  <link rel="stylesheet" href="css/c13.css">
+</head>
+<body>
+<header class="top">
+  <a class="marca" href="index.html"><img src="img/dasu.png" alt="DasAuto"><span>DasAuto</span></a>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a class="activo" href="nuevas-funciones.html">Funciones nuevas</a>
+    <a href="disponibilidad.html">Inventario</a>
+    <a href="financiar.html">Financiación</a>
+    <a href="agenda-taller.html">Agenda</a>
+    <a class="btn btn-linea" href="panel.html">Panel</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Lo nuevo · todo guardado en SQLite</p>
+    <h1>Seis funciones conectadas a la base de datos</h1>
+    <p>Financiación con tasas reales, ficha técnica por vehículo, control de existencias,
+       agenda con cupos y un panel con usuario y clave. Las páginas y tablas que ya existían
+       siguen funcionando igual; todo esto vive en archivos y tablas nuevas.</p>
+  </section>
+
+  <section class="kpis" style="margin-top:18px">
+    <div class="kpi"><b id="kpi-vehiculos">—</b><span>vehículos en el catálogo</span></div>
+    <div class="kpi"><b id="kpi-disponibles">—</b><span>con unidades disponibles</span></div>
+    <div class="kpi"><b id="kpi-planes">—</b><span>planes de financiación</span></div>
+    <div class="kpi"><b id="kpi-cupos">—</b><span>cupos de taller libres hoy</span></div>
+  </section>
+  <p class="aviso error" id="aviso-hub" hidden></p>
+
+  <section class="hub">
+    <a class="card" href="financiar.html">
+      <div class="cuerpo">
+        <div class="num">1</div>
+        <h3>Simulador de financiación</h3>
+        <p class="nota">Elige vehículo, cuota inicial y plazo. La tasa sale de la tabla
+          <code>tasas_financiacion</code> y la solicitud queda guardada con su radicado.</p>
+        <span class="btn btn-linea">Simular cuota</span>
+      </div>
+    </a>
+    <a class="card" href="disponibilidad.html">
+      <div class="cuerpo">
+        <div class="num">2</div>
+        <h3>Inventario real</h3>
+        <p class="nota">Cada pedido descuenta existencias, deja el movimiento en el kardex y
+          reserva el vehículo 48 horas. Si no hay unidades, la venta no pasa.</p>
+        <span class="btn btn-linea">Ver disponibilidad</span>
+      </div>
+    </a>
+    <a class="card" href="disponibilidad.html">
+      <div class="cuerpo">
+        <div class="num">3</div>
+        <h3>Ficha de cada vehículo</h3>
+        <p class="nota">Ficha técnica, descripción, precio vigente e historial de precios
+          guardado automáticamente por un disparador de la base.</p>
+        <span class="btn btn-linea">Abrir una ficha</span>
+      </div>
+    </a>
+    <a class="card" href="agenda-taller.html">
+      <div class="cuerpo">
+        <div class="num">4</div>
+        <h3>Agenda con cupos</h3>
+        <p class="nota">Franjas de una hora con capacidad limitada. El servidor cuenta las citas
+          y rechaza el sobrecupo; la capacidad se ajusta desde el panel.</p>
+        <span class="btn btn-linea">Agendar taller</span>
+      </div>
+    </a>
+    <a class="card" href="panel.html">
+      <div class="cuerpo">
+        <div class="num">5</div>
+        <h3>Panel con inicio de sesión</h3>
+        <p class="nota">Publica promociones y cambia precios desde el navegador, ajusta
+          existencias, libera reservas, gestiona citas y crea otros usuarios.</p>
+        <span class="btn btn-linea">Entrar al panel</span>
+      </div>
+    </a>
+    <div class="card">
+      <div class="cuerpo">
+        <div class="num">6</div>
+        <h3>Historial de precios</h3>
+        <p class="nota">Cada cambio de precio base u oferta queda registrado con fecha y origen.
+          Se consulta en la ficha del vehículo y en el panel.</p>
+        <span class="mini">Disparadores <code>tr_precio_*</code></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="panel">
+      <h2>Qué se agregó a la base de datos</h2>
+      <p class="nota" style="margin-bottom:12px">Ninguna tabla existente cambió de estructura:
+        se crearon tablas, vistas y disparadores nuevos en <code>Sql/migraciones/0007</code> y <code>0008</code>.</p>
+      <div class="tabla-scroll">
+        <table>
+          <thead><tr><th>Tabla o vista</th><th>Para qué sirve</th></tr></thead>
+          <tbody>
+            <tr><td><code>admin_usuarios</code> · <code>admin_sesiones</code></td><td>Cuentas con clave cifrada (PBKDF2) y sesiones de 8 horas.</td></tr>
+            <tr><td><code>precios_historico</code> · <code>v_historial_precios</code></td><td>Todo cambio de precio base u oferta, con fecha y origen.</td></tr>
+            <tr><td><code>inventario_reservas</code></td><td>Unidades comprometidas por cada pedido, con vencimiento a 48 h.</td></tr>
+            <tr><td><code>agenda_cupos</code></td><td>Capacidad por fecha y hora; por defecto 2 cupos por franja.</td></tr>
+            <tr><td><code>tasas_financiacion</code></td><td>Planes y tasas que usa el simulador (editables desde el panel).</td></tr>
+            <tr><td><code>inventario_ficha</code></td><td>Ahora con la ficha técnica de los 32 vehículos.</td></tr>
+            <tr><td><code>v_inventario_publico</code></td><td>Catálogo + ficha + estado de stock en una sola vista.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie-sitio">DasAuto · funciones nuevas · los datos se guardan en <code>Sql/datos/dasauto.sqlite3</code></footer>
+<script src="js/db-cliente.js"></script>
+<script src="js/nuevas.js"></script>
+</body>
+</html>

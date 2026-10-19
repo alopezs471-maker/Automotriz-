@@ -6,7 +6,8 @@ TABLAS = ['usuarios', 'pqrs', 'inventario', 'promociones',
           'citas_taller', 'pruebas_manejo', 'contactos',
           'cotizaciones_financiacion', 'cotizaciones_seguro',
           'pedidos', 'pedidos_items', 'inventario_movimientos',
-          'inventario_ficha', 'pqrs_eventos', 'sedes', 'auditoria']
+          'inventario_ficha', 'pqrs_eventos', 'sedes', 'auditoria',
+          'v_precios']  # vista: precio_venta = lo que se muestra y se cobra hoy
 
 p = argparse.ArgumentParser(description='Gestión local de DasAuto')
 s = p.add_subparsers(dest='accion', required=True)
@@ -17,7 +18,7 @@ a = s.add_parser('precio'); a.add_argument('sku'); a.add_argument('pesos', type=
 a = s.add_parser('responder'); a.add_argument('radicado'); a.add_argument('respuesta')
 a = s.add_parser('estado-pqrs'); a.add_argument('radicado')
 a.add_argument('estado', choices=['radicada', 'en_proceso', 'respondida', 'cerrada'])
-a = s.add_parser('estado-promocion'); a.add_argument('sku')
+a = s.add_parser('estado-promocion'); a.add_argument('sku', help="SKU del vehículo, o 'todas'")
 a.add_argument('estado', choices=['borrador', 'publicada', 'finalizada'])
 a = s.add_parser('estado-cita'); a.add_argument('radicado')
 a.add_argument('estado', choices=['solicitada', 'confirmada', 'en_taller', 'finalizada', 'cancelada', 'no_show'])
@@ -54,6 +55,7 @@ with conectar() as db:
             ('  pendientes', "SELECT COUNT(*) FROM pedidos WHERE estado='pendiente'"),
             ('Vehículos en catálogo', 'SELECT COUNT(*) FROM inventario'),
             ('Promociones publicadas', "SELECT COUNT(*) FROM promociones WHERE estado='publicada'"),
+            ('  vigentes hoy', 'SELECT COUNT(*) FROM v_precios WHERE promo_vigente=1'),
         ]
         for etiqueta, sql in consultas:
             try:
@@ -108,8 +110,12 @@ with conectar() as db:
                            (fila['id'], args.estado, 'gestionar.py'))
 
         elif args.accion == 'estado-promocion':
-            cur = db.execute('UPDATE promociones SET estado=? WHERE inventario_id=(SELECT id FROM inventario WHERE sku=?)',
-                             (args.estado, args.sku))
+            # La oferta solo se muestra y se cobra si queda 'publicada' y vigente.
+            if args.sku == 'todas':
+                cur = db.execute('UPDATE promociones SET estado=?', (args.estado,))
+            else:
+                cur = db.execute('UPDATE promociones SET estado=? WHERE inventario_id=(SELECT id FROM inventario WHERE sku=?)',
+                                 (args.estado, args.sku))
 
         elif args.accion == 'estado-cita':
             cur = db.execute('UPDATE citas_taller SET estado=? WHERE radicado=?', (args.estado, args.radicado))
@@ -122,4 +128,4 @@ with conectar() as db:
 
         if not cur.rowcount:
             p.error('Registro no encontrado.')
-        print('Cambio guardado correctamente.')
+        print('Cambio guardado correctamente.' + (f' ({cur.rowcount} registros)' if cur.rowcount > 1 else ''))
