@@ -10,7 +10,7 @@
 --     ajuste manual (el CHECK ya lo impide en pedidos).
 BEGIN;
 
--- ---------------------------------------------------------------- 1. cancelar
+--  1. cancelar
 DROP TRIGGER IF EXISTS tr_pedido_cancelado;
 
 CREATE TRIGGER tr_pedido_cancelado
@@ -102,7 +102,7 @@ BEGIN
    WHERE pedido_id = NEW.id AND estado IN ('activa','vencida','liberada');
 END;
 
--- ------------------------------------------------------------- 2 y 3. índices
+--  2 y 3. índices
 -- Kardex: «los últimos movimientos de este vehículo» sin ordenar en memoria.
 CREATE INDEX IF NOT EXISTS ix_movimientos_inv_id
   ON inventario_movimientos(inventario_id, id DESC);
@@ -119,7 +119,7 @@ CREATE INDEX IF NOT EXISTS ix_citas_franja
 CREATE INDEX IF NOT EXISTS ix_promos_vigencia_estado
   ON promociones(estado, fecha_inicio, fecha_fin);
 
--- ------------------------------------------- 4. actualizado_en automático
+--  4. actualizado_en automático
 CREATE TRIGGER IF NOT EXISTS tr_cita_actualizada
 AFTER UPDATE ON citas_taller
 WHEN NEW.actualizado_en IS OLD.actualizado_en
@@ -142,7 +142,7 @@ BEGIN
    WHERE inventario_id = NEW.inventario_id;
 END;
 
--- ------------------------------------------------------------- 5. blindaje
+--  5. blindaje
 -- Ningún camino (SQL directo incluido) puede dejar existencias negativas.
 CREATE TRIGGER IF NOT EXISTS tr_existencias_no_negativas
 BEFORE UPDATE OF existencias ON inventario
