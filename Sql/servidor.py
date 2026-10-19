@@ -76,7 +76,7 @@ class Handler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(payload)
 
-    # ------------------------- utilidades de validación -------------------------
+    #  utilidades de validación 
     def leer(self, limites, opcionales=()):
         """Lee y valida el cuerpo JSON. `limites` fija el largo máximo de cada campo."""
         longitud = int(self.headers.get('Content-Length', '0'))
@@ -136,7 +136,7 @@ class Handler(SimpleHTTPRequestHandler):
         cola.append(ahora)
         return True
 
-    # ------------------------------- inserciones -------------------------------
+    #  inserciones 
     def guardar_pqrs(self, db, datos):
         previo = db.execute('SELECT radicado FROM pqrs WHERE envio_id=?', (datos['envio_id'],)).fetchone()
         if previo:
@@ -261,7 +261,7 @@ class Handler(SimpleHTTPRequestHandler):
                        (pid, inventario_id, sku, nombre, cantidad, precio))
         return radicado
 
-    # --------------------------------- rutas ----------------------------------
+    #  rutas 
     def do_GET(self):
         path = urlsplit(self.path).path
         if path == '/api/sesion':
@@ -280,7 +280,7 @@ class Handler(SimpleHTTPRequestHandler):
             return
         if path.startswith('/api/'):
             return self.json(404, {'error': 'Ruta no disponible.'})
-        # P1-8: nada de código, base de datos, respaldos ni .git por HTTP.
+        # P18: nada de código, base de datos, respaldos ni .git por HTTP.
         if PRIVADO.search(path):
             return self.json(403, {'error': 'Acceso denegado.'})
         resolved = (PUBLIC / unquote(path).lstrip('/')).resolve()

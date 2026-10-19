@@ -7,7 +7,7 @@
 -- No altera ninguna tabla existente; solo agrega tablas, vistas y triggers.
 BEGIN;
 
--- ---------------------------------------------------------------- 1. Precios
+--  1. Precios
 CREATE TABLE IF NOT EXISTS precios_historico (
   id            INTEGER PRIMARY KEY,
   inventario_id INTEGER NOT NULL REFERENCES inventario(id) ON DELETE CASCADE,
@@ -72,7 +72,7 @@ FROM precios_historico h
 JOIN inventario i ON i.id = h.inventario_id
 ORDER BY h.id DESC;
 
--- --------------------------------------------------------- 2. Cupos de agenda
+--  2. Cupos de agenda
 CREATE TABLE IF NOT EXISTS agenda_cupos (
   id             INTEGER PRIMARY KEY,
   fecha          TEXT NOT NULL CHECK(
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS agenda_cupos (
   UNIQUE(fecha, hora)
 );
 
--- ------------------------------------------------------- 3. Inventario real
+--  3. Inventario real
 CREATE TABLE IF NOT EXISTS inventario_reservas (
   id            INTEGER PRIMARY KEY,
   inventario_id INTEGER NOT NULL REFERENCES inventario(id) ON DELETE CASCADE,
@@ -151,7 +151,7 @@ BEGIN
    WHERE pedido_id = NEW.id AND estado = 'activa';
 END;
 
--- --------------------------------------------- 4. Tasas de financiación
+--  4. Tasas de financiación
 CREATE TABLE IF NOT EXISTS tasas_financiacion (
   id              INTEGER PRIMARY KEY,
   nombre          TEXT NOT NULL,
@@ -168,7 +168,7 @@ INSERT OR IGNORE INTO tasas_financiacion(id,nombre,plazo_min,plazo_max,tasa_anua
   (3,'Plan extendido · 49 a 72 meses',49,72,17.9,10,1),
   (4,'Plan largo · 73 a 84 meses',73,84,19.2,10,1);
 
--- ----------------------------------- 5. Panel: cuentas y sesiones
+--  5. Panel: cuentas y sesiones
 CREATE TABLE IF NOT EXISTS admin_usuarios (
   id           INTEGER PRIMARY KEY,
   usuario      TEXT NOT NULL UNIQUE,
@@ -191,8 +191,8 @@ CREATE TABLE IF NOT EXISTS admin_sesiones (
 CREATE INDEX IF NOT EXISTS ix_admin_sesiones_usuario ON admin_sesiones(usuario_id);
 CREATE INDEX IF NOT EXISTS ix_admin_sesiones_expira ON admin_sesiones(expira_en);
 
--- ------------------------------- 6. Existencias iniciales para poder controlar
--- Solo donde aún no hay dato (NULL = "por confirmar" en el catálogo original).
+--  6. Existencias iniciales para poder controlar
+-- Solo donde aún no hay dato (NULL  "por confirmar" en el catálogo original).
 UPDATE inventario SET existencias = 3 + (id * 7) % 10 WHERE existencias IS NULL;
 
 INSERT INTO inventario_movimientos(inventario_id,tipo,cantidad,saldo_final,motivo)
@@ -218,7 +218,7 @@ SELECT p.inventario_id,'precio_promocional',NULL,p.precio_promocional,'oferta de
  WHERE NOT EXISTS (SELECT 1 FROM precios_historico h
                     WHERE h.inventario_id = p.inventario_id AND h.campo = 'precio_promocional');
 
--- ----------------------------- 7. Vista pública con ficha y estado de stock
+--  7. Vista pública con ficha y estado de stock
 CREATE VIEW IF NOT EXISTS v_inventario_publico AS
 SELECT p.inventario_id, p.sku, p.nombre, p.categoria, p.propulsion,
        p.precio_base, p.precio_venta, p.promo_vigente, p.existencias,

@@ -1,6 +1,6 @@
--- =====================================================================
+-- 
 -- DasAuto · Migración 0002 · EXTENSIONES (100% ADITIVA)
--- ---------------------------------------------------------------------
+-- 
 -- Regla de esta migración: NO modifica, NO elimina y NO altera ninguna
 -- tabla existente (usuarios, pqrs, inventario, promociones, migraciones).
 -- Solo crea tablas NUEVAS que se apoyan en las actuales por clave foránea.
@@ -9,14 +9,14 @@
 --
 -- Compatible con SQLite 3.35+ (el que usa base_datos.py).
 -- Se aplica sobre la misma base de datos que usa base_datos.py.
--- =====================================================================
+-- 
 
 PRAGMA foreign_keys = ON;
 
--- ---------------------------------------------------------------------
+-- 
 -- 1. Sedes / sucursales (hoy las tiendas están quemadas en el HTML:
 --    "Das Auto Finlandia", "Das Auto Noruega"...)
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS sedes (
   id          INTEGER PRIMARY KEY,
   codigo      TEXT NOT NULL UNIQUE,
@@ -30,9 +30,9 @@ CREATE TABLE IF NOT EXISTS sedes (
   creado_en   TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- ---------------------------------------------------------------------
+-- 
 -- 2. Citas de taller (Taller.html hoy no guarda nada)
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS citas_taller (
   id                 INTEGER PRIMARY KEY,
   radicado           TEXT NOT NULL UNIQUE,
@@ -67,9 +67,9 @@ CREATE INDEX IF NOT EXISTS idx_citas_fecha    ON citas_taller(fecha_programada, 
 CREATE INDEX IF NOT EXISTS idx_citas_estado   ON citas_taller(estado);
 CREATE INDEX IF NOT EXISTS idx_citas_sede     ON citas_taller(sede_id);
 
--- ---------------------------------------------------------------------
+-- 
 -- 3. Pruebas de manejo (Agendar prueba.html hoy no guarda nada)
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS pruebas_manejo (
   id                 INTEGER PRIMARY KEY,
   radicado           TEXT NOT NULL UNIQUE,
@@ -98,9 +98,9 @@ CREATE TABLE IF NOT EXISTS pruebas_manejo (
 CREATE INDEX IF NOT EXISTS idx_pruebas_fecha  ON pruebas_manejo(fecha_programada);
 CREATE INDEX IF NOT EXISTS idx_pruebas_estado ON pruebas_manejo(estado);
 
--- ---------------------------------------------------------------------
+-- 
 -- 4. Mensajes de contacto (Contacto.html hoy no guarda nada)
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS contactos (
   id                 INTEGER PRIMARY KEY,
   envio_id           TEXT NOT NULL UNIQUE,
@@ -117,10 +117,10 @@ CREATE TABLE IF NOT EXISTS contactos (
 );
 CREATE INDEX IF NOT EXISTS idx_contactos_estado ON contactos(estado);
 
--- ---------------------------------------------------------------------
+-- 
 -- 5. Simulaciones de financiación (Financiacion.html)
 --    Guarda la simulación para saber qué busca cada cliente.
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS cotizaciones_financiacion (
   id               INTEGER PRIMARY KEY,
   envio_id         TEXT NOT NULL UNIQUE,
@@ -142,9 +142,9 @@ CREATE TABLE IF NOT EXISTS cotizaciones_financiacion (
 );
 CREATE INDEX IF NOT EXISTS idx_fin_estado ON cotizaciones_financiacion(estado);
 
--- ---------------------------------------------------------------------
+-- 
 -- 6. Cotizaciones de seguro (Seguros.html)
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS cotizaciones_seguro (
   id               INTEGER PRIMARY KEY,
   envio_id         TEXT NOT NULL UNIQUE,
@@ -163,9 +163,9 @@ CREATE TABLE IF NOT EXISTS cotizaciones_seguro (
   creado_en        TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- ---------------------------------------------------------------------
+-- 
 -- 7. Pedidos (ordenar.html + carrito que hoy vive solo en localStorage)
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS pedidos (
   id           INTEGER PRIMARY KEY,
   radicado     TEXT NOT NULL UNIQUE,
@@ -197,10 +197,10 @@ CREATE TABLE IF NOT EXISTS pedidos_items (
   UNIQUE(pedido_id, inventario_id)
 );
 
--- ---------------------------------------------------------------------
+-- 
 -- 8. Ficha extendida del vehículo (marca, año, imagen, specs...)
 --    Tabla APARTE a propósito: así no se toca `inventario`.
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS inventario_ficha (
   inventario_id   INTEGER NOT NULL UNIQUE REFERENCES inventario(id) ON DELETE CASCADE,
   marca           TEXT,
@@ -215,10 +215,10 @@ CREATE TABLE IF NOT EXISTS inventario_ficha (
   actualizado_en  TEXT
 );
 
--- ---------------------------------------------------------------------
+-- 
 -- 9. Kardex / movimientos de inventario
 --    (hoy `existencias` se pisa con gestionar.py y no queda rastro)
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS inventario_movimientos (
   id             INTEGER PRIMARY KEY,
   inventario_id  INTEGER NOT NULL REFERENCES inventario(id) ON DELETE CASCADE,
@@ -231,11 +231,11 @@ CREATE TABLE IF NOT EXISTS inventario_movimientos (
 );
 CREATE INDEX IF NOT EXISTS idx_movimientos_inv ON inventario_movimientos(inventario_id, creado_en);
 
--- ---------------------------------------------------------------------
+-- 
 -- 10. Histórico de promociones
 --     `promociones.inventario_id` es UNIQUE: solo 1 promo viva por vehículo.
 --     Esta tabla guarda las anteriores sin tocar la original.
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS promociones_historico (
   id                  INTEGER PRIMARY KEY,
   inventario_id       INTEGER NOT NULL REFERENCES inventario(id) ON DELETE CASCADE,
@@ -247,9 +247,9 @@ CREATE TABLE IF NOT EXISTS promociones_historico (
   cerrada_en          TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- ---------------------------------------------------------------------
+-- 
 -- 11. Trazabilidad de PQRS (quién cambió el estado y cuándo)
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS pqrs_eventos (
   id          INTEGER PRIMARY KEY,
   pqrs_id     INTEGER NOT NULL REFERENCES pqrs(id) ON DELETE CASCADE,
@@ -260,9 +260,9 @@ CREATE TABLE IF NOT EXISTS pqrs_eventos (
 );
 CREATE INDEX IF NOT EXISTS idx_pqrs_eventos ON pqrs_eventos(pqrs_id, creado_en);
 
--- ---------------------------------------------------------------------
+-- 
 -- 12. Auditoría general (opcional pero barata)
--- ---------------------------------------------------------------------
+-- 
 CREATE TABLE IF NOT EXISTS auditoria (
   id          INTEGER PRIMARY KEY,
   tabla       TEXT NOT NULL,
@@ -274,9 +274,9 @@ CREATE TABLE IF NOT EXISTS auditoria (
 );
 CREATE INDEX IF NOT EXISTS idx_auditoria_tabla ON auditoria(tabla, creado_en);
 
--- ---------------------------------------------------------------------
+-- 
 -- 13. Semilla mínima de sedes (idempotente)
--- ---------------------------------------------------------------------
+-- 
 INSERT OR IGNORE INTO sedes(codigo, nombre, direccion, ciudad) VALUES
   ('principal', 'Sede Principal',        'Por definir', 'Bogotá D.C.'),
   ('norte',     'Das Auto Sede Norte',   'Por definir', 'Bogotá D.C.'),
