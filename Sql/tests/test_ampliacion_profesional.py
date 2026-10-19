@@ -30,6 +30,9 @@ class AmpliacionProfesionalTests(unittest.TestCase):
         db.execute("PRAGMA foreign_keys=ON")
         return db
 
+    def test_respaldo_previo_a_migraciones(self):
+        self.assertTrue(Path(str(self.db_path) + '.bak').exists())
+
     def test_nuevas_tablas_vistas_y_permisos(self):
         with self.conectar_prueba() as db:
             tablas = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
