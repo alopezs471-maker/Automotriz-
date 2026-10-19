@@ -701,6 +701,10 @@ def accion_panel(db, cuerpo, admin):
             raise ErrorValidacion('Factura no encontrada.')
         if factura['estado'] == 'pagada':
             raise ErrorValidacion('Una factura pagada requiere un proceso de reversión autorizado.')
+        abonado = db.execute("SELECT COALESCE(SUM(valor),0) FROM pagos WHERE factura_id=? AND estado='confirmado'",
+                             (factura_id,)).fetchone()[0]
+        if abonado:
+            raise ErrorValidacion('No se puede anular una factura con pagos confirmados. Registra la reversión primero.')
         db.execute("UPDATE facturas SET estado='anulada' WHERE id=?", (factura_id,))
         auditar(db, 'facturas', factura_id, 'factura %s anulada' % factura['numero'], usuario)
 
