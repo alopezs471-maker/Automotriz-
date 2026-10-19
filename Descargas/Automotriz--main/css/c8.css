@@ -1,0 +1,490 @@
+/* =======================================================
+   ESTILOS FINANCIACIÓN 100vh INTERACTIVO (SIN FOOTER)
+   ======================================================= */
+
+/* --- 1. HERO FINANCIACIÓN --- */
+.fin-hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.fin-hero-container {
+    max-width: 1300px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.fin-hero-content {
+    flex: 1;
+}
+
+.fin-hero-title {
+    font-size: clamp(2.5rem, 4.2vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    letter-spacing: -1px;
+}
+
+.fin-hero-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #cccccc;
+    margin-bottom: 40px;
+    max-width: 560px;
+}
+
+.btn-fin-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 18px 36px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-fin-hero:hover {
+    background-color: #e6e6e6;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+}
+
+.btn-fin-hero i {
+    transition: transform 0.3s ease;
+}
+
+.btn-fin-hero:hover i {
+    transform: translateX(6px);
+}
+
+/* Imagen con perspectiva para efecto 3D */
+.fin-hero-image {
+    flex: 1.1;
+    height: 65vh;
+    max-height: 580px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+    transition: transform 0.1s ease-out;
+    perspective: 1000px;
+}
+
+.fin-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.fin-hero-image:hover img {
+    transform: scale(1.08);
+}
+
+/* Indicador de Scroll Animado */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease;
+}
+
+.scroll-indicator:hover {
+    color: #ffffff;
+}
+
+.mouse-icon {
+    width: 24px;
+    height: 38px;
+    border: 2px solid currentColor;
+    border-radius: 15px;
+    position: relative;
+}
+
+.wheel {
+    width: 4px;
+    height: 8px;
+    background-color: currentColor;
+    border-radius: 2px;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollWheel 1.8s infinite ease-in-out;
+}
+
+@keyframes scrollWheel {
+    0% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, 14px); }
+}
+
+.scroll-text {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+
+/* --- 2. VENTAJA (100vh) --- */
+.fin-advantage-section {
+    width: 100%;
+    height: 100vh;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+}
+
+.fin-advantage-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.fin-advantage-box {
+    flex: 1;
+    background-color: #dcdcdc;
+    padding: 0 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #030303;
+    height: 100%;
+}
+
+.fin-tag {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: #555555;
+    margin-bottom: 20px;
+}
+
+.fin-advantage-title {
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 25px;
+}
+
+.fin-advantage-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #333333;
+    margin-bottom: 40px;
+    max-width: 520px;
+}
+
+.btn-fin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #000000;
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.btn-fin-link:hover {
+    transform: translateX(12px);
+}
+
+.fin-advantage-image {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+}
+
+.fin-advantage-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fin-advantage-image:hover img {
+    transform: scale(1.05);
+}
+
+
+/* =======================================================
+   SLIDER DE PÓLIZAS DE SEGURO (ESTILO MONOCROMÁTICO 100vh)
+   ======================================================= */
+
+.fin-policies-section {
+    width: 100%;
+    height: 100vh;
+    background-color: #000000;
+    position: relative;
+    overflow: hidden;
+}
+
+.policy-slider-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Diapositiva Individual */
+.policy-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+    z-index: 1;
+}
+
+.policy-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
+}
+
+/* Columna de Imagen (50%) */
+.policy-image-col {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+}
+
+.policy-image-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.1);
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.policy-slide.active .policy-image-col img {
+    transform: scale(1);
+}
+
+/* Columna de Texto y Color Dinámico (50%) */
+.policy-content-col {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8%;
+    color: #ffffff;
+    transition: background-color 0.8s ease;
+}
+
+.policy-content-inner {
+    max-width: 520px;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, opacity 0.8s ease 0.2s;
+}
+
+.policy-slide.active .policy-content-inner {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.policy-badge {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #a0a0a0;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.policy-title {
+    font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    letter-spacing: -1px;
+}
+
+.policy-description {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #d0d0d0;
+    margin-bottom: 30px;
+}
+
+.policy-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.policy-features li {
+    font-size: 0.95rem;
+    color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.policy-features i {
+    color: #ffffff;
+    font-size: 0.85rem;
+}
+
+.btn-policy {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 16px 34px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-policy:hover {
+    background-color: #cccccc;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+}
+
+/* Controles Flotantes del Slider */
+.slider-controls {
+    position: absolute;
+    bottom: 40px;
+    right: 8%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 10;
+}
+
+.slider-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.slider-btn:hover {
+    background: #ffffff;
+    color: #000000;
+    transform: scale(1.1);
+}
+
+.slider-dots {
+    display: flex;
+    gap: 10px;
+}
+
+.slider-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider-dots .dot.active {
+    background-color: #ffffff;
+    width: 28px;
+    border-radius: 10px;
+}
+
+/* Responsivo */
+@media (max-width: 992px) {
+    .policy-slide { flex-direction: column; }
+    .policy-image-col { height: 40vh; }
+    .policy-content-col { height: 60vh; padding: 40px 6%; }
+    .slider-controls { bottom: 20px; right: 50%; transform: translateX(50%); }
+}
+
+
+#zapa {
+    position: absolute;
+    background-color: rgb(15, 15, 15);
+    width: 100%;
+    height: 100px;
+    margin-top: 0px;
+    z-index: 50;
+    border-top: #e0e0e0 solid 1px;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-right {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+#numero-one {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#numero-two, #numero-tre, #numero-four {
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#numero-two:hover, #numero-tre:hover, #numero-four:hover {
+    color: #ff9900;
+}
+
+#zapa i {
+    margin-right: 8px;
+}
+
+#iconfo{
+    margin-left: -10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+
+}

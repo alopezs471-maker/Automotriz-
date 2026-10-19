@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar prueba de manejo | Tesla Style</title>
+    
+    <!-- Hojas de estilo e Iconos -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/c12.css">
+</head>
+<body><header class="navbar"> 
+  <div class="logo">
+    <a href="index.html"><img src="img/dasu.png" alt="" id="tes"></a>
+  </div> 
+  <nav class="nav-links"> 
+    <ul> 
+      <li class="item-dropdown">
+        <a href="index.html">inicio</a>
+        
+        <div class="tesla-dropdown">
+          <div class="tesla-dropdown-container">
+            <div class="tesla-cars">
+              <div class="tesla-car-item">
+                <a href="Automoviles.html"><img src="img/corolla.jpg" alt="Model 3"></a>
+                <h4>Automoviles</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+              <div class="tesla-car-item">
+                <a href="Camioneta.html"><img src="img/honda.jpg" alt="Model Y"></a>
+                <h4>Camionetas</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+              <div class="tesla-car-item">
+                <a href="motos.html"><img src="img/mata.png" alt="Cybertruck"></a>
+                <h4>Motos</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                </div>
+              </div>
+              <div class="tesla-car-item">
+                <a href="Electricos.html"><img src="img/elec.png" alt="Model S"></a>
+                <h4>Electricos</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="tesla-side-menu">
+              <a href="Taller.html">Taller</a>
+              <a href="Financiacion.html">Financiacion</a>
+              <a href="Seguros.html">Seguros</a>
+              <a href="Contacto.html">Contacto</a>
+              <a href="Agendar prueba.html">Agendar prueba</a>
+            </div>
+          </div>
+        </div>
+      </li> 
+      <li><a href="Promociones.html">Promociones</a></li> 
+      <li><a href="PQRS.html">PQRS</a></li> 
+      <li><a href="Galeria.html">Galeria</a></li> 
+    </ul> 
+  </nav> 
+</header> 
+
+<main class="drive-section">
+  <div class="drive-header">
+    <span class="drive-badge">TEST DRIVE</span>
+    <h1>EXPERIMENTA EL FUTURO</h1>
+    <p>Selecciona una categoría y agenda tu prueba de manejo personalizada.</p>
+  </div>
+
+  <div class="drive-grid">
+    <!-- Panel Izquierdo: Selección y Formulario -->
+    <div class="drive-form-container">
+      <h3><span class="step-num">1</span> Selecciona la categoría</h3>
+      
+      <!-- Los 4 Bloques Funcionales con Estilo Tesla -->
+      <div class="model-selector">
+        <div class="model-card selected" onclick="selectDriveModel('Sedán Ejecutivo', 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800', 'V8 Biturbo / 639 HP / 0-100 km/h en 3.2s', this)">
+          <div class="card-image-wrap">
+            <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400" alt="Automóviles">
+          </div>
+          <div class="card-title-wrap">
+            <h4>Automóviles</h4>
+            <span class="tag">Sport & Executive</span>
+          </div>
+        </div>
+
+        <div class="model-card" onclick="selectDriveModel('SUV Performance 4x4', 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800', 'Tracción Integral / V6 Twin-Turbo / Modo Offroad', this)">
+          <div class="card-image-wrap">
+            <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400" alt="Camioneta">
+          </div>
+          <div class="card-title-wrap">
+            <h4>Camionetas</h4>
+            <span class="tag">All-Terrain 4WD</span>
+          </div>
+        </div>
+
+        <div class="model-card" onclick="selectDriveModel('Superbike Sport 1000cc', 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800', 'Motor 1000cc Inline-4 / 205 HP / Quickshifter', this)">
+          <div class="card-image-wrap">
+            <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=400" alt="Moto">
+          </div>
+          <div class="card-title-wrap">
+            <h4>Motos</h4>
+            <span class="tag">High Performance</span>
+          </div>
+        </div>
+
+        <div class="model-card" onclick="selectDriveModel('Eléctrico High-Tech', 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800', 'Dual Motor AWD / 600km Autonomía / Carga Rápida', this)">
+          <div class="card-image-wrap">
+            <img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=400" alt="Eléctrico">
+          </div>
+          <div class="card-title-wrap">
+            <h4>Eléctricos</h4>
+            <span class="tag">100% Zero Emission</span>
+          </div>
+        </div>
+      </div>
+
+      <h3><span class="step-num">2</span> Datos del conductor</h3>
+      <form class="drive-form" id="drive-form" data-endpoint="pruebas-manejo">
+        <input type="hidden" name="modelo_interes" id="modelo_interes" value="Sedán Ejecutivo">
+        <input type="hidden" name="sede" id="sede" value="Das Auto Finlandia (Helsinki)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">Nombre</label>
+            <input type="text" id="fname" name="nombre" required placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label for="lname">Apellido</label>
+            <input type="text" id="lname" name="apellido" required placeholder="Tu apellido">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required placeholder="correo@ejemplo.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Teléfono</label>
+            <input type="tel" id="phone" name="telefono" required placeholder="+57 300 000 0000">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="documento">Documento (opcional)</label>
+            <input type="text" id="documento" name="documento" placeholder="Tu documento">
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="terms" name="terminos" required>
+          <label for="terms">Acepto los términos de conducción y políticas de privacidad.</label>
+        </div>
+
+        <button type="submit" class="btn-submit-drive">AGENDAR CITAS</button>
+      </form>
+    </div>
+
+    <!-- Panel Derecho: Vista Previa Minimalista -->
+    <div class="preview-display">
+      <div class="preview-badge">SELECCIONADO</div>
+      <div class="preview-img-container">
+        <img id="preview-img" src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800" alt="Vehículo Seleccionado">
+      </div>
+      <h2 id="preview-title">Sedán Ejecutivo</h2>
+      <div class="spec-highlight" id="preview-specs">
+        V8 Biturbo / 639 HP / 0-100 km/h en 3.2s
+      </div>
+      
+      <div class="requirements-box">
+        <h4>Requisitos para la prueba:</h4>
+        <ul>
+          <li><i class="fa-solid fa-angle-right"></i> Licencia de conducción vigente.</li>
+          <li><i class="fa-solid fa-angle-right"></i> Documento de identidad original.</li>
+          <li><i class="fa-solid fa-angle-right"></i> Puntualidad (llegar 10 min antes).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de Mapa -->
+  <div class="location-section">
+    <h3>Ubicación y Fecha</h3>
+
+    <div class="location-layout">
+      <div>
+        <div class="store-card selected" id="card-finland" onclick="focusStore('finland', 60.1699, 24.9384, this)">
+          <h4>Das Auto Finlandia</h4>
+          <p>Aleksanterinkatu 15, Helsinki</p>
+        </div>
+
+        <div class="store-card" id="card-norway" onclick="focusStore('norway', 59.9139, 10.7522, this)">
+          <h4>Das Auto Noruega</h4>
+          <p>Karl Johans gate 22, Oslo</p>
+        </div>
+
+        <div class="form-row" style="margin-top: 15px;">
+          <div class="form-group">
+            <label for="drive-date">Fecha</label>
+            <input type="date" id="drive-date" name="fecha_programada" form="drive-form" required>
+          </div>
+          <div class="form-group">
+            <label for="drive-time">Hora</label>
+            <select id="drive-time" name="hora_programada" form="drive-form">
+              <option value="09:00">09:00 AM</option>
+              <option value="11:00">11:00 AM</option>
+              <option value="14:00" selected>02:00 PM</option>
+              <option value="16:00">04:00 PM</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div id="leaflet-drive-map"></div>
+    </div>
+  </div>
+</main>
+
+
+<footer>
+  <div id="zapa">
+    <div class="footer-left">
+      <img src="img/iconfo.jpg" alt="" id="iconfo">
+      <p id="numero-one">Das auto</p>
+    </div>
+    <div class="footer-right">
+      <p id="numero-two"><i class="fa-brands fa-facebook"></i> Facebook</p>
+      <p id="numero-tre"><i class="fa-brands fa-instagram"></i> Instagram</p>
+      <p id="numero-four"><i class="fa-brands fa-x-twitter"></i> X</p>
+    </div>
+  </div>
+</section>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="js/j8.js"></script>
+<script src="js/conexion-datos.js" defer></script>
+
+</body>
+</html>

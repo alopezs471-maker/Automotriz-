@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha del vehículo · DasAuto</title>
+  <link rel="icon" type="image/png" href="img/icon.png">
+  <link rel="stylesheet" href="css/c13.css">
+</head>
+<body>
+<header class="top">
+  <a class="marca" href="index.html"><img src="img/dasu.png" alt="DasAuto"><span>DasAuto</span></a>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="nuevas-funciones.html">Funciones nuevas</a>
+    <a class="activo" href="disponibilidad.html">Inventario</a>
+    <a href="financiar.html">Financiación</a>
+    <a href="agenda-taller.html">Agenda</a>
+    <a class="btn btn-linea" href="panel.html">Panel</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <p class="mini" id="miga" style="margin-bottom:10px"><a href="disponibilidad.html">Inventario</a></p>
+  <p class="aviso error" id="aviso" hidden></p>
+
+  <section id="cargando-panel" class="panel">
+    <p class="nota"><span class="cargando"></span>Consultando la ficha en la base de datos…</p>
+  </section>
+
+  <section class="detalle" id="detalle" hidden>
+    <div>
+      <div class="foto-grande"><img id="foto" alt="" src="img/car.jpg"></div>
+      <div class="panel" style="margin-top:18px">
+        <h2 id="nombre"></h2>
+        <p class="nota" id="descripcion" style="margin-top:6px"></p>
+        <dl class="especificaciones" id="specs"></dl>
+      </div>
+    </div>
+    <aside>
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+          <span class="chip" id="stock"></span>
+          <span class="mini" id="unidades"></span>
+        </div>
+        <div class="cifra" id="precio" style="margin-top:14px"></div>
+        <p class="nota" id="antes" hidden></p>
+        <p class="aviso ok" id="promo" hidden style="margin-top:12px"></p>
+        <a class="btn btn-dark btn-ancho" id="financiar" style="margin-top:16px">Simular financiación</a>
+        <a class="btn btn-linea btn-ancho" href="agenda-taller.html" style="margin-top:8px">Agendar cita de taller</a>
+        <a class="btn btn-linea btn-ancho" href="Promociones.html" style="margin-top:8px">Ver todas las promociones</a>
+        <p class="mini" id="vendido-por" style="margin-top:12px"></p>
+      </div>
+      <div class="panel" id="caja-financiacion" hidden>
+        <h3 style="margin-top:0">Financiación estimada</h3>
+        <div class="cifra" id="cuota-estimada"></div>
+        <p class="nota" id="detalle-financiacion" style="margin-top:6px"></p>
+        <a class="btn btn-verde btn-ancho" id="enlace-financiar" style="margin-top:12px">Simular con mi cuota inicial</a>
+      </div>
+      <div class="panel">
+        <h3 style="margin-top:0">Historial de precios</h3>
+        <p class="nota" id="sin-historial" hidden>Sin cambios registrados todavía.</p>
+        <ul class="linea-tiempo" id="historial"></ul>
+      </div>
+    </aside>
+  </section>
+
+  <section class="seccion" id="caja-similares" hidden>
+    <h2>También te puede interesar</h2>
+    <div class="cards" id="similares" style="margin-top:12px"></div>
+  </section>
+</main>
+
+<footer class="pie-sitio">DasAuto · ficha e historial guardados en <code>inventario_ficha</code> y <code>precios_historico</code></footer>
+<script src="js/db-cliente.js"></script>
+<script src="js/vehiculo.js"></script>
+</body>
+</html>

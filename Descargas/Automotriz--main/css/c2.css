@@ -1,0 +1,267 @@
+
+
+/* Estilos específicos para la página de Financiación / Formulario y Contacto */
+
+
+.form-main-container {
+    max-width: 900px;
+    margin: 40px auto 120px auto;
+    margin-top: -900px;
+    padding: 0 20px;
+    animation: slideUpIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+}
+
+.form-header-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-header-title h2 {
+    font-size: 2.2rem;
+    color: #f8f8f8;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.form-header-title p {
+    font-size: 0.95rem;
+    color: #9d9ea0;
+}
+.back {
+    position: relative;
+    width: 100%;
+    height: 96.1vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+#vid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    border: solid;
+}
+
+.form-card-container {
+    background-color: #fafbfc15;
+    border: 1px solid #e2e2e23a;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+.automotive-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #eaeaeb;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    border: 1px solid #ffffff62;
+    border-radius: 5px;
+    background-color: #ffffffc0;
+    color: #616161;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    font-family: inherit;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #5a4c48;
+    box-shadow: 0 0 0 3px rgba(90, 76, 72, 0.1);
+}
+
+.form-terms {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.form-terms input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.form-terms label {
+    font-size: 0.75rem;
+    color: #5c5e62;
+    cursor: pointer;
+}
+
+.form-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn-submit {
+    background-color: #171a20;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+    width: 100%;
+    max-width: 300px;
+}
+
+.btn-submit:hover {
+    background-color: #33363d;
+}
+
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .form-card-container {
+        padding: 20px;
+    }
+}
+
+#zapa {
+    position: absolute;
+    background-color: rgb(3, 3, 3);
+    width: 100%;
+    height: 100px;
+    margin-top: 95px;
+    z-index: 50;
+    border-top: #0a0a0a solid 1px;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- CURSOR DE COCHE DEPORTIVO --- */
+
+html, body, a, button, .brand-item, .why-card, .prev, .next {
+    cursor: none !important;
+}
+
+.car-cursor {
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    pointer-events: none; /* OBLIGATORIO: Hace que el coche sea "fantasma" y no choque con el formulario */
+    z-index: 100000; /* OBLIGATORIO: Lo posiciona por encima de cualquier desenfoque o fondo */
+    transform: translate(-50%, -50%) rotate(0deg);
+    transform-origin: center center;
+    will-change: transform, left, top;
+    transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+
+/* Estilo del cuerpo del coche */
+.car-icon {
+    width: 100%;
+    height: 100%;
+    fill: #727070; /* Color naranja corporativo */
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+    transition: fill 0.3s ease;
+}
+
+/* Efecto de luces traseras (estela de velocidad) */
+.tail-light {
+    position: absolute;
+    bottom: -2px;
+    width: 6px;
+    height: 6px;
+    background-color: #50a5ac; /* Rojo de luces de freno */
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff3333, 0 0 15px #ff3333;
+    opacity: 0.6;
+    transition: transform 0.2s ease, opacity 0.2s;
+}
+
+.tail-light.left { left: 6px; }
+.tail-light.right { right: 6px; }
+
+
+.car-hover-active .car-icon {
+    fill: #ffffff; 
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+.car-hover-active .tail-light {
+    opacity: 1;
+    transform: scale(1.4); 
+    box-shadow: 0 0 12px #ff3333, 0 0 25px #ff3333;
+}
+
+
+

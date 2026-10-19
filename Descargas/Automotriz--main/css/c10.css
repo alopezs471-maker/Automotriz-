@@ -1,0 +1,347 @@
+/* ==========================================
+   SHOWROOM VIP - ESTÉTICTA EDITORIAL DE LUJO
+   ========================================== */
+.showroom-section {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #07080a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 40px;
+  box-sizing: border-box;
+}
+
+.showroom-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.showroom-badge {
+  color: #8c92a4;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.showroom-title {
+  color: #f0f2f5;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 8px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* Grid de tarjetas */
+.showroom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 35px;
+  width: 100%;
+  max-width: 1350px;
+}
+
+/* Tarjeta mate estilo metal/carbono */
+.showroom-card {
+  background: #0e1015;
+  border-radius: 4px; /* Bordes más rectos y elegantes */
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+}
+
+.showroom-card:hover {
+  border-color: rgba(220, 225, 235, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Escenario de la fotografía */
+.car-stage {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background: #050608;
+}
+
+.car-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s ease;
+}
+
+.car-off {
+  opacity: 0.85;
+  filter: grayscale(20%);
+  z-index: 1;
+}
+
+.car-on {
+  opacity: 0;
+  z-index: 2;
+}
+
+/* Iluminación de estudio realista en blanco platino */
+.studio-light {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 140%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 50%, transparent 80%);
+  opacity: 0;
+  z-index: 3;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+/* Interacción Hover de Faros y Estudio */
+.showroom-card:hover .car-on {
+  opacity: 1;
+}
+
+.showroom-card:hover .studio-light {
+  opacity: 1;
+}
+
+.showroom-card:hover .car-img {
+  transform: scale(1.02);
+}
+
+/* Datos del auto */
+.showroom-info {
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0e1015;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.car-details h3 {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.car-specs {
+  color: #717786;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  margin: 6px 0 0 0;
+}
+
+/* Botón plateado de alta gama */
+.btn-showroom {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #e0e0e0;
+  padding: 10px 20px;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.showroom-card:hover .btn-showroom {
+  background: #ffffff;
+  color: #07080a;
+  border-color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* RETÍCULA DE 4 COLUMNAS PARA PANTALLAS GRANDES */
+.showroom-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Exactamente 4 por fila */
+  gap: 25px;
+  width: 100%;
+  max-width: 1600px; /* Ancho ampliado para alojar 4 tarjetas cómodamente */
+}
+
+/* Adaptación responsive para pantallas medianas y móviles */
+@media (max-width: 1200px) {
+  .showroom-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .showroom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================
+   MODAL DE VISUALIZACIÓN EXCLUSIVA (FULLSCREEN)
+   ========================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 6, 8, 0.96);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-container {
+  position: relative;
+  width: 90%;
+  max-width: 1200px;
+  background: #0e1015;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 40px;
+  box-sizing: border-box;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+  transform: scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .modal-container {
+  transform: scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: transparent;
+  border: none;
+  color: #a0a6b8;
+  font-size: 2.2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+  color: #ffffff;
+}
+
+.modal-stage {
+  width: 100%;
+  height: 500px;
+  background: #07080a;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.modal-car-img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.modal-info h3 {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 3px;
+  margin: 0;
+}
+
+.modal-info p {
+  color: #717786;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  margin: 8px 0 0 0;
+}
+
+/* Selector de Colores */
+.color-picker-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.color-label {
+  color: #8c92a4;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.color-swatches {
+  display: flex;
+  gap: 10px;
+}
+
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.swatch:hover {
+  transform: scale(1.1);
+  border-color: #ffffff;
+}
+
+.swatch.active {
+  border-color: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+/* Colores de muestra para los swatches */
+.swatch-onyx { background-color: #11141c; }
+.swatch-platinum { background-color: #d1d5db; }
+.swatch-crimson { background-color: #7f1d1d; }
+
+@media (max-width: 768px) {
+  .modal-footer {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .modal-stage {
+    height: 300px;
+  }
+}

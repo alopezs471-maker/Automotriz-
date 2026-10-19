@@ -1,0 +1,342 @@
+/* ================================================================= */
+/* SECCIÓN PRINCIPAL Y CONTENEDOR DE VÍDEO                           */
+/* ================================================================= */
+body {
+    background-color: #000000;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* El contenedor principal abarca toda la pantalla */
+.back {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 140px); /* Descuenta header y footer */
+    display: flex;
+    justify-content: flex-end; /* Alinea la tarjeta hacia la DERECHA */
+    align-items: center;
+    padding: 40px 6% 40px 20px; /* Margen derecho suave para despegar del borde */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Video de fondo */
+#vid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ================================================================= */
+/* TARJETA FLOTANTE PQRS (ALINEADA A LA DERECHA)                    */
+/* ================================================================= */
+/* Línea ~36: Reemplazar el contenedor principal de la tarjeta */
+.pqrs-card-container {
+    position: relative;
+    z-index: 10;
+    width: 60%;
+    max-width: 850px;
+    background: rgba(12, 14, 22, 0.82); /* Fondo oscuro con transparencia */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 229, 255, 0.2); /* Borde cian sutil */
+    border-radius: 4px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 35px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+/* Columna Izquierda: Información de contacto */
+.contact-info-col {
+    flex: 1;
+}
+
+/* Líneas ~50-68: Cambios de color en textos y subtítulos */
+.contact-title {
+    font-size: 2.2rem;
+    font-weight: 300;
+    margin: 0 0 15px 0;
+    color: #ffffff; /* Texto principal en blanco */
+    letter-spacing: 1px;
+}
+
+.contact-subtitle, 
+.form-header-text {
+    font-size: 0.85rem;
+    color: #fafafa; /* Gris claro frío */
+}
+
+.contact-detail {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+/* Columna Derecha: Formulario */
+.contact-form-col {
+    flex: 1.8;
+}
+
+.form-header-text {
+    font-size: 0.85rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.pqrs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.pqrs-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.pqrs-group.pqrs-full {
+    grid-column: span 2;
+}
+
+/* Líneas ~85-105: Etiquetas, inputs y efecto hover/foco */
+.pqrs-group label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    color: #8f96a3;
+    letter-spacing: 0.5px;
+}
+
+.pqrs-group input, 
+.pqrs-group select, 
+.pqrs-group textarea {
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+    padding: 10px 12px;
+    color: #ffffff;
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Añadir justo debajo de los inputs */
+.pqrs-group input:focus, 
+.pqrs-group select:focus, 
+.pqrs-group textarea:focus {
+    border-color: #00e5ff; /* Resplandor cian al hacer clic */
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+/* Checkbox y Términos */
+.pqrs-terms {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 15px 0;
+    font-size: 0.75rem;
+    color: #222;
+}
+
+/* Botón negro "RADICAR PQRS" */
+/* Línea ~115: Botón con degradado naranja de marca */
+.btn-pqrs-submit {
+    background: linear-gradient(135deg, #383838 0%, #f7f9fa 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    padding: 12px 25px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-pqrs-submit:hover {
+    box-shadow: 0 0 15px rgba(250, 250, 250, 0.6);
+    transform: translateY(-1px);
+}
+
+/* Color del desplegable cerrado */
+select {
+    background-color: #161b22 !important; /* Ajusta según el fondo de tus inputs */
+    color: #ffffff !important;
+    border: 1px solid #30363d !important;
+}
+
+/* Opciones desplegadas dentro del menú */
+select option {
+    background-color: #161b22 !important; /* Fondo oscuro del desplegable */
+    color: #ffffff !important;           /* Texto blanco visible */
+    padding: 10px;
+}
+
+/* Deshabilitar opción por defecto / Placeholder */
+select option[value=""][disabled],
+select option:first-child {
+    color: #8b949e !important;           /* Color gris claro para la opción nula */
+}
+
+/* ================================================================= */
+/* FOOTER                                                            */
+/* ================================================================= */
+#zapa {
+    background-color: #000000;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    border-top: 1px solid #222;
+    color: #fff;
+}
+
+/* ================================================================= */
+/* RESPONSIVE (En pantallas pequeñas se apila automáticamente)      */
+/* ================================================================= */
+@media (max-width: 1024px) {
+    .back {
+        justify-content: center; /* En móviles/tablets se centra para que no se corte */
+        padding: 20px;
+    }
+    
+    .pqrs-card-container {
+        width: 100%;
+        min-width: auto;
+        flex-direction: column;
+    }
+
+    .pqrs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pqrs-group.pqrs-full {
+        grid-column: span 1;
+    }
+}
+
+
+#zapa {
+    position: absolute;
+    background-color: rgb(15, 15, 15);
+    width: 100%;
+    height: 100px;
+    margin-top: 0px;
+    z-index: 50;
+    border-top: #e0e0e0 solid 1px;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-right {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+#numero-one {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#numero-two, #numero-tre, #numero-four {
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#numero-two:hover, #numero-tre:hover, #numero-four:hover {
+    color: #ff9900;
+}
+
+#zapa i {
+    margin-right: 8px;
+}
+
+#iconfo{
+    margin-left: -10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+
+}
+
+
+
+/* Forzar la pantalla completa y la prioridad visual de la intro */
+.intro-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: #0d0f12 !important; /* Fondo oscuro */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 2147483647 !important; /* Valor máximo de z-index */
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: opacity 0.8s ease, visibility 0.8s ease !important;
+    pointer-events: all !important;
+}
+
+/* Estado oculto */
+.intro-overlay.fade-out {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.intro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.intro-logo {
+    max-width: 180px;
+    height: auto;
+}
+
+.intro-line {
+    width: 60px;
+    height: 2px;
+    background: #3498db;
+    margin: 12px 0;
+}
+
+.intro-subtitle {
+    color: #ffffff;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin: 0;
+}

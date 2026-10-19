@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones Exclusivas | DasAuto</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <link rel="icon" type="image/png" href="img/icon.png">
+    <link rel="stylesheet" href="css/c1.css">
+    <link rel="stylesheet" href="css/c6.css">
+    <script src="js/j1.js"></script>
+    <script src="js/j6.js"></script>
+</head>
+
+<body>
+
+
+<div class="car-cursor">
+  <svg viewBox="0 0 24 24" class="car-icon">
+    <path d="M5,11 L5,5 C5,3.9 5.9,3 7,3 L17,3 C18.1,3 19,3.9 19,5 L19,11 L20,11 C20.6,11 21,11.4 21,12 L21,18 C21,19.1 20.1,20 19,20 L17,20 L17,21 C17,21.6 16.6,22 16,22 L14,22 C13.4,22 13,21.6 13,21 L13,20 L11,20 L11,21 C11,21.6 10.6,22 10,22 L8,22 C7.4,22 7,21.6 7,21 L7,20 L5,20 C3.9,20 3,19.1 3,18 L3,12 C3,11.4 3.4,11 4,11 Z M7,5 L7,9 L17,9 L17,5 L7,5 Z M6,13 C6,13.6 6.4,14 7,14 L8,14 C8.6,14 9,13.6 9,13 C9,12.4 8.6,12 8,12 L7,12 C6,12 6,12.4 6,13 Z M15,13 C15,13.6 15.4,14 16,14 L17,14 C17.6,14 18,13.6 18,13 C18,12.4 17.6,12 17,12 L16,12 C15.4,12 15,12.4 15,13 Z" />
+  </svg>
+  <div class="tail-light left"></div>
+  <div class="tail-light right"></div>
+</div>
+
+
+<!-- FILTRO DE DISTORSIÓN LÍQUIDA -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <defs>
+        <filter id="liquid-flag-wave">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015 0.08" numOctaves="2" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="displacement" />
+        </filter>
+    </defs>
+</svg>
+
+<header class="navbar"> 
+  <div class="logo">
+    <a href="index.html"><img src="img/dasu.png" alt="" id="tes"></a>
+  </div> 
+  <nav class="nav-links"> 
+    <ul> 
+      <li class="item-dropdown">
+        <a href="index.html">inicio</a>
+        <div class="tesla-dropdown">
+          <div class="tesla-dropdown-container">
+            <div class="tesla-cars">
+              <div class="tesla-car-item">
+                <a href="Automoviles.html"><img src="img/corolla.jpg" alt="Automoviles"></a>
+                <h4>Automoviles</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+              <div class="tesla-car-item">
+                <a href="Camioneta.html"><img src="img/honda.jpg" alt="Camionetas"></a>
+                <h4>Camionetas</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+              <div class="tesla-car-item">
+                <a href="motos.html"><img src="img/mata.png" alt="Motos"></a>
+                <h4>Motos</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                </div>
+              </div>
+              <div class="tesla-car-item">
+                <a href="Electricos.html"><img src="img/elec.png" alt="Electricos"></a>
+                <h4>Electricos</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+            </div>
+            <div class="tesla-side-menu">
+              <a href="Taller.html">Taller</a>
+              <a href="Financiacion.html">Financiacion</a>
+              <a href="Seguros.html">Seguros</a>
+              <a href="Contacto.html">Contacto</a>
+              <a href="Agendar prueba.html">Agendar prueba</a>
+            </div>
+          </div>
+        </div>
+      </li> 
+      <li><a href="Promociones.html">Promociones</a></li> 
+      <li><a href="PQRS.html">PQRS</a></li> 
+      <li><a href="Galeria.html">Galeria</a></li> 
+    </ul> 
+  </nav> 
+</header>
+
+<!-- HERO "VANGUARD LIMITED COLLECTION" (100vh) -->
+<section class="promo-hero">
+  <div class="promo-hero-overlay"></div>
+  <div class="promo-hero-content">
+    <span class="hero-tag">EDICIÓN LIMITADA & BENEFICIOS EXCLUSIVOS</span>
+    <h1>VANGUARD SELECTION 2026</h1>
+    <p>Oportunidades de adquisición reservadas para modelos seleccionados con condiciones de financiamiento preferenciales e inclusión de mantenimiento integral.</p>
+
+    <div class="hero-metrics">
+      <div class="metric-item">
+        <span class="metric-value">0%</span>
+        <span class="metric-label">Tasa de Interés / 12 M</span>
+      </div>
+      <div class="metric-divider"></div>
+      <div class="metric-item">
+        <span class="metric-value">36M</span>
+        <span class="metric-label">Mantenimiento Incluido</span>
+      </div>
+      <div class="metric-divider"></div>
+      <div class="metric-item">
+        <span class="metric-value">Q3 2026</span>
+        <span class="metric-label">Asignación Lote Especial</span>
+      </div>
+    </div>
+
+    <a href="#catalogo-promociones" class="btn-hero-explore">EXPLORAR UNIDADES</a>
+  </div>
+</section>
+
+<main id="catalogo-promociones">
+<section id="datos-promociones" aria-label="Tabla de promociones conectada">
+<style>
+#datos-promociones{background:#fff;color:#171a20;padding:30px;margin:28px auto;border:1px solid #ddd;border-radius:10px;width:94%;font-family:Arial,sans-serif}#datos-promociones h2{font-size:25px;margin:0 0 12px}#datos-promociones p{font-size:14px;line-height:1.6}#datos-promociones .datos-tools{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}#datos-promociones input,#datos-promociones select,#datos-promociones button{font:inherit;padding:10px;border:1px solid #ccc;border-radius:5px}#datos-promociones button{background:#171a20;color:white;cursor:pointer}#datos-promociones .datos-scroll{overflow:auto}#datos-promociones table{border-collapse:collapse;min-width:1050px;width:100%;font-size:13px}#datos-promociones th,#datos-promociones td{text-align:left;padding:14px;border-bottom:1px solid #ddd}#datos-promociones th{background:#f1f3f4}#datos-promociones [role=status]{color:#45635b}
+</style>
+<h2>Inventario y promociones</h2>
+<p>Vista local conectada a la base de datos. Precios importados de tu catálogo; COP asumido. Cantidades y vigencias pendientes de confirmar. Las promociones comienzan como borradores y aquí se muestran solo para revisión: la tienda y el carrito usan el <strong>precio de venta</strong>, que aplica la oferta únicamente cuando la promoción está publicada y vigente.</p>
+<div class="datos-tools"><input type="search" aria-label="Buscar promoción" placeholder="Buscar vehículo o beneficio"><select aria-label="Filtrar categoría"><option value="">Todas las categorías</option></select><button type="button">Actualizar datos</button></div>
+<p role="status">Cargando…</p><div class="datos-scroll"><table><thead><tr><th>Vehículo</th><th>Categoría</th><th>Precio base</th><th>Promoción</th><th>Descuento</th><th>Precio de venta</th><th>Existencias</th><th>Beneficio</th><th>Estado</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+
+  <!-- BARRA DE FILTROS -->
+  <div class="filter-top-bar">
+      <div class="filter-dropdown-group">
+          <button class="filter-top-header">Categoría <span class="icon">▼</span></button>
+          <div class="filter-top-content">
+              <label><input type="checkbox" name="categoria" value="automovil"> Automóviles</label>
+              <label><input type="checkbox" name="categoria" value="camioneta"> Camionetas</label>
+              <label><input type="checkbox" name="categoria" value="moto"> Motos</label>
+          </div>
+      </div>
+
+      <div class="filter-dropdown-group">
+          <button class="filter-top-header">Propulsión <span class="icon">▼</span></button>
+          <div class="filter-top-content">
+              <label><input type="checkbox" name="propulsion" value="electrico"> Eléctrico</label>
+              <label><input type="checkbox" name="propulsion" value="hibrido"> Híbrido</label>
+              <label><input type="checkbox" name="propulsion" value="gasolina"> Gasolina / Diésel</label>
+          </div>
+      </div>
+
+      <div class="filter-dropdown-group">
+          <button class="filter-top-header">Autonomía <span class="icon">▼</span></button>
+          <div class="filter-top-content">
+              <label><input type="checkbox" name="autonomia" value="alta"> Más de 600 km</label>
+              <label><input type="checkbox" name="autonomia" value="media"> 500 km - 600 km</label>
+              <label><input type="checkbox" name="autonomia" value="baja"> Menos de 500 km</label>
+          </div>
+      </div>
+
+      <div class="filter-dropdown-group">
+          <button class="filter-top-header">Rango de Precio <span class="icon">▼</span></button>
+          <div class="filter-top-content">
+              <label><input type="checkbox" name="precio" value="gama-alta"> Más de $250M</label>
+              <label><input type="checkbox" name="precio" value="gama-media"> $150M - $250M</label>
+              <label><input type="checkbox" name="precio" value="gama-entrada"> Menos de $150M</label>
+          </div>
+      </div>
+  </div>
+
+  <!-- CATÁLOGO COMPLETO (28 VEHÍCULOS) -->
+  <div class="products-grid">
+      <!-- AUTOMÓVILES -->
+      <div class="product-card" data-id="corolla" data-name="Corolla" data-price="125000000" data-img="img/corl.png" data-rating="4" data-category="automovil" data-propulsion="hibrido" data-autonomia="alta">
+          <span class="luxury-badge">EDICIÓN ESPECIAL</span>
+          <div class="img-container"><img src="img/corl.png" alt="Corolla"></div>
+          <h3>Corolla</h3>
+          <div class="product-specs">466 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 138.000.000</span>
+              <span class="product-price">$ 125.000.000</span>
+          </div>
+          <span class="benefit-subtext">Bono Ejecutivo Incluido</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="mazda-3" data-name="Mazda 3" data-price="144890000" data-img="img/mazda3.jpg" data-rating="5" data-category="automovil" data-propulsion="gasolina" data-autonomia="alta">
+          <span class="luxury-badge">TASA PREFERENCIAL 0%</span>
+          <div class="img-container"><img src="img/mazda3.jpg" alt="Mazda 3"></div>
+          <h3>Mazda 3</h3>
+          <div class="product-specs">533 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 155.000.000</span>
+              <span class="product-price">$ 144.890.000</span>
+          </div>
+          <span class="benefit-subtext">Mantenimiento 2 Años</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="kia-k3" data-name="Kia K3" data-price="169890000" data-img="img/kiak3.webp" data-rating="4" data-category="automovil" data-propulsion="gasolina" data-autonomia="media">
+          <span class="luxury-badge">ENTREGA INMEDIATA</span>
+          <div class="img-container"><img src="img/kiak3.webp" alt="Kia K3"></div>
+          <h3>Kia K3</h3>
+          <div class="product-specs">514 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 179.000.000</span>
+              <span class="product-price">$ 169.890.000</span>
+          </div>
+          <span class="benefit-subtext">Seguro Todo Riesgo 1 Año</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="mazda-2" data-name="Mazda 2" data-price="109990000" data-img="img/maz2.webp" data-rating="4" data-category="automovil" data-propulsion="gasolina" data-autonomia="media">
+          <span class="luxury-badge">BONO URBANO</span>
+          <div class="img-container"><img src="img/maz2.webp" alt="Mazda 2"></div>
+          <h3>Mazda 2</h3>
+          <div class="product-specs">513 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 118.000.000</span>
+              <span class="product-price">$ 109.990.000</span>
+          </div>
+          <span class="benefit-subtext">Matrícula Gratuita</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="kia-picanto" data-name="Kia Picanto" data-price="134990000" data-img="img/kai.jpg" data-rating="4" data-category="automovil" data-propulsion="gasolina" data-autonomia="media">
+          <span class="luxury-badge">TASA PREFERENCIAL</span>
+          <div class="img-container"><img src="img/kai.jpg" alt="Kia Picanto"></div>
+          <h3>Kia Picanto</h3>
+          <div class="product-specs">629 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 142.000.000</span>
+              <span class="product-price">$ 134.990.000</span>
+          </div>
+          <span class="benefit-subtext">SOAT y Matrícula Incluidos</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="tesla-model-3" data-name="Tesla Model 3" data-price="419900000" data-img="img/TS3.png" data-rating="5" data-category="automovil" data-propulsion="electrico" data-autonomia="alta">
+          <span class="luxury-badge">WALLBOX INCLUIDO</span>
+          <div class="img-container"><img src="img/TS3.png" alt="Tesla Model 3"></div>
+          <h3>Tesla Model 3</h3>
+          <div class="product-specs">515 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 435.000.000</span>
+              <span class="product-price">$ 419.900.000</span>
+          </div>
+          <span class="benefit-subtext">Cargador Residencial Pro</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="byd-seagull" data-name="BYD Seagull" data-price="151000000" data-img="img/BDY.webp" data-rating="4" data-category="automovil" data-propulsion="electrico" data-autonomia="media">
+          <span class="luxury-badge">EDICIÓN PREMIUM</span>
+          <div class="img-container"><img src="img/BDY.webp" alt="BYD Seagull"></div>
+          <h3>BYD Seagull</h3>
+          <div class="product-specs">533 km | Edición Premium</div>
+          <div class="price-container">
+              <span class="old-price">$ 162.000.000</span>
+              <span class="product-price">$ 151.000.000</span>
+          </div>
+          <span class="benefit-subtext">Matrícula 100% Bonificada</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="mg4-electric" data-name="MG4 Electric" data-price="362000000" data-img="img/mguk.webp" data-rating="4" data-category="automovil" data-propulsion="electrico" data-autonomia="alta">
+          <span class="luxury-badge">LOTE EXCLUSIVO</span>
+          <div class="img-container"><img src="img/mguk.webp" alt="MG4 Electric"></div>
+          <h3>MG4 Electric</h3>
+          <div class="product-specs">547 km | Gris Militar</div>
+          <div class="price-container">
+              <span class="old-price">$ 380.000.000</span>
+              <span class="product-price">$ 362.000.000</span>
+          </div>
+          <span class="benefit-subtext">Garantía Extendida 5 Años</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="kia-ev2" data-name="Kia EV2" data-price="308000000" data-img="img/kiah.webp" data-rating="5" data-category="automovil" data-propulsion="electrico" data-autonomia="alta">
+          <span class="luxury-badge">LANZAMIENTO VIP</span>
+          <div class="img-container"><img src="img/kiah.webp" alt="Kia EV2"></div>
+          <h3>Kia EV2</h3>
+          <div class="product-specs">600 km | Rojo Carmín</div>
+          <div class="price-container">
+              <span class="old-price">$ 325.000.000</span>
+              <span class="product-price">$ 308.000.000</span>
+          </div>
+          <span class="benefit-subtext">Cargador Rápido de Regalo</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <!-- CAMIONETAS / SUVS -->
+      <div class="product-card" data-id="renault-duster" data-name="Renault Duster" data-price="159990000" data-img="img/dust.webp" data-rating="4" data-category="camioneta" data-propulsion="gasolina" data-autonomia="media">
+          <span class="luxury-badge">BONO OFF-ROAD</span>
+          <div class="img-container"><img src="img/dust.webp" alt="Renault Duster"></div>
+          <h3>Renault Duster</h3>
+          <div class="product-specs">528 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 168.000.000</span>
+              <span class="product-price">$ 159.990.000</span>
+          </div>
+          <span class="benefit-subtext">Kit Aventura de Regalo</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="corolla-cross" data-name="Toyota Corolla Cross" data-price="249900000" data-img="img/cross.jpg" data-rating="5" data-category="camioneta" data-propulsion="hibrido" data-autonomia="alta">
+          <span class="luxury-badge">TASA PREFERENCIAL 0%</span>
+          <div class="img-container"><img src="img/cross.jpg" alt="Toyota Corolla Cross"></div>
+          <h3>Toyota Corolla Cross</h3>
+          <div class="product-specs">634 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 265.000.000</span>
+              <span class="product-price">$ 249.900.000</span>
+          </div>
+          <span class="benefit-subtext">Bono de Equipamiento SUV</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="mazda-cx30" data-name="Mazda CX-30" data-price="299900000" data-img="img/CX.5-s" data-rating="5" data-category="camioneta" data-propulsion="hibrido" data-autonomia="alta">
+          <span class="luxury-badge">EDICIÓN LUXURY</span>
+          <div class="img-container"><img src="img/CX.5-s" alt="Mazda CX-30"></div>
+          <h3>Mazda CX-30</h3>
+          <div class="product-specs">600 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 315.000.000</span>
+              <span class="product-price">$ 299.900.000</span>
+          </div>
+          <span class="benefit-subtext">Mantenimiento Gratis 3 Años</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="vw-taos" data-name="Volkswagen Taos" data-price="269900000" data-img="img/TAO.jpg" data-rating="4" data-category="camioneta" data-propulsion="gasolina" data-autonomia="media">
+          <span class="luxury-badge">ENTREGA INMEDIATA</span>
+          <div class="img-container"><img src="img/TAO.jpg" alt="Volkswagen Taos"></div>
+          <h3>Volkswagen Taos</h3>
+          <div class="product-specs">576 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 282.000.000</span>
+              <span class="product-price">$ 269.900.000</span>
+          </div>
+          <span class="benefit-subtext">Bono Financiero Directo</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="tesla-model-y" data-name="Tesla Model Y" data-price="319900000" data-img="img/TSY.png" data-rating="5" data-category="camioneta" data-propulsion="electrico" data-autonomia="alta">
+          <span class="luxury-badge">EDICIÓN ESPECIAL</span>
+          <div class="img-container"><img src="img/TSY.png" alt="Tesla Model Y"></div>
+          <h3>Tesla Model Y</h3>
+          <div class="product-specs">543 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 338.000.000</span>
+              <span class="product-price">$ 319.900.000</span>
+          </div>
+          <span class="benefit-subtext">Conectividad Premium 3 Años</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="byd-yuan-up" data-name="BYD Yuan UP" data-price="349900000" data-img="img/SUV.jpg" data-rating="4" data-category="camioneta" data-propulsion="electrico" data-autonomia="media">
+          <span class="luxury-badge">LOTE TECH</span>
+          <div class="img-container"><img src="img/SUV.jpg" alt="BYD Yuan UP"></div>
+          <h3>BYD Yuan UP</h3>
+          <div class="product-specs">547 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 365.000.000</span>
+              <span class="product-price">$ 349.900.000</span>
+          </div>
+          <span class="benefit-subtext">Wallbox de Carga Rápida</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="chery-icar-03" data-name="Chery iCar 03" data-price="142000000" data-img="img/CHER.webp" data-rating="4" data-category="camioneta" data-propulsion="electrico" data-autonomia="alta">
+          <span class="luxury-badge">EDICIÓN MATE VIP</span>
+          <div class="img-container"><img src="img/CHER.webp" alt="Chery iCar 03"></div>
+          <h3>Chery iCar 03</h3>
+          <div class="product-specs">629 km | Edición Mate</div>
+          <div class="price-container">
+              <span class="old-price">$ 153.000.000</span>
+              <span class="product-price">$ 142.000.000</span>
+          </div>
+          <span class="benefit-subtext">Bono Retoma Garantizado</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="mg-s5-ev" data-name="MG S5 EV" data-price="275000000" data-img="img/MG.png" data-rating="4" data-category="camioneta" data-propulsion="electrico" data-autonomia="media">
+          <span class="luxury-badge">INTERIOR LUXURY</span>
+          <div class="img-container"><img src="img/MG.png" alt="MG S5 EV"></div>
+          <h3>MG S5 EV</h3>
+          <div class="product-specs">576 km | Interior Crema</div>
+          <div class="price-container">
+              <span class="old-price">$ 290.000.000</span>
+              <span class="product-price">$ 275.000.000</span>
+          </div>
+          <span class="benefit-subtext">Seguro Todo Riesgo 1 Año</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="gac-aion-v" data-name="GAC Aion V / UT" data-price="254000000" data-img="img/GAC.webp" data-rating="4" data-category="camioneta" data-propulsion="electrico" data-autonomia="alta">
+          <span class="luxury-badge">EDICIÓN OCÉANO</span>
+          <div class="img-container"><img src="img/GAC.webp" alt="GAC Aion V / UT"></div>
+          <h3>GAC Aion V / UT</h3>
+          <div class="product-specs">634 km | Azul Océano</div>
+          <div class="price-container">
+              <span class="old-price">$ 269.000.000</span>
+              <span class="product-price">$ 254.000.000</span>
+          </div>
+          <span class="benefit-subtext">Garantía Batería 8 Años</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="chevrolet-equinox" data-name="Chevrolet Equinox" data-price="124500000" data-img="img/EV.avif" data-rating="4" data-category="camioneta" data-propulsion="electrico" data-autonomia="media">
+          <span class="luxury-badge">OFERTA ESPECIAL</span>
+          <div class="img-container"><img src="img/EV.avif" alt="Chevrolet Equinox"></div>
+          <h3>Chevrolet Equinox</h3>
+          <div class="product-specs">466 km | Gris Mercurio</div>
+          <div class="price-container">
+              <span class="old-price">$ 135.000.000</span>
+              <span class="product-price">$ 124.500.000</span>
+          </div>
+          <span class="benefit-subtext">Bono Financiero Incluido</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="byd-yuan-plus" data-name="BYD Yuan Plus" data-price="112000000" data-img="img/bdysuv.webp" data-rating="5" data-category="camioneta" data-propulsion="electrico" data-autonomia="media">
+          <span class="luxury-badge">ENTREGA INMEDIATA</span>
+          <div class="img-container"><img src="img/bdysuv.webp" alt="BYD Yuan Plus"></div>
+          <h3>BYD Yuan Plus</h3>
+          <div class="product-specs">513 km | Blanco Perla</div>
+          <div class="price-container">
+              <span class="old-price">$ 124.000.000</span>
+              <span class="product-price">$ 112.000.000</span>
+          </div>
+          <span class="benefit-subtext">Bono Retoma Garantizado</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <!-- MOTOS -->
+      <div class="product-card" data-id="yamaha-mt09" data-name="Yamaha MT-09" data-price="58900000" data-img="img/mt09.jpg" data-rating="5" data-category="moto" data-propulsion="gasolina" data-autonomia="baja">
+          <span class="luxury-badge">HYPER NAKED</span>
+          <div class="img-container"><img src="img/mt09.jpg" alt="Yamaha MT-09"></div>
+          <h3>Yamaha MT-09</h3>
+          <div class="product-specs">320 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 63.500.000</span>
+              <span class="product-price">$ 58.900.000</span>
+          </div>
+          <span class="benefit-subtext">Quickshifter Incluido</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="kawasaki-z900" data-name="Kawasaki Z900" data-price="62500000" data-img="img/z900.png" data-rating="5" data-category="moto" data-propulsion="gasolina" data-autonomia="baja">
+          <span class="luxury-badge">EDICIÓN SUGOMI</span>
+          <div class="img-container"><img src="img/z900.png" alt="Kawasaki Z900"></div>
+          <h3>Kawasaki Z900</h3>
+          <div class="product-specs">300 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 67.000.000</span>
+              <span class="product-price">$ 62.500.000</span>
+          </div>
+          <span class="benefit-subtext">Casco Racing Incluido</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="bmw-r1250-gs" data-name="BMW R 1250 GS" data-price="135000000" data-img="img/r1200.webp" data-rating="5" data-category="moto" data-propulsion="gasolina" data-autonomia="media">
+          <span class="luxury-badge">PAQUETE TOURING</span>
+          <div class="img-container"><img src="img/r1200.webp" alt="BMW R 1250 GS"></div>
+          <h3>BMW R 1250 GS</h3>
+          <div class="product-specs">400 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 145.000.000</span>
+              <span class="product-price">$ 135.000.000</span>
+          </div>
+          <span class="benefit-subtext">Maletas Laterales de Aluminio</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="ducati-panigale-v4" data-name="Ducati Panigale V4" data-price="148000000" data-img="img/duc.png" data-rating="5" data-category="moto" data-propulsion="gasolina" data-autonomia="baja">
+          <span class="luxury-badge">EDICIÓN CORSE</span>
+          <div class="img-container"><img src="img/duc.png" alt="Ducati Panigale V4"></div>
+          <h3>Ducati Panigale V4</h3>
+          <div class="product-specs">250 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 160.000.000</span>
+              <span class="product-price">$ 148.000.000</span>
+          </div>
+          <span class="benefit-subtext">Mantenimiento Desmo Service 1y</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="ktm-790-duke" data-name="KTM 790 Duke" data-price="49900000" data-img="img/duk.png" data-rating="4" data-category="moto" data-propulsion="gasolina" data-autonomia="baja">
+          <span class="luxury-badge">THE SCALPEL</span>
+          <div class="img-container"><img src="img/duk.png" alt="KTM 790 Duke"></div>
+          <h3>KTM 790 Duke</h3>
+          <div class="product-specs">310 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 54.000.000</span>
+              <span class="product-price">$ 49.900.000</span>
+          </div>
+          <span class="benefit-subtext">Tech Pack Desbloqueado</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="starker-tc-max" data-name="Super Soco TC Max" data-price="18500000" data-img="img/soco.png" data-rating="4" data-category="moto" data-propulsion="electrico" data-autonomia="baja">
+          <span class="luxury-badge">URBANA ELÉCTRICA</span>
+          <div class="img-container"><img src="img/soco.png" alt="Super Soco TC Max"></div>
+          <h3>Super Soco TC Max</h3>
+          <div class="product-specs">110 km | 100% Eléctrica</div>
+          <div class="price-container">
+              <span class="old-price">$ 20.500.000</span>
+              <span class="product-price">$ 18.500.000</span>
+          </div>
+          <span class="benefit-subtext">Casco Certificado Incluido</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="zero-s-rf" data-name="Zero SR/F Electric" data-price="89000000" data-img="img/zero.png" data-rating="4" data-category="moto" data-propulsion="electrico" data-autonomia="baja">
+          <span class="luxury-badge">HIGH PERFORMANCE</span>
+          <div class="img-container"><img src="img/zero.png" alt="Zero SR/F Electric"></div>
+          <h3>Zero SR/F Electric</h3>
+          <div class="product-specs">260 km | 100% Eléctrica</div>
+          <div class="price-container">
+              <span class="old-price">$ 96.000.000</span>
+              <span class="product-price">$ 89.000.000</span>
+          </div>
+          <span class="benefit-subtext">Cargador Rápido Nivel 2</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="honda-cb650r" data-name="Honda CB650R" data-price="46900000" data-img="img/CB.htm" data-rating="4" data-category="moto" data-propulsion="gasolina" data-autonomia="baja">
+          <span class="luxury-badge">NEO SPORTS CAFE</span>
+          <div class="img-container"><img src="img/CB.htm" alt="Honda CB650R"></div>
+          <h3>Honda CB650R</h3>
+          <div class="product-specs">350 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 50.500.000</span>
+              <span class="product-price">$ 46.900.000</span>
+          </div>
+          <span class="benefit-subtext">Mantenimiento 1 Año Incluido</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="suzuki-vstrom-1050" data-name="Suzuki V-Strom 1050" data-price="72000000" data-img="img/suki.png" data-rating="4" data-category="moto" data-propulsion="gasolina" data-autonomia="media">
+          <span class="luxury-badge">MAXI-TRAIL VIP</span>
+          <div class="img-container"><img src="img/suki.png" alt="Suzuki V-Strom 1050"></div>
+          <h3>Suzuki V-Strom 1050</h3>
+          <div class="product-specs">410 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 78.000.000</span>
+              <span class="product-price">$ 72.000.000</span>
+          </div>
+          <span class="benefit-subtext">Top Case de Aluminio</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="vespa-elettrica" data-name="Vespa Elettrica" data-price="32000000" data-img="img/vespa.webp" data-rating="4" data-category="moto" data-propulsion="electrico" data-autonomia="baja">
+          <span class="luxury-badge">ESTILO ITALIANO</span>
+          <div class="img-container"><img src="img/vespa.webp" alt="Vespa Elettrica"></div>
+          <h3>Vespa Elettrica</h3>
+          <div class="product-specs">100 km | Urbana Eléctrica</div>
+          <div class="price-container">
+              <span class="old-price">$ 35.000.000</span>
+              <span class="product-price">$ 32.000.000</span>
+          </div>
+          <span class="benefit-subtext">Casco Vespa de Diseño</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="harley-davidson-livewire" data-name="Harley-Davidson LiveWire" data-price="129000000" data-img="img/harley.webp" data-rating="5" data-category="moto" data-propulsion="electrico" data-autonomia="baja">
+          <span class="luxury-badge">100% ELÉCTRICA VIP</span>
+          <div class="img-container"><img src="img/harley.webp" alt="Harley-Davidson LiveWire"></div>
+          <h3>Harley-Davidson LiveWire</h3>
+          <div class="product-specs">235 km | 100% Eléctrica</div>
+          <div class="price-container">
+              <span class="old-price">$ 139.000.000</span>
+              <span class="product-price">$ 129.000.000</span>
+          </div>
+          <span class="benefit-subtext">Casco & Equipamiento Exclusive</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+
+      <div class="product-card" data-id="bmw-s1000rr" data-name="BMW S 1000 RR" data-price="125000000" data-img="img/BWMS.webp" data-rating="5" data-category="moto" data-propulsion="gasolina" data-autonomia="baja">
+          <span class="luxury-badge">SUPERBIKE EDITION</span>
+          <div class="img-container"><img src="img/BWMS.webp" alt="BMW S 1000 RR"></div>
+          <h3>BMW S 1000 RR</h3>
+          <div class="product-specs">320 km Autonomía</div>
+          <div class="price-container">
+              <span class="old-price">$ 136.000.000</span>
+              <span class="product-price">$ 125.000.000</span>
+          </div>
+          <span class="benefit-subtext">Paquete M Motorsport</span>
+          <button class="btn-add-cart" type="button">Ordenar</button>
+      </div>
+  </div>
+
+  <button class="floating-cart" id="open-cart-btn" type="button">
+      <div class="cart-icon-wrapper">
+          <svg class="cart-svg" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          <span class="cart-count" id="cart-count-badge">0</span>
+      </div>
+  </button>
+</main>
+
+<div class="cart-sidebar" id="cart-sidebar">
+    <div style="padding: 24px; border-bottom: 1px solid #e2e2e2; display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="font-weight: 600; font-size: 1.2rem; color: #171a20;">Tu Carrito Premium</h3>
+        <button id="close-cart-btn" style="background: transparent; border: none; color: #171a20; font-size: 1.8rem; cursor: pointer; line-height: 1;">&times;</button>
+    </div>
+    
+    <div id="cart-items-container" style="flex: 1; overflow-y: auto; padding: 24px;"></div>
+
+    <div style="padding: 24px; border-top: 1px solid #e2e2e2; background-color: #f9f9f9;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: 600; font-size: 1.1rem; color: #171a20;">
+            <span>Subtotal de Compra:</span>
+            <span id="cart-subtotal" style="color: #3e6ae1;">$ 0</span>
+        </div>
+        <button id="checkout-btn" style="width: 100%; padding: 14px; background-color: #3e6ae1; border: none; color: white; font-weight: 500; border-radius: 4px; cursor: pointer; font-size: 0.9rem; margin-bottom: 10px;">Proceder al Pago</button>
+        <button id="clear-cart-btn" style="width: 100%; padding: 10px; background: transparent; border: 1px solid #d0d0d0; color: #5c5e62; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Vaciar Orden</button>
+    </div>
+</div>
+
+<div class="cart-overlay" id="cart-overlay"></div>
+
+<footer>
+  <div id="zapa">
+    <div class="footer-left">
+      <img src="img/iconfo.jpg" alt="" id="iconfo">
+      <p id="numero-one">Das auto</p>
+    </div>
+    <div class="footer-right">
+      <p id="numero-two"><i class="fa-brands fa-facebook"></i> Facebook</p>
+      <p id="numero-tre"><i class="fa-brands fa-instagram"></i> Instagram</p>
+      <p id="numero-four"><i class="fa-brands fa-x-twitter"></i> X</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/script1.js"></script>
+<script src="js/conexion-datos.js" defer></script>
+</body>
+
+
+</html>

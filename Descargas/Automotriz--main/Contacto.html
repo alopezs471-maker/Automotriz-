@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Automotriz</title>
+    <link rel="icon" type="image/png" href="img/icon.png">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/c1.css">
+    <link rel="stylesheet" href="css/c5.css">
+    <script src="js/j1.js"></script>
+</head>
+<body>
+
+  <div class="car-cursor">
+  <svg viewBox="0 0 24 24" class="car-icon">
+    <path d="M5,11 L5,5 C5,3.9 5.9,3 7,3 L17,3 C18.1,3 19,3.9 19,5 L19,11 L20,11 C20.6,11 21,11.4 21,12 L21,18 C21,19.1 20.1,20 19,20 L17,20 L17,21 C17,21.6 16.6,22 16,22 L14,22 C13.4,22 13,21.6 13,21 L13,20 L11,20 L11,21 C11,21.6 10.6,22 10,22 L8,22 C7.4,22 7,21.6 7,21 L7,20 L5,20 C3.9,20 3,19.1 3,18 L3,12 C3,11.4 3.4,11 4,11 L5,11 Z M7,5 L7,9 L17,9 L17,5 L7,5 Z M6,13 C6,13.6 6.4,14 7,14 L8,14 C8.6,14 9,13.6 9,13 C9,12.4 8.6,12 8,12 L7,12 C6,12 6,12.4 6,13 Z M15,13 C15,13.6 15.4,14 16,14 L17,14 C17.6,14 18,13.6 18,13 C18,12.4 17.6,12 17,12 L16,12 C15.4,12 15,12.4 15,13 Z" />
+  </svg>
+  <div class="tail-light left"></div>
+  <div class="tail-light right"></div>
+</div>
+
+
+<header class="navbar"> 
+  <div class="logo">
+    <a href="index.html"><img src="img/dasu.png" alt="Logo" id="tes"></a>
+  </div> 
+  <nav class="nav-links"> 
+    <ul> 
+      <li class="item-dropdown">
+        <a href="index.html">inicio</a>
+        <div class="tesla-dropdown">
+          <div class="tesla-dropdown-container">
+            <div class="tesla-cars">
+              <div class="tesla-car-item">
+                <a href="Automoviles.html"><img src="img/corolla.jpg" alt="Automoviles"></a>
+                <h4>Automoviles</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+              <div class="tesla-car-item">
+                <a href="Camioneta.html"><img src="img/honda.jpg" alt="Camionetas"></a>
+                <h4>Camionetas</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+              <div class="tesla-car-item">
+                <a href="motos.html"><img src="img/mata.png" alt="Motos"></a>
+                <h4>Motos</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                </div>
+              </div>
+              <div class="tesla-car-item">
+                <a href="Electricos.html"><img src="img/elec.png" alt="Electricos"></a>
+                <h4>Electricos</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="tesla-side-menu">
+              <a href="Taller.html">Taller</a>
+              <a href="Financiacion.html">Financiacion</a>
+              <a href="Seguros.html">Seguros</a>
+              <a href="Contacto.html">Contacto</a>
+              <a href="Agendar prueba.html">Agendar prueba</a>
+            </div>
+          </div>
+        </div>
+      </li> 
+      <li><a href="Promociones.html">Promociones</a></li> 
+      <li><a href="PQRS.html">PQRS</a></li> 
+      <li><a href="Galeria.html">Galeria</a></li>
+    </ul> 
+  </nav> 
+</header>
+<!-- HERO BANNER ESTILO TESLA LIGHT -->
+<section class="tesla-contact-hero">
+    <h1>Soporte y Contacto</h1>
+    <p>Estamos disponibles para asistirte con tu vehículo o solicitud comercial.</p>
+</section>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="contact-main-container">
+    
+    <!-- NAVEGACIÓN LATERAL -->
+    <aside class="contact-sidebar">
+        <h3>Navegación</h3>
+        <ul>
+            <li><a href="#formulario-contacto"><i class="fa-solid fa-paper-plane"></i> Formulario</a></li>
+            <li><a href="#canales-directos"><i class="fa-solid fa-headset"></i> Canales Directos</a></li>
+            <li><a href="#sedes-tiendas"><i class="fa-solid fa-location-dot"></i> Tiendas y Sedes</a></li>
+            <li><a href="#faq-tesla"><i class="fa-solid fa-circle-question"></i> Preguntas Frecuentes</a></li>
+        </ul>
+    </aside>
+
+    <!-- ÁREA DE CONTENIDO -->
+    <section class="contact-content-area">
+
+        <!-- FORMULARIO DE CONTACTO -->
+        <div class="tesla-section" id="formulario-contacto">
+            <h2>Envíanos un mensaje</h2>
+            <form class="tesla-form-container" data-endpoint="contacto" data-mensaje="Mensaje enviado. Te responderemos muy pronto." onsubmit="event.preventDefault();">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="+57 300 000 0000">
+                    </div>
+                    <div class="form-group">
+                        <label for="asunto">Asunto</label>
+                        <select id="asunto" name="asunto">
+                            <option value="ventas">Consulta de Ventas / Cotización</option>
+                            <option value="prueba">Solicitar Prueba de Manejo</option>
+                            <option value="taller">Soporte Técnico / Taller</option>
+                            <option value="otro">Otro Asunto</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                </div>
+
+                <div class="form-group" style="display:flex;gap:10px;align-items:flex-start">
+                    <input type="checkbox" id="terminos-contacto" name="terminos" required style="margin-top:4px">
+                    <label for="terminos-contacto" style="font-size:13px;line-height:1.5">Autorizo el tratamiento de mis datos personales (Ley 1581 de 2012).</label>
+                </div>
+
+                <button type="submit" class="tesla-btn-submit">Enviar Mensaje</button>
+            </form>
+        </div>
+        
+        <!-- CANALES DIRECTOS (CON ESPACIADO AMPLIADO) -->
+        <div class="tesla-section" id="canales-directos">
+            <h2>Canales Directos</h2>
+            <div class="tesla-cards-grid">
+                <div class="tesla-card">
+                    <i class="fa-solid fa-phone"></i>
+                    <h4>Línea de Atención</h4>
+                    <p>Soporte en carretera y consultas generales.</p>
+                    <a href="tel:+573001234567" class="tesla-btn-secondary">+57 300 123 4567</a>
+                </div>
+
+                <div class="tesla-card">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <h4>Asistente Virtual</h4>
+                    <p>Agendamiento de pruebas de manejo y ventas.</p>
+                    <a href="https://wa.me/573001234567" target="_blank" class="tesla-btn-secondary">Iniciar Chat</a>
+                </div>
+
+                <div class="tesla-card">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <h4>Soporte Técnico</h4>
+                    <p>Asistencia en taller y repuestos originales.</p>
+                    <a href="mailto:taller@dasauto.com" class="tesla-btn-secondary">Enviar Correo</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIENDAS Y SEDES -->
+        <div class="tesla-section" id="sedes-tiendas">
+            <h2>Tiendas Oficiales</h2>
+            <div class="tesla-store-box">
+                <div class="store-info">
+                    <span class="badge-status">Abierto Ahora</span>
+                    <h3>Sede Principal - Das Auto Works</h3>
+                    <p><i class="fa-solid fa-map-pin"></i> Avainkierto 12, 05840 Hyvinkää, Finlandiab</p>
+                    <p><i class="fa-solid fa-clock"></i> Lunes a Sábado: 8:00 AM – 7:00 PM | Domingo: 10:00 AM – 2:00 PM</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREGUNTAS FRECUENTES -->
+        <div class="tesla-section" id="faq-tesla">
+            <h2>Preguntas Frecuentes</h2>
+
+            <details class="tesla-faq-item">
+                <summary>
+                    <span>¿Cómo solicito una prueba de manejo?</span>
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </summary>
+                <div class="faq-answer">
+                    <p>Puedes agendarla directamente desde nuestro menú principal seleccionando la opción <strong>"Agendar prueba"</strong> o coordinarla con nuestro equipo vía WhatsApp.</p>
+                </div>
+            </details>
+
+            <details class="tesla-faq-item">
+                <summary>
+                    <span>¿Cómo programar un mantenimiento de taller?</span>
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </summary>
+                <div class="faq-answer">
+                    <p>Accede a la sección de <strong>Taller</strong> en la barra superior para seleccionar tu horario o ponte en contacto directo con nuestro equipo técnico.</p>
+                </div>
+            </details>
+        </div>
+
+    </section>
+</main>
+<!-- FOOTER -->
+<footer>
+  <div id="zapa">
+    <div class="footer-left">
+      <img src="img/iconfo.jpg" alt="" id="iconfo">
+      <p id="numero-one">Das auto</p>
+    </div>
+    <div class="footer-right">
+      <p id="numero-two"><i class="fa-brands fa-facebook"></i> Facebook</p>
+      <p id="numero-tre"><i class="fa-brands fa-instagram"></i> Instagram</p>
+      <p id="numero-four"><i class="fa-brands fa-x-twitter"></i> X</p>
+    </div>
+  </div>
+</section>
+</footer>
+<a href="Promociones.html" id="cart-float-ball" title="Ver Promociones"><div class="index-floating-cart" id="index-cart-btn" title="Ver Carrito de Compras" href="Promociones.html">
+    <div class="cart-icon-wrapper">
+        <svg class="cart-svg" viewBox="0 0 24 24">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+        </svg>
+        <span class="cart-count" id="index-cart-count">0</span>
+    </div>
+</div>
+</a>
+</body>
+    <script src="js/j1.js"></script>
+
+
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const car = document.querySelector(".car-cursor");
+    if (!car) return;
+
+    // Variables de posición del mouse
+    let mX = window.innerWidth / 2;
+    let mY = window.innerHeight / 2;
+
+    // Variables físicas del coche
+    let cX = mX, cY = mY;   // Posición actual del coche
+    let vX = 0, vY = 0;     // Velocidad actual en ejes X e Y
+    
+    // --- PARÁMETROS DEL LLAVERO (Puedes tunearlos a tu gusto) ---
+    const elasticidad = 0.12;  // Qué tan fuerte te jala el "hilo" del llavero (0.01 a 0.3)
+    const friccion = 0.82;     // Resistencia al aire. Evita que rebote infinitamente (0.7 a 0.95)
+    const gravedad = 0.35;     // Peso del carro hacia abajo. Hace que "cuelgue" cuando te detienes
+    const largoHilo = 15;      // Distancia mínima de separación entre el mouse y el coche
+
+    window.addEventListener("mousemove", (e) => {
+        mX = e.clientX;
+        mY = e.clientY;
+    });
+
+    function updateLlaveroPhysics() {
+        // 1. Calcula la distancia/fuerza elástica hacia el mouse
+        let fuerzaX = (mX - cX) * elasticidad;
+        let fuerzaY = (mY - cY) * elasticidad;
+
+        // 2. Aplicamos las fuerzas a la velocidad (sumando gravedad hacia abajo)
+        vX += fuerzaX;
+        vY += fuerzaY + gravedad;
+
+        // 3. Aplicamos fricción para amortiguar el movimiento y que sea fluido
+        vX *= friccion;
+        vY *= friccion;
+
+        // 4. Actualizamos la posición real del coche
+        cX += vX;
+        cY += vY;
+
+        // 5. Renderizado en pantalla
+        car.style.left = `${cX}px`;
+        car.style.top = `${cY}px`;
+
+        // 6. ROTACIÓN: Hacemos que la trompa siempre mire al punto de agarre (el mouse)
+        const dx = mX - cX;
+        const dy = mY - cY;
+        
+        // Solo rota si está lo suficientemente lejos para evitar temblores raros
+        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
+            // Ajustamos +90 porque el coche en el SVG original mira hacia arriba
+            const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+            car.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+        }
+
+        requestAnimationFrame(updateLlaveroPhysics);
+    }
+    
+    // Iniciamos el motor físico
+    requestAnimationFrame(updateLlaveroPhysics);
+
+    // Mantenemos tus zonas interactivas de PQRS intactas
+    const zonasPqrs = document.querySelectorAll("a, button, input, select, textarea, .btn-pqrs-submit, .nav-links a");
+    zonasPqrs.forEach(item => {
+        item.addEventListener("mouseenter", () => document.body.classList.add("car-hover-active"));
+        item.addEventListener("mouseleave", () => document.body.classList.remove("car-hover-active"));
+    });
+});
+</script>
+<script src="js/conexion-datos.js" defer></script>
+</html>

@@ -1,0 +1,648 @@
+/* --- ESTILOS ESTILO TESLA PARA AUTOMOVILES.HTML (C4) --- */
+
+/* Sección Hero Principal */
+.tesla-hero {
+    position: relative;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    padding-top: 4rem;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.tesla-hero-content {
+    color: #e0e0e0;
+    z-index: 2;
+    animation: fadeInDown 1s ease-out forwards;
+}
+
+.tesla-hero-content h1 {
+    color: #e0e0e0;
+    font-size: 3rem;
+    font-weight: 500;
+    color: #080103;
+    margin-bottom: 2rem;
+    letter-spacing: -0.5px;
+}
+
+.tesla-hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.btn-tesla-primary {
+    background-color: #434547;
+    color: #ffffff;
+    padding: 12px 45px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btn-tesla-primary:hover {
+    background-color: #77787c;
+}
+
+.btn-tesla-secondary {
+    background-color: #f4f4f4;
+    color: #393c41;
+    padding: 12px 45px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btn-tesla-secondary:hover {
+    background-color: #e2e2e2;
+}
+
+.tesla-hero-image {
+    margin-top: -100px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.tesla-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Sección de Especificaciones Clave */
+.tesla-specs-section {
+    padding: 6rem 2rem 4rem 2rem;
+    text-align: center;
+    background-color: #030303;
+    margin-top: 50px;
+}
+
+.specs-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+}
+
+.spec-item h2 {
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: #fcfdff;
+    margin-bottom: 0.2rem;
+}
+
+.spec-unit {
+    font-size: 1.5rem;
+}
+
+.spec-item p {
+    font-size: 0.85rem;
+    color: #5c5e62;
+    font-weight: 500;
+}
+
+.specs-image-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 800px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.specs-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Sección de Características (Rediseñado de punta a punta) */
+.tesla-feature-section {
+    padding: 6rem 10% 4rem 10%;
+    background-color: #ffffff;
+}
+
+.feature-text-container {
+    max-width: 700px;
+    margin-bottom: 3rem;
+}
+
+.feature-text-container h2 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #171a20;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+}
+
+.feature-text-container p {
+    font-size: 0.95rem;
+    color: #5c5e62;
+    line-height: 1.6;
+}
+
+.feature-gallery {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.feature-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Sección CTA Final (Diseña el tuyo) */
+/* --- ESTILOS DE LA SECCIÓN CTA COMO FONDO DE PANTALLA --- */
+
+.tesla-cta-section {
+    position: relative;
+    padding: 8rem 5% 6rem 5%;
+    text-align: center;
+    background-color: #000000;
+    margin-top: 100px;
+    overflow: hidden;
+    min-height: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tesla-cta-content {
+    position: relative;
+    z-index: 5;
+    max-width: 800px;
+    margin-bottom: 3rem;
+}
+
+.tesla-cta-content h2 {
+    font-size: 3.5rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.tesla-cta-content p {
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.tesla-cta-buttons {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+/* La imagen de CTA se convierte en el fondo absoluto de la sección */
+.tesla-cta-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    margin: 0;
+    border-radius: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.tesla-cta-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .tesla-hero-buttons, .tesla-cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .specs-grid {
+        gap: 2rem;
+    }
+    .tesla-hero-content h1 {
+        font-size: 2.2rem;
+    }
+}
+
+
+/* --- ESTILOS DEL SLIDER COMO FONDO DE LA SECCIÓN --- */
+
+.tesla-feature-section {
+    margin-top: 100PX;
+    position: relative;
+    padding: 8rem 5% 6rem 5%;
+    background-color: #000000;
+    overflow: hidden;
+    min-height: 1100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.feature-text-container {
+    position: relative;
+    z-index: 5;
+    max-width: 800px;
+    margin-bottom: 3rem;
+    text-align: left;
+}
+
+.feature-text-container h2 {
+    font-size: 3.5rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.feature-text-container p {
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    line-height: 1.6;
+    font-weight: 500;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Estructura del Carrusel / Slider como Fondo */
+.tesla-slider-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border-radius: 0;
+    background-color: #000000;
+    margin: 0;
+    max-width: none;
+}
+
+.tesla-slider-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tesla-slide {
+    min-width: 100%;
+    height: 100%;
+}
+
+.tesla-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85);
+}
+
+/* Botones flotantes del Slider (estilo Tesla) */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #171a20;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.2s;
+    z-index: 10;
+}
+
+.slider-btn:hover {
+    background-color: rgba(255, 255, 255, 0.95);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.prev-btn {
+    left: 30px;
+}
+
+.next-btn {
+    right: 30px;
+}
+/* --- ESTILOS ESTILO TESLA PARA AUTOMOVILES.HTML (C4) --- */
+
+/* Sección Hero Principal con Animaciones */
+.tesla-hero {
+    position: relative;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    padding-top: 4rem;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.tesla-hero-content {
+    color: #e0e0e0;
+    z-index: 2;
+    /* Animación combinada de aparición y desplazamiento */
+    animation: heroEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.tesla-hero-content h1 {
+    font-size: 3rem;
+    font-weight: 500;
+    color: #080103;
+    margin-bottom: 2rem;
+    letter-spacing: -0.5px;
+    opacity: 0;
+    animation: titleFadeIn 1s ease 0.3s forwards;
+}
+
+.tesla-hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    opacity: 0;
+    animation: buttonsFadeIn 1s ease 0.5s forwards;
+}
+
+.btn-tesla-primary {
+    background-color: #2a2a2b;
+    color: #ffffff;
+    padding: 12px 45px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-tesla-primary:hover {
+    background-color: #686868;
+    transform: scale(1.02);
+}
+
+.btn-tesla-secondary {
+    background-color: #f4f4f4;
+    color: #393c41;
+    padding: 12px 45px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-tesla-secondary:hover {
+    background-color: #e2e2e2;
+    transform: scale(1.02);
+}
+
+.tesla-hero-image {
+    margin-top: -100px;
+    position: absolute;
+    width: 100%;
+    height: 130vh;
+    z-index: 1;
+    opacity: 0;
+    animation: imageZoomIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Video dentro de las diapositivas del slider (Sección 3) */
+.tesla-slide video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85);
+}
+
+/* Video de fondo de la última sección (Sección CTA) */
+.tesla-cta-image video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85);
+}
+
+/* Nuevos fotogramas clave (Keyframes) para las animaciones escalonadas */
+@keyframes heroEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes titleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes buttonsFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes imageZoomIn {
+    from {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* --- ANIMACIONES DE APARICIÓN AL HACER SCROLL (SCROLL REVEAL) --- */
+
+.tesla-specs-section,
+.tesla-feature-section,
+.tesla-cta-section {
+    opacity: 0;
+    transform: translateY(60px); /* Aumentado a 60px para que el movimiento sea más notable */
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform; /* Optimiza el rendimiento de la animación en el navegador */
+}
+
+/* Clase que activa la animación al entrar en pantalla */
+.tesla-specs-section.visible,
+.tesla-feature-section.visible,
+.tesla-cta-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.btn-tesla-primary {
+    background-color: #434547;
+    color: #ffffff;
+    padding: 12px 45px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+#hil{
+    margin-top: -120px;
+}
+
+#SEC2CAMI{
+    background: linear-gradient(#202e20, #000000);
+    color: #000000;
+}
+
+#sec2elec{
+    background:black
+}
+
+#tesld{
+        margin-top: -320px;
+}
+#zapa {
+    position: absolute;
+    background-color: rgb(15, 15, 15);
+    width: 100%;
+    height: 100px;
+    margin-top: 0px;
+    z-index: 50;
+    border-top: #e0e0e0 solid 1px;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- CURSOR DE COCHE DEPORTIVO --- */
+
+html, body, a, button, .brand-item, .why-card, .prev, .next {
+    cursor: none !important;
+}
+
+.car-cursor {
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    pointer-events: none; /* OBLIGATORIO: Hace que el coche sea "fantasma" y no choque con el formulario */
+    z-index: 100000; /* OBLIGATORIO: Lo posiciona por encima de cualquier desenfoque o fondo */
+    transform: translate(-50%, -50%) rotate(0deg);
+    transform-origin: center center;
+    will-change: transform, left, top;
+    transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+
+/* Estilo del cuerpo del coche */
+.car-icon {
+    width: 100%;
+    height: 100%;
+    fill: #727070; /* Color naranja corporativo */
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+    transition: fill 0.3s ease;
+}
+
+/* Efecto de luces traseras (estela de velocidad) */
+.tail-light {
+    position: absolute;
+    bottom: -2px;
+    width: 6px;
+    height: 6px;
+    background-color: #50a5ac; /* Rojo de luces de freno */
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff3333, 0 0 15px #ff3333;
+    opacity: 0.6;
+    transition: transform 0.2s ease, opacity 0.2s;
+}
+
+.tail-light.left { left: 6px; }
+.tail-light.right { right: 6px; }
+
+
+.car-hover-active .car-icon {
+    fill: #ffffff; 
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+.car-hover-active .tail-light {
+    opacity: 1;
+    transform: scale(1.4); 
+    box-shadow: 0 0 12px #ff3333, 0 0 25px #ff3333;
+}
+

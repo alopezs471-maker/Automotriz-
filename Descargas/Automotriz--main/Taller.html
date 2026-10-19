@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automotriz</title>
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <link rel="icon" type="image/png" href="img/icon.png">
+    <link rel="stylesheet" href="css/c1.css">
+    <link rel="stylesheet" href="css/c7.css">
+    <script src="js/j1.js"></script>
+    <script src="js/script2.js"></script>
+    <script src="js/loader.js"></script>
+</head>
+<body>
+
+  <div class="car-cursor">
+  <svg viewBox="0 0 24 24" class="car-icon">
+    <path d="M5,11 L5,5 C5,3.9 5.9,3 7,3 L17,3 C18.1,3 19,3.9 19,5 L19,11 L20,11 C20.6,11 21,11.4 21,12 L21,18 C21,19.1 20.1,20 19,20 L17,20 L17,21 C17,21.6 16.6,22 16,22 L14,22 C13.4,22 13,21.6 13,21 L13,20 L11,20 L11,21 C11,21.6 10.6,22 10,22 L8,22 C7.4,22 7,21.6 7,21 L7,20 L5,20 C3.9,20 3,19.1 3,18 L3,12 C3,11.4 3.4,11 4,11 L5,11 Z M7,5 L7,9 L17,9 L17,5 L7,5 Z M6,13 C6,13.6 6.4,14 7,14 L8,14 C8.6,14 9,13.6 9,13 C9,12.4 8.6,12 8,12 L7,12 C6,12 6,12.4 6,13 Z M15,13 C15,13.6 15.4,14 16,14 L17,14 C17.6,14 18,13.6 18,13 C18,12.4 17.6,12 17,12 L16,12 C15.4,12 15,12.4 15,13 Z" />
+  </svg>
+  <div class="tail-light left"></div>
+  <div class="tail-light right"></div>
+</div>
+
+<header class="navbar"> 
+  <div class="logo">
+    <a href="index.html"><img src="img/dasu.png" alt="" id="tes"></a>
+  </div> 
+
+  <nav class="nav-links"> 
+    <ul> 
+      <li class="item-dropdown">
+        <a href="index.html">inicio</a>
+        
+        <div class="tesla-dropdown">
+          <div class="tesla-dropdown-container">
+            
+
+            <div class="tesla-cars">
+              <div class="tesla-car-item">
+                <a href="Automoviles.html"><img src="img/corolla.jpg" alt="Model 3"></a>
+                <h4>Automoviles</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+              <div class="tesla-car-item">
+                <a href="Camioneta.html"><img src="img/honda.jpg" alt="Model Y"></a>
+                <h4>Camionetas</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+              <div class="tesla-car-item">
+                <a href="motos.html"><img src="img/mata.png" alt="Cybertruck"></a>
+                <h4>Motos</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                </div>
+              </div>
+              
+
+              <div class="tesla-car-item">
+                <a href="Electricos.html"><img src="img/elec.png" alt="Model S"></a>
+                <h4>Electricos</h4>
+                <div class="tesla-car-actions">
+                  <a href="#">Más info</a>
+                  <a href="#">Ordenar</a>
+                </div>
+              </div>
+            </div>
+            
+
+            <div class="tesla-side-menu">
+              <a href="Taller.html">Taller</a>
+              <a href="Financiacion.html">Financiacion</a>
+              <a href="Seguros.html">Seguros</a>
+              <a href="Contacto.html">Contacto</a>
+              <a href="Agendar prueba.html">Agendar prueba</a>
+
+            </div>
+            
+          </div>
+        </div>
+      </li> 
+      <li><a href="Promociones.html">Promociones</a></li> 
+      <li><a href="PQRS.html">PQRS</a></li> 
+      <li><a href="Galeria.html">Galeria</a></li> 
+    </ul> 
+  </nav> 
+</header>
+
+<section class="hero-banner">
+        <!-- Lado Izquierdo (Rojo con contenido) -->
+        <div class="hero-left">
+            <i class="fa-solid fa-road tire-track"></i>
+            
+            <div class="badge-tag">DAS AUTOS WORKS</div>
+            
+            <h1 class="hero-title">MECANICOS & LIMPIEZA PARA TU CARRO</h1>
+            
+            <p class="hero-description">
+              Trabajamos en estrecha colaboración con nuestros clientes para encontrar las soluciones más rentables, manteniendo al mismo tiempo un alto nivel de calidad en el servicio.
+            </p>
+
+            <div class="action-group">
+                <a href="Contacto.html" class="btn-primary">Contacto</a>
+                <div class="btn-play-wrapper" title="Ver Video">
+                    <div class="btn-play">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lado Derecho (Auto y Lavador) -->
+        <div class="hero-right">
+            <div class="hero-right-bg"></div>
+            <div class="hero-image-container">
+                <img src="img/wash.jpg" alt="Car Wash Service">
+            </div>
+        </div>
+    </section>
+
+
+<!-- SECCIÓN INTERACTIVA: SOBRE NOSOTROS (SIN EMOJIS) -->
+<section class="about-section" id="about-us">
+    <div class="about-container">
+        <!-- Galería Interactiva con Efecto Hover -->
+        <div class="about-images">
+            <div class="about-img-card img-left">
+                <img src="img/wash1.jpg" alt="Servicio de Limpieza y Detallado">
+                <div class="img-overlay">
+                    <span>Limpieza Detallada</span>
+                </div>
+            </div>
+            <div class="about-img-card img-right">
+                <img src="img/wash3.jpg" alt="Entrega de Vehículo">
+                <div class="img-overlay">
+                    <span>Garantía de Calidad</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenido Informativo Interactivo -->
+        <div class="about-content">
+            <div class="about-badge">
+                <span class="red-pulse"></span>
+                <span class="badge-text">DAS AUTOS SERVICE</span>
+            </div>
+            
+            <h2 class="about-title">LAVADO & DETAILING AUTOMOTRIZ DE ALTA CALIDAD</h2>
+            
+            <p class="about-description">
+                Nuestro departamento de detallado mantendrá tu vehículo en óptimas condiciones. Utilizamos productos de alta gama para ofrecer una protección duradera y un acabado profesional impecable.
+            </p>
+
+            <ul class="about-list">
+                <li class="about-item">
+                    <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+                    <span>Productos de marcas reconocidas y tecnología de vanguardia.</span>
+                </li>
+                <li class="about-item">
+                    <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+                    <span>Mantenimiento preventivo y correctivo especializado.</span>
+                </li>
+                <li class="about-item">
+                    <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+                    <span>Atención personalizada y garantía de satisfacción en cada servicio.</span>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- SECCIÓN INTERACTIVA: PESTAÑAS Y CARACTERÍSTICAS -->
+<section class="features-section" id="why-choose-us">
+    <div class="features-container">
+        <!-- Encabezado de la Sección -->
+        <div class="features-header">
+            <span class="features-subtitle">POR QUÉ ELEGIRNOS</span>
+            <h2 class="features-main-title">GESTIONA LA ATENCIÓN DE TU VEHÍCULO ONLINE</h2>
+        </div>
+
+        <!-- Pestañas de Navegación (Tabs) -->
+        <div class="features-tabs">
+            <button class="tab-btn active" data-tab="tab-1">
+                <i class="fa-solid fa-wrench"></i>
+                <span>Reparación de Carburador</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-2">
+                <i class="fa-solid fa-car-side"></i>
+                <span>Servicios Simples y Complejos</span>
+            </button>
+            <button class="tab-btn" data-tab="tab-3">
+                <i class="fa-solid fa-certificate"></i>
+                <span>Mantenimiento Certificado</span>
+            </button>
+        </div>
+
+        <!-- Contenido de las Pestañas -->
+        <div class="tab-content-wrapper">
+            <!-- Pestaña 1 -->
+            <div class="tab-content active" id="tab-1">
+                <div class="tab-text">
+                    <h3 class="tab-title">Reparación & Afinamiento de Carburador</h3>
+                    <p class="tab-description">
+                        Optimizamos la mezcla de aire y combustible para garantizar el rendimiento máximo de tu motor. Nuestros especialistas aplican procedimientos de precisión para extender la vida útil del vehículo.
+                    </p>
+                    <h4 class="tab-subheading">Soporte Técnico Especializado</h4>
+                    <ul class="tab-list">
+                        <li><div class="check-icon-dark"><i class="fa-solid fa-check"></i></div> <span>Diagnóstico computarizado de alta precisión.</span></li>
+                        <li><div class="check-icon-dark"><i class="fa-solid fa-check"></i></div> <span>Repuestos y componentes certificados.</span></li>
+                        <li><div class="check-icon-dark"><i class="fa-solid fa-check"></i></div> <span>Garantía escrita en todos los procedimientos.</span></li>
+                    </ul>
+                </div>
+                <div class="tab-image">
+                    <img src="img/wahs.jpg" alt="Vehículo en Mantenimiento">
+                </div>
+            </div>
+
+            <!-- Pestaña 2 -->
+            <div class="tab-content" id="tab-2">
+                <div class="tab-text">
+                    <h3 class="tab-title">Servicios Simples & Complejos</h3>
+                    <p class="tab-description">
+                        Superamos cualquier desafío mecánico combinando tecnología de punta e innovación con técnicos altamente capacitados para satisfacer las necesidades de tu vehículo.
+                    </p>
+                    <h4 class="tab-subheading">Centro de Ayuda 24/7</h4>
+                    <ul class="tab-list">
+                        <li><div class="check-icon-dark"><i class="fa-solid fa-check"></i></div> <span>Productos y suministros de marcas reconocidas.</span></li>
+                        <li><div class="check-icon-dark"><i class="fa-solid fa-check"></i></div> <span>Mantenimiento preventivo y correctivo especializado.</span></li>
+                        <li><div class="check-icon-dark"><i class="fa-solid fa-check"></i></div> <span>Atención personalizada y seguimiento post-servicio.</span></li>
+                    </ul>
+                </div>
+                <div class="tab-image">
+                    <img src="img/wahs1.jpg" alt="Vehículo Sedán">
+                </div>
+            </div>
+
+            <!-- Pestaña 3 -->
+            <div class="tab-content" id="tab-3">
+                <div class="tab-text">
+                    <h3 class="tab-title">Mantenimiento Certificado</h3>
+                    <p class="tab-description">
+                        Cumplimos estrictamente con los estándares y planes de mantenimiento de los fabricantes, garantizando la conservación de la garantía de fábrica y el valor comercial del auto.
+                    </p>
+                    <h4 class="tab-subheading">Estándares Internacionales</h4>
+                    <ul class="tab-list">
+                        <li><div class="check-icon-dark"><i class="fa-solid fa-check"></i></div> <span>Certificación en procesos de calidad automotriz.</span></li>
+                        <li><div class="check-icon-dark"><i class="fa-solid fa-check"></i></div> <span>Técnicos máster certificados.</span></li>
+                        <li><div class="check-icon-dark"><i class="fa-solid fa-check"></i></div> <span>Historial digital unificado de tu auto.</span></li>
+                    </ul>
+                </div>
+                <div class="tab-image">
+                    <img src="img/wahs2.jpg" alt="Vehículo Eléctrico">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SECCIÓN INTERACTIVA: CÓMO FUNCIONA / SERVICIOS PREMIUM -->
+<section class="process-section" id="how-it-works">
+    <div class="process-container">
+        <!-- Encabezado de la Sección -->
+        <div class="process-header">
+            <span class="process-subtitle">CÓMO FUNCIONA</span>
+            <h2 class="process-main-title">SERVICIOS DE LAVADO PREMIUM</h2>
+        </div>
+
+        <!-- Rejilla de Tarjetas de Servicio -->
+        <div class="process-grid">
+            <!-- Tarjeta 1: Limpieza Interior -->
+            <div class="process-card">
+                <div class="card-info">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-car-side"></i>
+                    </div>
+                    <h3 class="card-title">Limpieza Interior</h3>
+                    <p class="card-text">
+                        Nuestro servicio detallado con experiencia mantendrá su vehículo impecable, desinfectado y protegido.
+                    </p>
+                    <ul class="card-list">
+                        <li><div class="dot-icon"></div> <span>Tratamiento de cuero y tapicería.</span></li>
+                        <li><div class="dot-icon"></div> <span>Desinfección profunda con vapor.</span></li>
+                    </ul>
+                </div>
+                <div class="card-image">
+                    <img src="img/wash4.jpg" alt="Limpieza Interior Automotriz">
+                </div>
+            </div>
+
+            <!-- Tarjeta 2: Micro Cleaning -->
+            <div class="process-card">
+                <div class="card-info">
+                    <h3 class="card-title">Micro Cleaning</h3>
+                    <p class="card-text">
+                        Atención meticulosa a cada rincón de su vehículo utilizando tecnología de microfibra y productos de alta gama.
+                    </p>
+                    <ul class="card-list">
+                        <li><div class="dot-icon"></div> <span>Limpieza de motor y llantas.</span></li>
+                        <li><div class="dot-icon"></div> <span>Protección de pintura anticorrosiva.</span></li>
+                    </ul>
+                    <a href="#planes" class="btn-card">VER PLANES</a>
+                </div>
+                <div class="card-image">
+                    <img src="img/wash5.jpg" alt="Detallado de Llantas y Pintura">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- SECCIÓN INTERACTIVA: PLANES Y PRECIOS -->
+<section class="pricing-section" id="planes">
+    <div class="pricing-container">
+        <!-- Encabezado -->
+        <div class="pricing-header">
+            <span class="pricing-subtitle">NUESTROS PLANES</span>
+            <h2 class="pricing-main-title">ELIJE EL PLAN PERFECTO PARA TU VEHÍCULO</h2>
+        </div>
+
+        <!-- Grilla de Tarjetas de Precios -->
+        <div class="pricing-grid">
+            
+            <!-- Plan 1: Básico -->
+            <div class="pricing-card">
+                <div class="plan-header">
+                    <h3 class="plan-name">Lavado Básico</h3>
+                    <div class="plan-price">
+                        <span class="currency">$</span>
+                        <span class="amount">25</span>
+                        <span class="period">/ servicio</span>
+                    </div>
+                    <p class="plan-desc">Ideal para el mantenimiento rápido semanal de tu vehículo.</p>
+                </div>
+                <ul class="plan-features">
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Lavado exterior a presión</span></li>
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Aspirado de interiores y alfombras</span></li>
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Limpieza de vidrios y parabrisas</span></li>
+                    <li class="disabled"><i class="fa-solid fa-xmark check-no"></i> <span>Encerado y sellado de pintura</span></li>
+                    <li class="disabled"><i class="fa-solid fa-xmark check-no"></i> <span>Desinfección de aire acondicionado</span></li>
+                </ul>
+                <div class="plan-footer">
+                    <a href="#contacto" class="btn-plan btn-plan-outline">SELECCIONAR PLAN</a>
+                </div>
+            </div>
+
+            <!-- Plan 2: Premium (Destacado) -->
+            <div class="pricing-card featured">
+                <div class="popular-badge">MÁS POPULAR</div>
+                <div class="plan-header">
+                    <h3 class="plan-name">Mantenimiento Premium</h3>
+                    <div class="plan-price">
+                        <span class="currency">$</span>
+                        <span class="amount">55</span>
+                        <span class="period">/ servicio</span>
+                    </div>
+                    <p class="plan-desc">La combinación ideal de protección interior y exterior.</p>
+                </div>
+                <ul class="plan-features">
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Lavado exterior con champú pH neutro</span></li>
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Aspirado y desinfección con vapor</span></li>
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Abrillantado de llantas y plásticos</span></li>
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Encerado protector de alto brillo</span></li>
+                    <li class="disabled"><i class="fa-solid fa-xmark check-no"></i> <span>Tratamiento cerámico de pintura</span></li>
+                </ul>
+                <div class="plan-footer">
+                    <a href="#contacto" class="btn-plan btn-plan-dark">SELECCIONAR PLAN</a>
+                </div>
+            </div>
+
+            <!-- Plan 3: Detallado Pro -->
+            <div class="pricing-card">
+                <div class="plan-header">
+                    <h3 class="plan-name">Detallado Pro</h3>
+                    <div class="plan-price">
+                        <span class="currency">$</span>
+                        <span class="amount">110</span>
+                        <span class="period">/ servicio</span>
+                    </div>
+                    <p class="plan-desc">Servicio integral de restauración y máxima protección.</p>
+                </div>
+                <ul class="plan-features">
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Todo lo incluido en el Plan Premium</span></li>
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Tratamiento cerámico para pintura</span></li>
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Limpieza e hidratación de cuero</span></li>
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Desinfección de ozono en aire AC</span></li>
+                    <li><i class="fa-solid fa-check check-ok"></i> <span>Lavado de motor y chasis</span></li>
+                </ul>
+                <div class="plan-footer">
+                    <a href="#contacto" class="btn-plan btn-plan-outline">SELECCIONAR PLAN</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="agendar-cita" aria-label="Agendar cita en el taller">
+<style>
+#agendar-cita{background:#fff;color:#171a20;padding:30px;margin:28px auto;border:1px solid #ddd;border-radius:10px;width:94%;font-family:Arial,sans-serif;box-sizing:border-box}
+#agendar-cita h2{font-size:25px;margin:0 0 12px}
+#agendar-cita p{font-size:14px;line-height:1.6;color:#5c5e62}
+#agendar-cita .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:22px 0}
+#agendar-cita label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+#agendar-cita input,#agendar-cita select,#agendar-cita textarea{width:100%;font:inherit;padding:11px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box}
+#agendar-cita .consent{display:flex;gap:10px;align-items:flex-start;margin:14px 0;font-size:13px;line-height:1.5;color:#5c5e62}
+#agendar-cita .consent input{width:auto;margin-top:3px}
+#agendar-cita button{background:#171a20;color:#fff;font:inherit;font-weight:600;padding:14px 28px;border:none;border-radius:5px;cursor:pointer}
+#agendar-cita [role=status]{font-size:14px;line-height:1.5;margin-top:14px;color:#45635b}
+</style>
+<h2>Agenda tu cita en el taller</h2>
+<p>Registramos tu solicitud en nuestra base de datos y un asesor confirma el horario disponible. Recibirás un radicado para hacer seguimiento.</p>
+<form data-endpoint="citas-taller">
+  <div class="grid">
+    <div><label for="cita-nombre">Nombre completo</label>
+      <input type="text" id="cita-nombre" name="nombre" required maxlength="150" placeholder="Tu nombre"></div>
+    <div><label for="cita-documento">Documento</label>
+      <input type="text" id="cita-documento" name="documento" required maxlength="30" placeholder="Tu documento"></div>
+    <div><label for="cita-email">Correo electrónico</label>
+      <input type="email" id="cita-email" name="email" required maxlength="190" placeholder="correo@ejemplo.com"></div>
+    <div><label for="cita-telefono">Teléfono</label>
+      <input type="tel" id="cita-telefono" name="telefono" required maxlength="30" placeholder="+57 300 000 0000"></div>
+    <div><label for="cita-placa">Placa (opcional)</label>
+      <input type="text" id="cita-placa" name="placa" maxlength="10" placeholder="ABC123"></div>
+    <div><label for="cita-servicio">Servicio</label>
+      <select id="cita-servicio" name="servicio" required>
+        <option value="">Selecciona un servicio</option>
+        <option value="mantenimiento">Mantenimiento</option>
+        <option value="diagnostico">Diagnóstico</option>
+        <option value="frenos">Frenos</option>
+        <option value="llantas">Llantas</option>
+        <option value="bateria">Batería</option>
+        <option value="aire_acondicionado">Aire acondicionado</option>
+        <option value="pintura">Pintura</option>
+        <option value="garantia">Garantía</option>
+        <option value="otro">Otro</option>
+      </select></div>
+    <div><label for="cita-fecha">Fecha</label>
+      <input type="date" id="cita-fecha" name="fecha_programada" required></div>
+    <div><label for="cita-hora">Hora</label>
+      <select id="cita-hora" name="hora_programada" required>
+        <option value="08:00">08:00 AM</option>
+        <option value="09:00">09:00 AM</option>
+        <option value="10:00">10:00 AM</option>
+        <option value="11:00">11:00 AM</option>
+        <option value="14:00">02:00 PM</option>
+        <option value="15:00">03:00 PM</option>
+        <option value="16:00">04:00 PM</option>
+      </select></div>
+  </div>
+  <div><label for="cita-descripcion">¿Qué le pasa al vehículo? (opcional)</label>
+    <textarea id="cita-descripcion" name="descripcion" rows="4" maxlength="600" placeholder="Describe el motivo de la visita"></textarea></div>
+  <div class="consent">
+    <input type="checkbox" id="cita-terminos" name="terminos" required>
+    <label for="cita-terminos">Autorizo el tratamiento de mis datos personales (Ley 1581 de 2012).</label>
+  </div>
+  <button type="submit">AGENDAR CITA</button>
+</form>
+</section>
+
+<footer>
+  <div id="zapa">
+    <div class="footer-left">
+      <img src="img/iconfo.jpg" alt="" id="iconfo">
+      <p id="numero-one">Das auto</p>
+    </div>
+    <div class="footer-right">
+      <p id="numero-two"><i class="fa-brands fa-facebook"></i> Facebook</p>
+      <p id="numero-tre"><i class="fa-brands fa-instagram"></i> Instagram</p>
+      <p id="numero-four"><i class="fa-brands fa-x-twitter"></i> X</p>
+    </div>
+  </div>
+</section>
+</footer> 
+
+<a href="Promociones.html" id="cart-float-ball" title="Ver Promociones"><div class="index-floating-cart" id="index-cart-btn" title="Ver Carrito de Compras" href="Promociones.html">
+    <div class="cart-icon-wrapper">
+        <svg class="cart-svg" viewBox="0 0 24 24">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+        </svg>
+        <span class="cart-count" id="index-cart-count">0</span>
+    </div>
+</div>
+</a>
+
+</body>
+
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const car = document.querySelector(".car-cursor");
+    if (!car) return;
+
+    // Variables de posición del mouse
+    let mX = window.innerWidth / 2;
+    let mY = window.innerHeight / 2;
+
+    // Variables físicas del coche
+    let cX = mX, cY = mY;   // Posición actual del coche
+    let vX = 0, vY = 0;     // Velocidad actual en ejes X e Y
+    
+    // --- PARÁMETROS DEL LLAVERO (Puedes tunearlos a tu gusto) ---
+    const elasticidad = 0.12;  // Qué tan fuerte te jala el "hilo" del llavero (0.01 a 0.3)
+    const friccion = 0.82;     // Resistencia al aire. Evita que rebote infinitamente (0.7 a 0.95)
+    const gravedad = 0.35;     // Peso del carro hacia abajo. Hace que "cuelgue" cuando te detienes
+    const largoHilo = 15;      // Distancia mínima de separación entre el mouse y el coche
+
+    window.addEventListener("mousemove", (e) => {
+        mX = e.clientX;
+        mY = e.clientY;
+    });
+
+    function updateLlaveroPhysics() {
+        // 1. Calcula la distancia/fuerza elástica hacia el mouse
+        let fuerzaX = (mX - cX) * elasticidad;
+        let fuerzaY = (mY - cY) * elasticidad;
+
+        // 2. Aplicamos las fuerzas a la velocidad (sumando gravedad hacia abajo)
+        vX += fuerzaX;
+        vY += fuerzaY + gravedad;
+
+        // 3. Aplicamos fricción para amortiguar el movimiento y que sea fluido
+        vX *= friccion;
+        vY *= friccion;
+
+        // 4. Actualizamos la posición real del coche
+        cX += vX;
+        cY += vY;
+
+        // 5. Renderizado en pantalla
+        car.style.left = `${cX}px`;
+        car.style.top = `${cY}px`;
+
+        // 6. ROTACIÓN: Hacemos que la trompa siempre mire al punto de agarre (el mouse)
+        const dx = mX - cX;
+        const dy = mY - cY;
+        
+        // Solo rota si está lo suficientemente lejos para evitar temblores raros
+        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
+            // Ajustamos +90 porque el coche en el SVG original mira hacia arriba
+            const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+            car.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+        }
+
+        requestAnimationFrame(updateLlaveroPhysics);
+    }
+    
+    // Iniciamos el motor físico
+    requestAnimationFrame(updateLlaveroPhysics);
+
+    // Mantenemos tus zonas interactivas de PQRS intactas
+    const zonasPqrs = document.querySelectorAll("a, button, input, select, textarea, .btn-pqrs-submit, .nav-links a");
+    zonasPqrs.forEach(item => {
+        item.addEventListener("mouseenter", () => document.body.classList.add("car-hover-active"));
+        item.addEventListener("mouseleave", () => document.body.classList.remove("car-hover-active"));
+    });
+});
+</script>
+<script src="js/conexion-datos.js" defer></script>
+</html>

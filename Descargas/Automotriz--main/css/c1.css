@@ -1,0 +1,1055 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Universal Sans', 'Gotham', 'Montserrat', sans-serif;  
+}
+
+body {
+    background-color: #ffffff;
+}
+
+
+/*navbar*/
+.navbar { 
+    background-color: #ffffff; 
+    color: rgb(29, 29, 29); 
+    display: flex; 
+    align-items: center; 
+    padding: 1rem 2rem; 
+    position: relative; 
+} 
+.logo { 
+    max-width: 1000px; 
+    flex: 1; 
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+} 
+#tes { 
+    width: 62%; 
+    height: 10%; 
+} 
+.nav-links { 
+    display: flex; 
+    justify-content: center; 
+    flex: 2; 
+} 
+.nav-links ul { 
+    display: flex; 
+    list-style: none; 
+    padding: 0; 
+    margin: 0;
+} 
+.nav-links ul li {
+    margin: 0.1rem; 
+} 
+.nav-links ul li a {
+    color: rgb(7, 7, 7); 
+    text-decoration: none; 
+    font-size: 0.9rem; 
+    transition: color 0.3s; 
+    font-weight: bold; 
+    padding: 4px 8px;
+    border-radius: 5px; 
+} 
+.nav-links ul li a:hover { 
+    color: #5a4c48; 
+    background-color: #e0e0e0; 
+} 
+.menu-toggle { 
+    position: absolute; 
+    right: 1.5rem; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    cursor: pointer; 
+    font-size: 0.59rem; 
+    padding: 4px 8px; 
+    background-color: #fcfcfc; 
+    color: black; 
+    border: none; 
+    outline: none; 
+    border-radius: 4px; 
+} 
+.menu-toggle:hover { 
+    background-color: #e0e0e0; 
+    color: #5a4c48;
+} 
+.navbar::after { 
+    content: ""; 
+    flex: 1; 
+}
+
+.tesla-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  border-top: 1px solid #f0f0f0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 999;
+}
+
+.item-dropdown:hover .tesla-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.tesla-dropdown-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tesla-cars {
+  display: flex;
+  gap: 1.5rem; 
+  flex: 3.5;  
+}
+
+.tesla-car-item {
+  text-align: center;
+  flex: 1;
+}
+
+.tesla-car-item img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  display: block;
+  margin: 0 auto 0.8rem;
+}
+
+.tesla-car-item h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #171a20;
+  margin: 0 0 0.4rem 0;
+}
+
+.tesla-car-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.tesla-car-actions a {
+  font-size: 0.65rem !important;
+  color: #5c5e62 !important;
+  text-decoration: underline !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  font-weight: normal !important;
+}
+
+.tesla-car-actions a:hover {
+  color: #000000 !important;
+  background-color: transparent !important;
+}
+
+.tesla-side-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex: 1;
+  border-left: 1px solid #e2e2e2;
+  padding-left: 2.5rem;
+}
+
+.tesla-side-menu a {
+  font-size: 0.75rem !important;
+  color: #171a20 !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  background-color: transparent !important;
+  padding: 2px 0 !important;
+  transition: color 0.2s;
+}
+
+.tesla-side-menu a:hover {
+  color: #5c5e62 !important;
+  background-color: transparent !important;
+}
+
+/*slider*/
+.slider-container { 
+    margin-top: 0; 
+    margin-left: 0; 
+    position: relative; 
+    width: 99.99%; 
+    height: 85vh; 
+    overflow: hidden; 
+    background-color: #ffffff; 
+    animation: slideUpIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+} 
+
+@keyframes slideUpIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px); 
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); 
+    }
+}
+
+.slider-track { 
+    position: relative;
+    width: 100%; 
+    height: 100%; 
+} 
+
+.slide { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+    z-index: 1;
+} 
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
+}
+
+.slide img { 
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+    background-color: rgba(230, 230, 230, 0.85); 
+    border: none;
+    color: #111111;
+    width: 28px;
+    height: 40px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+.prev:hover, .next:hover {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #000000;
+}
+
+.slide-content {
+    position: absolute; 
+    top: 10%; 
+    left: 50%;
+    transform: translateX(-50%) translateY(20px); 
+    z-index: 3;
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s;
+}
+
+.slide.active .slide-content {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.slide-content h2 {
+    color: #fefeff; 
+    font-size: 2.5rem; 
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+.slide-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.slide-buttons a {
+    display: inline-block;
+    padding: 3px 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 4px;
+    width: 170px;
+    text-align: center;
+    transition: opacity 0.2s ease;
+}
+
+.slide-buttons a:hover {
+    opacity: 0.85;
+}
+
+.btn-primary {
+    background-color: #515255a6;
+    color: #ffffff;
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #2f2f30;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.slide-content p {
+    display: none;
+}
+
+.dots-container {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.4); 
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #ffffff; 
+}
+
+#in {
+    margin-left: 40%;
+    padding: 2px;
+    animation: slideUpIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+#ifo {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    max-width: 350px;
+}
+
+#sucpa {
+    padding: 10px;
+    margin-left: 39%;
+    margin-top: 100px;
+}
+
+#suc {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    max-width: 400px;
+}
+
+/* --- SECCIÓN FINANCIACIÓN Y MARCAS --- */
+.loan-brands-section {
+    background-color: #f4f2ee;
+    color: #111111;
+    padding: 80px 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.loan-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.loan-container h2 {
+    font-size: 2.8rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    letter-spacing: -1px;
+}
+
+.loan-btn {
+    display: inline-block;
+    background-color: #f59e38;
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 60px;
+    transition: background-color 0.2s;
+}
+
+.loan-btn:hover {
+    background-color: #e08c2a;
+}
+
+.brands-subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #666666;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+/* --- CONTENEDOR DE LAS MARCAS --- */
+.brands-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* 1. Estado inicial de cada tarjeta de auto */
+.brand-item {
+    background: #0a0a0a;
+    border: 1px solid #e2e0dc;
+    padding: 20px;
+    width: 300px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    /* Permite que la escala y la opacidad cambien con suavidad */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                border-color 0.4s ease;
+}
+
+
+.brand-item:hover {
+    transform: scale(1.05);
+    border-color: #f59e38;  
+    opacity: 1 !important;  
+}
+
+.brands-grid:hover .brand-item {
+    opacity: 0.4;
+}
+
+
+.brand-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* --- SECCIÓN WHY DIRECT AUTOMOTIVES --- */
+.why-direct-section {
+    background-color: #0b0b0b;
+    color: #ffffff;
+    padding: 80px 40px;
+    width: 100%;
+    margin-top: 100px;
+}
+
+.why-direct-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.why-title {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 60px;
+    letter-spacing: -1px;
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+/* --- SECCIÓN WHY DIRECT AUTOMOTIVES --- */
+.why-card {
+    padding: 30px 20px;
+    position: relative;
+    background-color: #0b0b0b; /* Fondo oscuro igual al de la sección */
+    border-radius: 4px; /* Mantiene la estética de esquinas de tu web */
+}
+
+/* El truco de la máscara: Crea los bordes dinámicos que reaccionan al mouse */
+.why-card::before {
+    content: '';
+    position: absolute;
+    inset: 0; /* Ocupa todo el tamaño de la tarjeta */
+    border-radius: inherit;
+    padding: 1px; /* Grosor exacto de la línea del borde */
+    
+    /* Genera el destello circular que sigue al cursor, iluminando solo el trazo */
+    background: radial-gradient(
+        180px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+        rgba(255, 255, 255, 0.65),    /* Brillo intenso blanco bajo el cursor */
+        rgba(255, 255, 255, 0.15) 40%, /* Línea gris estándar de tus tarjetas */
+        transparent 80%
+    );
+    
+    /* Perfora el centro de la tarjeta para que el brillo NO pinte el fondo negro */
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Capa de seguridad para que tus iconos y textos queden por encima de las líneas */
+.why-icon-box, 
+.why-card h3, 
+.why-card p {
+    position: relative;
+    z-index: 2;
+}
+
+.why-icon-box {
+    width: 45px;
+    height: 45px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+.why-card h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.why-card p {
+    font-size: 0.85rem;
+    color: #999999;
+    line-height: 1.5;
+}
+
+/* --- SECCIÓN FINANCIACIÓN Y MARCAS --- */
+.loan-brands-section {
+    background-color: #f4f2ee;
+    color: #111111;
+    padding: 300px 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: 100px;
+}
+
+.loan-container {
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.loan-container h2 {
+    font-size: 2.8rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    letter-spacing: -1px;
+}
+
+.loan-btn {
+    display: inline-block;
+    background-color: #f59e38;
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 60px;
+    transition: background-color 0.2s;
+}
+
+.loan-btn:hover {
+    background-color: #e08c2a;
+}
+
+.loan-brands-section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.loan-brands-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.brands-subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #666666;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.brands-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+
+}
+
+.brand-item {
+    background: #0a0a0a;
+    border: 1px solid #e2e0dc;
+    padding: 20px;
+    width: 300px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.brand-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 900px) {
+    .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .why-grid {
+        grid-template-columns: 1fr;
+    }
+    .why-title {
+        font-size: 2.5rem;
+    }
+}
+
+#ched{
+
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.why-direct-section,
+.loan-brands-section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.why-direct-section.visible,
+.loan-brands-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/*Sucursales*/
+.mer{
+    position: absolute;
+    background-color: #030303;
+    width: 99.99%;
+    height: 1000px;
+    margin-left: 0%;
+    margin-top: 30px;
+
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.mer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+.ifa {
+    position: absolute;
+    color: white;
+    background-color: rgb(0, 0, 0);
+    margin-top: 70px;
+    margin-left: 1%;
+    width: 600px;
+    height: 300px;
+}
+
+#text1 {
+    font-size: 80px;
+    font-style: oblique;
+}
+
+#img1 {
+    margin-top: 25px;
+    width: 700px;
+    height: 405px;
+    position: absolute;
+}
+
+#text2 {
+    color: rgb(255, 153, 0);
+    font-size: 20px;
+    margin-top: 85%;
+}
+
+#text3 {
+    font-size: 30px;
+    font-weight: 20px;
+    text-align: start;
+    margin-top: 10px;
+}
+/* --- CONFIGURACIÓN DEL MAPA ADAPTABLE (RESPONSIVO) --- */
+#map { 
+    position: relative; /* Cambiado de absolute a relative para que fluya con el contenido */
+    margin: 30px auto;  /* Centra el mapa automáticamente */
+    padding: 10px;
+    width: 92%;         /* En celulares y pantallas chicas usa casi todo el ancho disponible */
+    height: 450px;      /* Altura cómoda y proporcional para pantallas táctiles */
+    border-radius: 10px;
+    border: solid #000000 2px;
+}
+
+
+@media (min-width: 1024px) {
+    #map {
+        position: absolute;   
+        margin-top: 100px;
+        margin-left: 52%;    
+        width: 44%;           
+        height: 800px;       
+    }
+}
+
+/*footter*/
+#zapa {
+    position: absolute;
+    background-color: rgb(15, 15, 15);
+    width: 100%;
+    height: 100px;
+    margin-top: 1030px;
+    z-index: 50;
+    border-top: #e0e0e0 solid 1px;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-right {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+#numero-one {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#numero-two, #numero-tre, #numero-four {
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#numero-two:hover, #numero-tre:hover, #numero-four:hover {
+    color: #ff9900;
+}
+
+#zapa i {
+    margin-right: 8px;
+}
+
+#iconfo{
+    margin-left: -10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+
+}
+
+
+/* --- CURSOR DE COCHE DEPORTIVO --- */
+
+
+html, body, a, button, .brand-item, .why-card, .prev, .next {
+    cursor: none !important;
+}
+
+.car-cursor {
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    pointer-events: none; 
+    z-index: 100000;
+    transform: translate(-50%, -50%) rotate(0deg);
+    transform-origin: center center;
+    will-change: transform, left, top;
+    transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Estilo del cuerpo del coche */
+.car-icon {
+    width: 100%;
+    height: 100%;
+    fill: #727070; 
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+    transition: fill 0.3s ease;
+}
+
+/* Efecto de luces traseras (estela de velocidad) */
+.tail-light {
+    position: absolute;
+    bottom: -2px;
+    width: 6px;
+    height: 6px;
+    background-color: #50a5ac; /* Rojo de luces de freno */
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff3333, 0 0 15px #ff3333;
+    opacity: 0.6;
+    transition: transform 0.2s ease, opacity 0.2s;
+}
+
+.tail-light.left { left: 6px; }
+.tail-light.right { right: 6px; }
+
+
+.car-hover-active .car-icon {
+    fill: #ffffff; 
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+.car-hover-active .tail-light {
+    opacity: 1;
+    transform: scale(1.4); 
+    box-shadow: 0 0 12px #ff3333, 0 0 25px #ff3333;
+}
+
+/* --- BOTÓN FLOTANTE DEL CARRITO PREMIUM --- */
+.floating-cart {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #3e6ae1; /* Color naranja corporativo igual al de tus botones de financiación */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(245, 158, 56, 0.4);
+    z-index: 99999; /* Posicionado por encima de todo el contenido, excepto el cursor */
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto al pasar el cursor */
+.floating-cart:hover {
+    transform: scale(1.1) translateY(-3px);
+    background-color: #ffffff; /* Cambia a blanco elegante al hacer hover */
+    box-shadow: 0 6px 25px rgba(255, 255, 255, 0.6);
+}
+
+.cart-icon-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo del icono SVG */
+.cart-svg {
+    width: 28px;
+    height: 28px;
+    fill: #ffffff; /* Icono blanco inicial */
+    transition: fill 0.3s ease;
+}
+
+.floating-cart:hover .cart-svg {
+    fill: #111111; /* El icono pasa a negro cuando el botón se vuelve blanco */
+}
+
+/* Globo indicador de cantidad de items */
+.cart-count {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #111111;
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #38c0f5;
+    transition: border-color 0.3s ease;
+}
+
+.floating-cart:hover .cart-count {
+    background-color: #2de2e2;
+    border-color: #ffffff;
+}
+
+
+/* --- ADAPTACIÓN MULTI-RESOLUCIÓN DEL CARRITO FLOTANTE --- */
+
+/* 📱 1. Pantallas de Celulares Pequeños o Medianos (Menos de 600px) */
+@media (max-width: 600px) {
+    .floating-cart {
+        bottom: 15px;         /* Más pegado al borde para no tapar contenido */
+        right: 15px;
+        width: 50px;          /* Reducción de tamaño del círculo para un mejor encuadre táctil */
+        height: 50px;
+        box-shadow: 0 4px 12px rgba(245, 158, 56, 0.3);
+    }
+    .cart-svg {
+        width: 22px;          /* Reducción proporcional del icono */
+        height: 22px;
+    }
+    .cart-count {
+        width: 16px;          /* Globo de conteo más discreto */
+        height: 16px;
+        font-size: 0.6rem;
+        top: 6px;
+        right: 6px;
+    }
+}
+
+/*  2. Pantallas de Tablets o Laptops Medianas (De 601px a 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .floating-cart {
+        bottom: 25px;
+        right: 25px;
+        width: 55px;
+        height: 55px;
+    }
+    .cart-svg {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/*  3. Monitores Grandes y de Alta Resolución (Más de 1920px) */
+@media (min-width: 1920px) {
+    .floating-cart {
+        bottom: 45px;         /* Espaciado elegante y amplio en pantallas de gran tamaño */
+        right: 45px;
+        width: 70px;          /* Escalado proporcional para mantener la jerarquía visual */
+        height: 70px;
+    }
+    .cart-svg {
+        width: 32px;
+        height: 32px;
+    }
+    .cart-count {
+        width: 22px;
+        height: 22px;
+        font-size: 0.75rem;
+        top: 12px;
+        right: 12px;
+    }
+}
+
+
+/* ==========================================
+   ESTILOS PROPIOS DEL BOTÓN FLOTANTE EN INDEX
+   ========================================== */
+.index-floating-cart {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #171a20;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.index-floating-cart:hover {
+    transform: scale(1.08);
+    background-color: #3e6ae1;
+}
+
+.index-floating-cart .cart-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.index-floating-cart .cart-svg {
+    width: 26px;
+    height: 26px;
+    fill: #ffffff;
+}
+
+.index-floating-cart .cart-count {
+    position: absolute;
+    top: -10px;
+    right: -12px;
+    background-color: #3e6ae1;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+    border: 2px solid #171a20;
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de financiación · DasAuto</title>
+  <link rel="icon" type="image/png" href="img/icon.png">
+  <link rel="stylesheet" href="css/c13.css">
+</head>
+<body>
+<header class="top">
+  <a class="marca" href="index.html"><img src="img/dasu.png" alt="DasAuto"><span>DasAuto</span></a>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="nuevas-funciones.html">Funciones nuevas</a>
+    <a href="disponibilidad.html">Inventario</a>
+    <a class="activo" href="financiar.html">Financiación</a>
+    <a href="agenda-taller.html">Agenda</a>
+    <a class="btn btn-linea" href="panel.html">Panel</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Financiación · conectada a SQLite</p>
+    <h1>Simula tu cuota y deja la solicitud registrada</h1>
+    <p>El precio del vehículo sale del catálogo y la tasa, de la tabla
+       <code>tasas_financiacion</code>. Al enviar la solicitud queda guardada con su radicado
+       para que un asesor la revise.</p>
+  </section>
+
+  <div class="grid2 seccion">
+    <section class="panel">
+      <h2>1. Tu vehículo y tu plan</h2>
+      <p class="nota" style="margin-bottom:16px">El cálculo es una cuota fija mensual (sistema francés).</p>
+      <form id="form-sim">
+        <div class="campo">
+          <label for="vehiculo">Vehículo</label>
+          <select id="vehiculo" name="sku" required><option value="">Cargando catálogo…</option></select>
+        </div>
+        <div class="grid2">
+          <div class="campo">
+            <label for="inicial">Cuota inicial (COP)</label>
+            <input id="inicial" name="cuota_inicial" type="number" min="0" step="1" required>
+          </div>
+          <div class="campo">
+            <label for="plazo">Plazo</label>
+            <select id="plazo" name="plazo_meses"></select>
+          </div>
+        </div>
+        <p class="nota" id="nota-plan">Elige un vehículo para ver el plan.</p>
+        <button class="btn btn-dark" type="submit" style="margin-top:12px">Calcular cuota</button>
+        <p class="aviso" id="aviso-sim" hidden></p>
+      </form>
+    </section>
+
+    <aside class="panel">
+      <h2>2. Resultado</h2>
+      <p class="nota" id="sin-resultado">Completa los datos y pulsa “Calcular cuota”.</p>
+      <div id="resultado" hidden>
+        <div class="cifra" id="cuota"></div>
+        <p class="mini" id="plan-elegido" style="margin-top:6px"></p>
+        <dl class="especificaciones">
+          <div class="spec"><dt>Precio del vehículo</dt><dd id="r-precio"></dd></div>
+          <div class="spec"><dt>Cuota inicial</dt><dd id="r-inicial"></dd></div>
+          <div class="spec"><dt>Capital a financiar</dt><dd id="r-capital"></dd></div>
+          <div class="spec"><dt>Tasa anual</dt><dd id="r-tasa"></dd></div>
+          <div class="spec"><dt>Total de intereses</dt><dd id="r-intereses"></dd></div>
+          <div class="spec"><dt>Total a pagar</dt><dd id="r-total"></dd></div>
+        </dl>
+        <button class="btn btn-verde btn-ancho" id="btn-solicitar" style="margin-top:16px">Enviar solicitud</button>
+        <p class="mini" style="margin-top:8px">Enviar la solicitud no genera ningún cobro.</p>
+      </div>
+
+      <form id="form-solicitud" hidden style="margin-top:18px">
+        <h3>Datos de contacto</h3>
+        <div class="campo"><label for="nombre">Nombre completo</label>
+          <input id="nombre" name="nombre" maxlength="150" required></div>
+        <div class="grid2">
+          <div class="campo"><label for="documento">Documento (opcional)</label>
+            <input id="documento" name="documento" maxlength="30"></div>
+          <div class="campo"><label for="telefono">Teléfono</label>
+            <input id="telefono" name="telefono" maxlength="30" required></div>
+        </div>
+        <div class="campo"><label for="email">Correo electrónico</label>
+          <input id="email" name="email" type="email" maxlength="190" required></div>
+        <label class="check"><input type="checkbox" name="terminos" required>
+          Autorizo el tratamiento de mis datos personales (Ley 1581 de 2012).</label>
+        <button class="btn btn-dark btn-ancho" type="submit">Guardar solicitud</button>
+        <p class="aviso" id="aviso-solicitud" hidden></p>
+      </form>
+    </aside>
+  </div>
+
+  <section class="seccion">
+    <div class="panel">
+      <h2>Cómo se calcula</h2>
+      <p class="nota">Cuota = capital × i / (1 − (1 + i)<sup>−n</sup>), donde <code>i</code> es la tasa
+        anual dividida entre 12 y <code>n</code> el número de meses. La cuota se redondea al mil
+        hacia arriba. Los planes y la cuota inicial mínima se administran desde el panel.</p>
+      <div class="tabla-scroll" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Plan</th><th>Plazo</th><th>Tasa anual</th><th>Cuota inicial mínima</th></tr></thead>
+          <tbody id="tabla-planes"><tr><td colspan="4" class="vacio">Cargando…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie-sitio">DasAuto · simulador de financiación · datos guardados en <code>cotizaciones_financiacion</code></footer>
+<script src="js/db-cliente.js"></script>
+<script src="js/financiar.js"></script>
+</body>
+</html>

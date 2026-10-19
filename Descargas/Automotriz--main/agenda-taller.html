@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda de taller con cupos · DasAuto</title>
+  <link rel="icon" type="image/png" href="img/icon.png">
+  <link rel="stylesheet" href="css/c13.css">
+</head>
+<body>
+<header class="top">
+  <a class="marca" href="index.html"><img src="img/dasu.png" alt="DasAuto"><span>DasAuto</span></a>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="nuevas-funciones.html">Funciones nuevas</a>
+    <a href="disponibilidad.html">Inventario</a>
+    <a href="financiar.html">Financiación</a>
+    <a class="activo" href="agenda-taller.html">Agenda</a>
+    <a class="btn btn-linea" href="panel.html">Panel</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Agenda de taller · cupos por hora</p>
+    <h1>Reserva tu cita en una franja con cupo</h1>
+    <p>Cada hora tiene una capacidad limitada. El servidor cuenta las citas activas y no permite
+       sobrecupos; las horas llenas aparecen bloqueadas.</p>
+  </section>
+
+  <div class="grid2 seccion">
+    <section class="panel">
+      <h2>1. Fecha y hora</h2>
+      <div class="campo" style="max-width:240px">
+        <label for="fecha">Fecha</label>
+        <input id="fecha" type="date">
+        <small id="rango-fecha"></small>
+      </div>
+      <p class="nota" id="estado-franjas">Consultando disponibilidad…</p>
+      <div class="slots" id="franjas"></div>
+      <p class="aviso" id="aviso-agenda" hidden></p>
+    </section>
+
+    <section class="panel">
+      <h2>2. Tus datos</h2>
+      <p class="nota" id="sin-franja">Primero elige una hora con cupo.</p>
+      <form id="form-cita" hidden>
+        <div class="grid2">
+          <div class="campo"><label for="nombre">Nombre completo</label>
+            <input id="nombre" name="nombre" maxlength="150" required></div>
+          <div class="campo"><label for="documento">Documento</label>
+            <input id="documento" name="documento" maxlength="30" required></div>
+        </div>
+        <div class="grid2">
+          <div class="campo"><label for="email">Correo</label>
+            <input id="email" name="email" type="email" maxlength="190" required></div>
+          <div class="campo"><label for="telefono">Teléfono</label>
+            <input id="telefono" name="telefono" maxlength="30" required></div>
+        </div>
+        <div class="grid2">
+          <div class="campo"><label for="placa">Placa (opcional)</label>
+            <input id="placa" name="placa" maxlength="10" placeholder="ABC123"></div>
+          <div class="campo"><label for="servicio">Servicio</label>
+            <select id="servicio" name="servicio" required></select></div>
+        </div>
+        <div class="campo"><label for="descripcion">¿Qué necesita el vehículo? (opcional)</label>
+          <textarea id="descripcion" name="descripcion" maxlength="2000"></textarea></div>
+        <label class="check"><input type="checkbox" name="terminos" required>
+          Autorizo el tratamiento de mis datos personales (Ley 1581 de 2012).</label>
+        <button class="btn btn-dark btn-ancho" type="submit">Confirmar cita</button>
+        <p class="aviso" id="aviso-cita" hidden></p>
+      </form>
+    </section>
+  </div>
+
+  <section class="seccion">
+    <div class="panel">
+      <h2>Cupos y reglas</h2>
+      <p class="nota">La capacidad de cada franja es de 2 citas por defecto y se puede cambiar
+        desde el panel. Cancelar una cita libera el cupo de inmediato.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="pie-sitio">DasAuto · agenda guardada en <code>citas_taller</code> y <code>agenda_cupos</code></footer>
+<script src="js/db-cliente.js"></script>
+<script src="js/agenda.js"></script>
+</body>
+</html>
