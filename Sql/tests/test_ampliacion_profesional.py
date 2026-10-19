@@ -66,6 +66,8 @@ class AmpliacionProfesionalTests(unittest.TestCase):
                     VALUES (?,'efectivo',500,'confirmado')""", (factura,))
             with self.assertRaisesRegex(sqlite3.IntegrityError, "saldo"):
                 db.execute("UPDATE facturas SET estado='pagada' WHERE id=?", (factura,))
+            with self.assertRaisesRegex(sqlite3.IntegrityError, "pagos confirmados"):
+                db.execute("UPDATE facturas SET estado='anulada' WHERE id=?", (factura,))
             db.execute("""INSERT INTO pagos(factura_id,metodo,valor,estado)
                 VALUES (?,'efectivo',400,'confirmado')""", (factura,))
             db.execute("UPDATE facturas SET estado='pagada' WHERE id=?", (factura,))
