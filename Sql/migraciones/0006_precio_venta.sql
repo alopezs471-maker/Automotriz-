@@ -1,6 +1,6 @@
--- =====================================================================
+-- 
 -- DasAuto · Migración 0006 · UNA SOLA REGLA DE PRECIO
--- ---------------------------------------------------------------------
+-- 
 -- Antes el precio se calculaba en tres sitios y no coincidían:
 --   * catalogo()          respetaba el estado y las fechas de la promoción;
 --   * v_catalogo_publico  también, pero mostraba título y beneficio de borradores;
@@ -10,11 +10,11 @@
 -- Ahora la regla vive solo aquí, en la vista v_precios:
 --   la oferta aplica únicamente si la promoción está 'publicada' y la fecha
 --   de hoy (hora local del servidor, igual que hoy() en servidor.py) está
---   dentro de fecha_inicio / fecha_fin (vacías = sin límite).
+--   dentro de fecha_inicio / fecha_fin (vacías  sin límite).
 --   precio_venta es lo que se muestra en la tienda y lo que se cobra.
 --
 -- Solo recrea VISTAS (no guardan datos): ninguna tabla se modifica.
--- =====================================================================
+-- 
 
 BEGIN;
 
