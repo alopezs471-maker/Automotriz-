@@ -26,6 +26,7 @@ class AmpliacionProfesionalTests(unittest.TestCase):
 
     def conectar_prueba(self):
         db = sqlite3.connect(self.db_path)
+        db.row_factory = sqlite3.Row
         db.execute("PRAGMA foreign_keys=ON")
         return db
 
@@ -92,6 +93,43 @@ class AmpliacionProfesionalTests(unittest.TestCase):
         self.assertEqual(api_extra.permiso_accion({'accion': 'factura_crear'}), 'ventas.gestionar')
         self.assertEqual(api_extra.permiso_accion({'accion': 'orden_taller_crear'}), 'taller.gestionar')
         self.assertEqual(api_extra.permiso_accion({'accion': 'seguimiento_crear'}), 'clientes.gestionar')
+
+    def test_acciones_crean_factura_y_registran_pago(self):
+        with self.conectar_prueba() as db:
+            db.execute("""INSERT INTO pedidos
+                (radicado,envio_id,nombre,documento,email,telefono,subtotal,descuento,total,estado)
+                VALUES ('PED-API-1','ENVIO-API-1','Cliente','DOC-API','api@example.com','3000000000',500000,0,500000,'confirmado')""")
+            pedido_id = db.execute("SELECT id FROM pedidos WHERE radicado='PED-API-1'").fetchone()['id']
+            admin = {'usuario': 'admin', 'rol': 'admin', 'sesion_id': 1}
+            api_extra.accion_panel(db, {'accion': 'factura_crear', 'datos': {'pedido_id': pedido_id}}, admin)
+            factura = db.execute('SELECT id,total,estado FROM facturas WHERE pedido_id=?', (pedido_id,)).fetchone()
+            self.assertEqual(factura['total'], 500000)
+            api_extra.accion_panel(db, {'accion': 'pago_registrar', 'datos': {
+                'factura_id': factura['id'], 'metodo': 'transferencia', 'valor': 500000,
+                'estado': 'confirmado', 'referencia': 'REF-API-1'
+            }}, admin)
+            self.assertEqual(db.execute('SELECT estado FROM facturas WHERE id=?', (factura['id'],)).fetchone()['estado'], 'pagada')
+
+    def test_acciones_crean_orden_taller_y_seguimiento(self):
+        with self.conectar_prueba() as db:
+            db.execute("""INSERT INTO usuarios(nombre,documento,email,telefono)
+                VALUES ('Cliente','DOC-SEG','seguimiento@example.com','3000000000')""")
+            cliente_id = db.execute("SELECT id FROM usuarios WHERE email='seguimiento@example.com'").fetchone()['id']
+            admin = {'usuario': 'admin', 'rol': 'admin', 'sesion_id': 1}
+            api_extra.accion_panel(db, {'accion': 'orden_taller_crear', 'datos': {
+                'usuario_id': cliente_id, 'diagnostico': 'Revisión inicial', 'tecnico': 'Técnico de prueba'
+            }}, admin)
+            orden = db.execute('SELECT id,estado FROM ordenes_taller').fetchone()
+            self.assertEqual(orden['estado'], 'recibida')
+            api_extra.accion_panel(db, {'accion': 'orden_item_agregar', 'datos': {
+                'orden_id': orden['id'], 'tipo': 'mano_obra', 'descripcion': 'Diagnóstico',
+                'cantidad': 1, 'precio_unitario': 80000, 'costo_unitario': 30000
+            }}, admin)
+            self.assertEqual(db.execute('SELECT subtotal FROM ordenes_taller WHERE id=?', (orden['id'],)).fetchone()['subtotal'], 80000)
+            api_extra.accion_panel(db, {'accion': 'seguimiento_crear', 'datos': {
+                'usuario_id': cliente_id, 'canal': 'llamada', 'asunto': 'Seguimiento de cotización'
+            }}, admin)
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM seguimientos_clientes WHERE usuario_id=?', (cliente_id,)).fetchone()[0], 1)
 
     def test_permisos_separan_roles(self):
         with self.conectar_prueba() as db:
