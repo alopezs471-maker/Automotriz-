@@ -74,12 +74,16 @@ def migraciones_pendientes(db):
 
 
 def aplicar_migraciones(db):
-    """Aplica los .sql de la carpeta migraciones/ que aún no estén anotados.
-
-    Se llama sola al iniciar, así una base nueva queda siempre al día.
-    """
+    """Aplica las migraciones pendientes después de guardar un respaldo coherente."""
+    pendientes = migraciones_pendientes(db)
+    if not pendientes:
+        return []
+    db.commit()
+    copia = DB.with_suffix(DB.suffix + '.bak')
+    with sqlite3.connect(copia) as destino:
+        db.backup(destino)
     aplicadas = []
-    for archivo in migraciones_pendientes(db):
+    for archivo in pendientes:
         db.executescript(archivo.read_text(encoding='utf-8'))
         db.execute('INSERT OR IGNORE INTO migraciones(nombre) VALUES(?)', (archivo.stem,))
         aplicadas.append(archivo.stem)
